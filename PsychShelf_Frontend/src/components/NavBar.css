@@ -1,0 +1,25 @@
+.navbar {
+    background-color: rgb(37, 99, 235);
+    position: sticky;
+    top: 0;
+    padding: 1px;
+}
+
+.navbar ul {
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar ul a {
+    color: white;
+    text-decoration: none;
+}
+
+.navbar .nav-link {
+    display: flex;
+    gap: 5px;
+}
+
+li {
+    list-style-type: none;
+}
