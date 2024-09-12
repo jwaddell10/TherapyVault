@@ -5,7 +5,7 @@ export default function Home() {
 		<div className="home-page-container">
 			<div className="title">TherapyVault</div>
             <div className="instructions">{`These are the instructions. I'm writing them here`}</div>
-            <Button />
+            <Button text="Get Started"></Button>
 		</div>
 	);
 }

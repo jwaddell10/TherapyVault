@@ -8,11 +8,19 @@ export default function NavBar() {
 			<nav className="navbar">
 				<ul>
 					<li className="title">
-						<Link to="/">TherapyVault</Link>
+						<Link to="/">
+							<h1>TherapyVault</h1>
+						</Link>
 					</li>
 					<li className="nav-link">
-						<Link to="/login">Log in</Link>
-						<Link to="/signup">Sign up</Link>
+						<ul>
+							<li>
+								<Link to="/login">Log in</Link>
+							</li>
+							<li>
+								<Link to="/signup">Sign up</Link>
+							</li>
+						</ul>
 					</li>
 				</ul>
 			</nav>

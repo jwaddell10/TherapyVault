@@ -8,6 +8,7 @@
 .navbar ul {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .navbar ul a {
@@ -15,7 +16,7 @@
     text-decoration: none;
 }
 
-.navbar .nav-link {
+.navbar .nav-link ul{
     display: flex;
     gap: 5px;
 }
