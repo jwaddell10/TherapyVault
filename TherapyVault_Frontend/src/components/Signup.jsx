@@ -30,7 +30,7 @@ export default function Signup() {
 			setPasswordError("Passwords must match");
 		}
 
-		await postFormData(formData);
+		await postFormData(formData, `/signup`);
 	}
 
 	return (
@@ -77,7 +77,7 @@ export default function Signup() {
 					<div style={{ color: "red" }}>{passwordError}</div>
 				)}
 
-				<Button type="submit" text="Sign Up"></Button>
+				<Button type="submit" text="Sign up"></Button>
 			</form>
 		</main>
 	);

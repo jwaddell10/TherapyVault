@@ -1,7 +1,7 @@
-export const postFormData = async (formData) => {
+export const postFormData = async (formData, url) => {
 	const { name, password, confirmPassword } = formData;
 
-	const response = await fetch(`${import.meta.env.VITE_API_URL}/signup`, {
+	const response = await fetch(`${import.meta.env.VITE_API_URL}${url}`, {
 		method: "POST",
 		body: JSON.stringify({
 			name,
