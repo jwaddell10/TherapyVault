@@ -3,7 +3,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var cors = require("cors");
-
+const bcryptjs = require("bcryptjs")
 const { Pool } = require("pg");
 const express = require("express");
 const passport = require("passport");
