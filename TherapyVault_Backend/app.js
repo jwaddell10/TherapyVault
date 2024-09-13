@@ -9,6 +9,8 @@ const express = require("express");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const session = require("express-session");
+const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
+const { PrismaClient } = require("@prisma/client");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 require("dotenv").config();
@@ -22,17 +24,30 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-const pool = new Pool({
-	// add your configuration
-});
+// const pool = new Pool({
+// 	host: process.env.HOST
+// });
 
 app.use(session({ secret: "cats", resave: false, saveUninitialized: false }));
-app.use(passport.session());
+
+// app.use(
+// 	expressSession({
+// 		cookie: {
+// 			maxAge: 7 * 24 * 60 * 60 * 1000, // ms
+// 		},
+// 		secret: "a santa at nasa",
+// 		resave: true,
+// 		saveUninitialized: true,
+// 		store: new PrismaSessionStore(new PrismaClient(), {
+// 			checkPeriod: 2 * 60 * 1000, //ms
+// 			dbRecordIdIsSessionId: true,
+// 			dbRecordIdFunction: undefined,
+// 		}),
+// 	})
+// );
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => res.render("index"));
-
-app.listen(3000, () => console.log("app listening on port 3000!"));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);

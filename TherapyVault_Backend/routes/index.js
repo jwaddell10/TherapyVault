@@ -1,14 +1,12 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
+const userController = require("../controllers/userController.js");
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+router.get("/", function (req, res, next) {
+	res.render("index", { title: "Express" });
 });
 
-router.post("/signup", function(req, res, next) {
-  console.log(req, 'this is req signup')
-  res.json('it worked')
-})
+router.post("/signup", userController.signUp);
 
 module.exports = router;
