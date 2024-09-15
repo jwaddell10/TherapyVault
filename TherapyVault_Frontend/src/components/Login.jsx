@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Button from "./helpers/Button";
-import { postFormData } from "./helpers/postFormData";
+import postFormData from "./helpers/postFormData";
 
 export default function Login() {
 	const [formData, setFormData] = useState({

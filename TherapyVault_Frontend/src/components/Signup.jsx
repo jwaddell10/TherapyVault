@@ -1,5 +1,5 @@
 import Button from "./helpers/Button";
-import { postFormData } from "./helpers/postFormData.jsx";
+import postFormData from "./helpers/postFormData.jsx";
 import { useState } from "react";
 
 export default function Signup() {
