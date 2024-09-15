@@ -10,7 +10,6 @@ module.exports = {
 					name: name,
 				},
 			});
-            console.log(user, 'user in finduser')
 			return user;
 		} catch (error) {
 			console.log(error, "error");

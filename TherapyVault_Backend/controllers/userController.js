@@ -4,17 +4,13 @@ const authAndLogin = require("../utilities/authAndLogin.js");
 
 exports.signUp = asyncHandler(async (req, res, next) => {
 	const user = await db.findUser(req.body.name);
-
-	if (!user) {
-		const createdUser = await db.createUser(
-			req.body.name,
-			req.body.password
-		);
-	}
+	console.log(user, "user");
 
 	if (user) {
-		res.status(400).json("User already exists");
+		return res.status(400).json({ message: "User already exists" });
 	}
+
+	const createdUser = await db.createUser(req.body.name, req.body.password);
 
 	authAndLogin(req, res, next);
 });
