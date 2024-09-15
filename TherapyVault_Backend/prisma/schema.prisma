@@ -7,8 +7,29 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
+model Profile {
+    id     Int  @id @default(autoincrement())
+    user   User @relation(fields: [id], references: [id])
+    userId Int  @unique
+}
+
 model User {
-    id       Int    @id @default(autoincrement())
-    name     String @unique @db.VarChar(255)
-    password String @db.VarChar(255)
+    id       Int      @id @default(autoincrement())
+    name     String?  @unique @db.VarChar(255)
+    password String?  @db.VarChar(255)
+    profile  Profile?
+    upload   Upload?
+}
+
+model Upload {
+    id         Int        @id @default(autoincrement())
+    title      String     @db.VarChar(255)
+    author     User       @relation(fields: [id], references: [id])
+    categories Category[] @relation
+}
+
+model Category {
+    id         Int      @id @default(autoincrement())
+    categories String?  @db.VarChar(255)
+    Upload     Upload[]
 }

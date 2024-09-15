@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const userController = require("../controllers/userController.js");
+const authUser = require("../utilities/authAndLogin.js")
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
@@ -8,5 +9,7 @@ router.get("/", function (req, res, next) {
 });
 
 router.post("/signup", userController.signUp);
+
+router.post("/login", userController.logIn);
 
 module.exports = router;
