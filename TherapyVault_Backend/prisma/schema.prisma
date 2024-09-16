@@ -8,10 +8,10 @@ datasource db {
 }
 
 model Session {
-  id        String   @id
-  sid       String   @unique
-  data      String
-  expiresAt DateTime
+    id        String   @id
+    sid       String   @unique
+    data      String
+    expiresAt DateTime
 }
 
 model Profile {
@@ -22,8 +22,8 @@ model Profile {
 
 model User {
     id       Int      @id @default(autoincrement())
-    name     String?  @unique @db.VarChar(255)
-    password String?  @db.VarChar(255)
+    name     String?  @unique
+    password String?
     profile  Profile?
     upload   Upload?
 }

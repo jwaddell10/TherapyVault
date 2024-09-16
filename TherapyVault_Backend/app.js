@@ -5,13 +5,13 @@ var cors = require("cors");
 const { Pool } = require("pg");
 const express = require("express");
 const passport = require("passport");
-require("./utilities/passport.config.js")
 const expressSession = require("express-session");
 const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
 const { PrismaClient } = require("@prisma/client");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 require("dotenv").config();
+require("./utilities/passport.config.js")
 const configurePassport = require("./utilities/passport.config.js");
 
 var app = express();
