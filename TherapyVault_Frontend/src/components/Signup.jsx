@@ -1,5 +1,5 @@
 import Button from "./helpers/Button";
-import postFormData from "./helpers/postFormData.jsx";
+import postFormData  from "./helpers/postFormData.jsx";
 import { useState } from "react";
 
 export default function Signup() {
@@ -10,6 +10,7 @@ export default function Signup() {
 	});
 	const [inputError, setInputError] = useState(null);
 	const [passwordError, setPasswordError] = useState(null);
+	const [data, setData] = useState(null)
 
 	function handleChange(event) {
 		const { name, value } = event.target;
@@ -30,7 +31,8 @@ export default function Signup() {
 			setPasswordError("Passwords must match");
 		}
 
-		await postFormData(formData, `/signup`);
+		const data = await postFormData(formData, '/signup')
+		setData(data)
 	}
 
 	return (
@@ -46,6 +48,7 @@ export default function Signup() {
 						onChange={handleChange}
 						required
 					/>
+					{data && data.message}
 				</label>
 				{inputError && <div style={{ color: "red" }}>{inputError}</div>}
 
