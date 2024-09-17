@@ -4,7 +4,7 @@ import { useState } from "react";
 
 export default function Signup() {
 	const [formData, setFormData] = useState({
-		name: "",
+		username: "",
 		password: "",
 		confirmPassword: "",
 	});
@@ -20,8 +20,8 @@ export default function Signup() {
 	async function handleSubmit(event) {
 		event.preventDefault();
 		console.log(
-			formData.name,
-			"name",
+			formData.username,
+			"username",
 			formData.password,
 			"password",
 			formData.confirmPassword,
@@ -42,9 +42,9 @@ export default function Signup() {
 				<label htmlFor="">
 					Username:
 					<input
-						name="name"
+						name="username"
 						type="text"
-						value={formData.name}
+						value={formData.username}
 						onChange={handleChange}
 						required
 					/>

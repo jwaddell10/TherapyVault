@@ -1,22 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "./helpers/Button";
 import postFormData from "./helpers/postFormData";
 
 export default function Login() {
+	const [data, setData] = useState(null);
 	const [formData, setFormData] = useState({
-		name: "",
+		username: "",
 		password: "",
 	});
+
+	useEffect(() => {
+		const formData = async () => {
+			const data = await postFormData(formData, "/login");
+			setData(data);
+		};
+		formData();
+	}, []);
 
 	function handleChange(event) {
 		const { name, value } = event.target;
 		setFormData((prevState) => ({ ...prevState, [name]: value }));
 	}
 
-	async function handleSubmit(event) {
+	function handleSubmit(event) {
 		event.preventDefault();
-		await postFormData(formData, `/login`);
+		console.log(data, "data handle submit ");
+
+		// usePostFormData(formData, `/login`);
 	}
+
 	return (
 		<main>
 			<h1 className="title">Log in</h1>
@@ -25,8 +37,8 @@ export default function Login() {
 					Username:
 					<input
 						type="text"
-						name="name"
-						value={formData.name}
+						name="username"
+						value={formData.username}
 						onChange={handleChange}
 						required
 					/>
