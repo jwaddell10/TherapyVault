@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 const userController = require("../controllers/userController.js");
-const authUser = require("../utilities/authAndLogin.js")
+const authUser = require("../utilities/authAndLogin.js");
 const passport = require("passport");
 
 /* GET home page. */

@@ -3,18 +3,22 @@ var path = require("path");
 var logger = require("morgan");
 var cors = require("cors");
 const { Pool } = require("pg");
+const bcrypt = require("bcryptjs");
+
 const express = require("express");
 const passport = require("passport");
 const expressSession = require("express-session");
 const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
 const { PrismaClient } = require("@prisma/client");
+const LocalStrategy = require("passport-local").Strategy;
+const db = require("./db/queries.js");
+
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 require("dotenv").config();
-require("./utilities/passport.config.js")
-const configurePassport = require("./utilities/passport.config.js");
+// const configurePassport = require("./utilities/passport.config.js");
 
-var app = express();
+const app = express();
 
 app.use(cors()); // Add this line to enable CORS
 app.use(logger("dev"));
@@ -23,31 +27,66 @@ app.use(express.urlencoded({ extended: false }));
 // app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-// const pool = new Pool({
-// 	host: process.env.HOST
-// });
-
 // app.use(session({ secret: "cats", resave: false, saveUninitialized: false }));
 
 app.use(
 	expressSession({
+		cookie: {
+			maxAge: 7 * 24 * 60 * 60 * 1000, // ms
+		},
+		secret: "a santa at nasa",
+		resave: true,
+		saveUninitialized: true,
 		store: new PrismaSessionStore(new PrismaClient(), {
 			checkPeriod: 2 * 60 * 1000, //ms
 			dbRecordIdIsSessionId: true,
 			dbRecordIdFunction: undefined,
 		}),
-		cookie: {
-			maxAge: 1 * 24 * 60 * 60 * 1000, // 1 day
-		},
-		secret: process.env.SECRET,
-		resave: true,
-		saveUninitialized: true,
 	})
 );
 
 app.use(passport.initialize());
 app.use(passport.session());
-configurePassport(passport);
+
+passport.use(
+	new LocalStrategy(async (username, password, done) => {
+		try {
+			const user = await db.findUser(username);
+
+			if (!user) {
+				return done(null, false, { message: "Incorrect username" });
+			}
+
+			const match = bcrypt.compare(password, user.password);
+			if (!match) {
+				return done(null, false, { message: "Incorrect password" });
+			}
+
+			console.log(user, "user from local strat");
+
+			return done(null, user);
+		} catch (error) {
+			return done(error);
+		}
+	})
+);
+
+passport.serializeUser((user, done) => {
+	console.log(user, "user from serialize");
+	done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+	try {
+		const user = await db.findUser(id);
+		console.log(user, "user from deserialize", id, "id from deserialize");
+		done(null, user);
+	} catch (err) {
+		done(err);
+	}
+});
+
+// configurePassport(passport);
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {

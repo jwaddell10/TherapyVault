@@ -4,11 +4,12 @@ const db = require("../db/queries.js");
 
 module.exports = async function authAndLogin(req, res, next) {
     console.log('auth and login runs')
-	passport.authenticate("local", async (error, user, info) => {
+	passport.authenticate("local", async (req, res) => {
 		try {
-			if (error) {
-				console.log(error, "error");
-			}
+			// if (error) {
+			// 	console.log(error, "error");
+			// }
+            console.log(req, 'req in authenticate')
 
 			req.login(user, async (error) => {
 				if (error) {

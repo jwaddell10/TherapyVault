@@ -5,9 +5,9 @@ const LocalStrategy = require("passport-local").Strategy;
 
 module.exports = (passport) => {
 	passport.use(
-		new LocalStrategy(async (name, password, done) => {
+		new LocalStrategy(async (username, password, done) => {
 			try {
-				const user = await db.findUser(name);
+				const user = await db.findUser(username);
 				console.log(user, "user in local strat");
 
 				if (!user) {
