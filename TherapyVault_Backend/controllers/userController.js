@@ -26,7 +26,9 @@ exports.logInPost = asyncHandler(async (req, res, next) => {
 		successMessage: "success",
 		failureMessage: "failed",
 	});
-    console.log(req.session, 'req session')
+    if (req.session) {
+        res.json(req.session)
+    }
 	// const user = await db.findUser(req.body.name);
 	// authAndLogin(req, res, next);
 });

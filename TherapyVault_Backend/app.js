@@ -52,7 +52,7 @@ passport.use(
 	new LocalStrategy(async (username, password, done) => {
 		try {
 			const user = await db.findUser(username);
-
+			console.log(user, 'user local strat')
 			if (!user) {
 				return done(null, false, { message: "Incorrect username" });
 			}
@@ -62,8 +62,6 @@ passport.use(
 				return done(null, false, { message: "Incorrect password" });
 			}
 
-			console.log(user, "user from local strat");
-
 			return done(null, user);
 		} catch (error) {
 			return done(error);
@@ -72,7 +70,6 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-	console.log(user, "user from serialize");
 	done(null, user.id);
 });
 
