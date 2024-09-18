@@ -52,7 +52,7 @@ passport.use(
 	new LocalStrategy(async (username, password, done) => {
 		try {
 			const user = await db.findUser(username);
-			console.log(user, "user local strat");
+			console.log(user, 'user local strat')
 			if (!user) {
 				return done(null, false, { message: "Incorrect username" });
 			}
@@ -112,12 +112,8 @@ app.use(function (err, req, res, next) {
 	});
 });
 
-app.post("/log-out", async (req, res, next) => {
-	req.logout(req.user, (err) => {
-		if (err) return next(err);
-	});
-	res.clearCookie("connect.sid");
-	res.send({ isAuth: req.isAuthenticated(), user: req.user });
-});
+// app.post("/log-out", function(req, res, next) {
+// 	console.log('logout runs')
+// })
 
 module.exports = app;
