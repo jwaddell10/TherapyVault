@@ -3,25 +3,26 @@ const prisma = new PrismaClient();
 const bcrypt = require("bcryptjs");
 
 module.exports = {
-	findUser: async (name) => {
+	findUser: async (username) => {
+        console.log(username, 'username finduser')
 		try {
 			const user = await prisma.user.findUnique({
 				where: {
-					name: name,
+					username: username,
 				},
 			});
-            console.log(user, 'user in findUser')
+            // console.log(user, 'user in findUser')
 			return user;
 		} catch (error) {
 			console.log(error, "error");
 			throw error;
 		}
 	},
-	createUser: async (name, password) => {
+	createUser: async (username, password) => {
 		const securePassword = await bcrypt.hash(password, 10);
 		const user = await prisma.user.create({
 			data: {
-				name: name,
+				username: username,
 				password: securePassword,
 			},
 		});

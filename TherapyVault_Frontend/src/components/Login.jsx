@@ -7,8 +7,8 @@ import { LoginContext } from "../App";
 export default function Login() {
 	const navigate = useNavigate();
 
-    const { setIsLoggedIn } = useContext(LoginContext)
-    // console.log(isLoggedIn, 'logged in context')
+    const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext)
+    console.log(isLoggedIn, 'logged in login component')
 	const [data, setData] = useState(null);
 	const [formData, setFormData] = useState({
 		username: "",
@@ -22,7 +22,7 @@ export default function Login() {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		await postFormData(formData, "/login").then((data) => {
+		await postFormData(formData, "/log-in").then((data) => {
 			setData(data);
 			//make it so it navigates to home, and change navbar to logout
 			if (data) {

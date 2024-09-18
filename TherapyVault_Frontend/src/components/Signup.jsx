@@ -19,19 +19,13 @@ export default function Signup() {
 
 	async function handleSubmit(event) {
 		event.preventDefault();
-		console.log(
-			formData.username,
-			"username",
-			formData.password,
-			"password",
-			formData.confirmPassword,
-			"confirmpassword"
-		);
+		
 		if (formData.password !== formData.confirmPassword) {
 			setPasswordError("Passwords must match");
+			return;
 		}
 
-		const data = await postFormData(formData, '/signup')
+		const data = await postFormData(formData, '/sign-up')
 		setData(data)
 	}
 

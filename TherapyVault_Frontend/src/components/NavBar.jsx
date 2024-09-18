@@ -6,7 +6,12 @@ import "./NavBar.css";
 
 export default function NavBar() {
 	const { isLoggedIn } = useContext(LoginContext);
-	// console.log(isLoggedIn, 'isloggedin')
+	console.log(isLoggedIn, 'navaariss')
+	// const handleLogout = () => {
+	// 	fetch(`${import.meta.env.VITE_API_URL}/log-out`).then((response) =>
+	// 		response.json().then((data) => console.log(data, "data"))
+	// 	);
+	// };
 	return (
 		<>
 			<nav className="navbar">
@@ -20,15 +25,15 @@ export default function NavBar() {
 						<ul>
 							{isLoggedIn ? (
 								<li>
-									<Link to="/login">Log in</Link>
+									<Link to="/log-in">Log in</Link>
 								</li>
 							) : (
 								<li>
-									<Link to="/logout">Log in</Link>
+									<Link to="/log-out">Log out</Link>
 								</li>
 							)}
 							<li>
-								<Link to="/signup">Sign up</Link>
+								<Link to="/sign-up">Sign up</Link>
 							</li>
 						</ul>
 					</li>

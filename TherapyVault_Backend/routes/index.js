@@ -9,8 +9,12 @@ router.get("/", function (req, res, next) {
 	res.render("index", { title: "Express" });
 });
 
-router.post("/signup", userController.signUp);
+router.post("/sign-up", userController.signUp);
 
-router.post("/login", userController.logInPost);
+router.post("/log-in", userController.logInPost);
+
+// router.post("/log-out", function(req, res, next) {
+//   console.log(req, 'req')
+// });
 
 module.exports = router;
