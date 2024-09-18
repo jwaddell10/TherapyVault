@@ -1,8 +1,12 @@
 import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { LoginContext } from "../App";
 import "./NavBar.css";
 
 export default function NavBar() {
+	const { isLoggedIn } = useContext(LoginContext);
+	// console.log(isLoggedIn, 'isloggedin')
 	return (
 		<>
 			<nav className="navbar">
@@ -14,9 +18,15 @@ export default function NavBar() {
 					</li>
 					<li className="nav-link">
 						<ul>
-							<li>
-								<Link to="/login">Log in</Link>
-							</li>
+							{isLoggedIn ? (
+								<li>
+									<Link to="/login">Log in</Link>
+								</li>
+							) : (
+								<li>
+									<Link to="/logout">Log in</Link>
+								</li>
+							)}
 							<li>
 								<Link to="/signup">Sign up</Link>
 							</li>
