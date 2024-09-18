@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Button from "./helpers/Button";
 import postFormData from "./helpers/postFormData";
 
@@ -9,26 +9,18 @@ export default function Login() {
 		password: "",
 	});
 
-	useEffect(() => {
-		const formData = async () => {
-			const data = await postFormData(formData, "/login");
-			setData(data);
-		};
-		formData();
-	}, []);
-
 	function handleChange(event) {
 		const { name, value } = event.target;
 		setFormData((prevState) => ({ ...prevState, [name]: value }));
 	}
 
-	function handleSubmit(event) {
-		event.preventDefault();
-		console.log(data, "data handle submit ");
-
-		// usePostFormData(formData, `/login`);
-	}
-
+	const handleSubmit = async (event) => {
+        event.preventDefault();
+		await postFormData(formData, "/login").then((data) => {
+			setData(data)
+            //make it so it navigates to home, and change navbar to logout
+		});
+	};
 	return (
 		<main>
 			<h1 className="title">Log in</h1>

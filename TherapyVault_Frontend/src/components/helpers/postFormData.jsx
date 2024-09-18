@@ -1,19 +1,33 @@
 export default async function postFormData(formData, url) {
 	const { username, password, confirmPassword } = formData;
 
-	try {
-		const response = await fetch(`${import.meta.env.VITE_API_URL}${url}`, {
-			method: "POST",
-			body: JSON.stringify({
-				username,
-				password,
-				confirmPassword,
-			}),
-			headers: { "Content-type": "application/json" },
+	return fetch(`${import.meta.env.VITE_API_URL}${url}`, {
+		method: "POST",
+		body: JSON.stringify({
+			username,
+			password,
+			confirmPassword,
+		}),
+		headers: { "Content-type": "application/json" },
+	})
+		.then((response) => response.json())
+		.catch((error) => {
+			throw new Error(error);
 		});
 
-		return response.json();
-	} catch (error) {
-		console.log(error, "error");
-	}
+	// try {
+	// 	const response = await fetch(`${import.meta.env.VITE_API_URL}${url}`, {
+	// 		method: "POST",
+	// 		body: JSON.stringify({
+	// 			username,
+	// 			password,
+	// 			confirmPassword,
+	// 		}),
+	// 		headers: { "Content-type": "application/json" },
+	// 	});
+
+	// 	return response.json();
+	// } catch (error) {
+	// 	console.log(error, "error");
+	// }
 }
