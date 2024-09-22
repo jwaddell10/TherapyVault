@@ -8,7 +8,6 @@ export default function Login() {
 	const navigate = useNavigate();
 
     const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext)
-    console.log(isLoggedIn, 'logged in login component')
 	const [data, setData] = useState(null);
 	const [formData, setFormData] = useState({
 		username: "",
@@ -24,8 +23,8 @@ export default function Login() {
 		event.preventDefault();
 		await postFormData(formData, "/log-in").then((data) => {
 			setData(data);
-			//make it so it navigates to home, and change navbar to logout
 			if (data) {
+                console.log(data, 'data in login')
                 setIsLoggedIn(true)
 				navigate("/");
 			}

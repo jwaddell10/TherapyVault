@@ -10,7 +10,7 @@ export default async function postFormData(formData, url) {
 		}),
 		headers: { "Content-type": "application/json" },
 	})
-		.then((response) => response.json())
+		.then((response) => response.json()).then((data) => data)
 		.catch((error) => {
 			throw new Error(error);
 		});
