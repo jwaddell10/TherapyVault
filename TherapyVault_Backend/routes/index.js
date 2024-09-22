@@ -6,15 +6,13 @@ const passport = require("passport");
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
-	res.render("index", { title: "Express" });
+	res.json("home page")
 });
 
 router.post("/sign-up", userController.signUp);
 
-router.post("/log-in", userController.logInPost);
+// router.post("/log-in", userController.logInPost);
 
-// router.post("/log-out", function(req, res, next) {
-//   console.log(req, 'req')
-// });
+router.post("/log-out", userController.logOutPost);
 
 module.exports = router;

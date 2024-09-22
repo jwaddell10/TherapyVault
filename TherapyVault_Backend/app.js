@@ -52,7 +52,6 @@ passport.use(
 	new LocalStrategy(async (username, password, done) => {
 		try {
 			const user = await db.findUser(username);
-			console.log(user, 'user local strat')
 			if (!user) {
 				return done(null, false, { message: "Incorrect username" });
 			}
@@ -70,25 +69,41 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-	done(null, user.id);
+	console.log(user, 'user in serialize')
+	done(null, JSON.stringify(user));
 });
 
 passport.deserializeUser(async (id, done) => {
+	console.log('deserializing')
 	try {
 		const user = await db.findUser(id);
-		console.log(user, "user from deserialize", id, "id from deserialize");
+		console.log(user, 'user in deserialize')
 		done(null, user);
 	} catch (err) {
 		done(err);
 	}
 });
 
+app.post('/log-in', passport.authenticate('local'),
+  function(req, res) {
+     req.session.user = req.user;
+     res.json(req.session.user)
+  }
+);
+
+app.post("/log-out", (req, res, next) => {
+	req.logout((error) => {
+		// console.log(req.user, 'requser in logout')
+		if (error) {
+			return next(error);
+		}
+		// console.log(req.user, "req user");
+	});
+	// console.log(req.user, "requser after logout");
+});
+
 // configurePassport(passport);
 app.use(express.urlencoded({ extended: false }));
-
-app.get("/", (req, res) => {
-	res.render("index", { user: req.user });
-});
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
@@ -111,9 +126,5 @@ app.use(function (err, req, res, next) {
 		error: req.app.get("env") === "development" ? err : {},
 	});
 });
-
-// app.post("/log-out", function(req, res, next) {
-// 	console.log('logout runs')
-// })
 
 module.exports = app;
