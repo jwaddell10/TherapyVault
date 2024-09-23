@@ -5,16 +5,18 @@ import { LoginContext } from "../App";
 import "./NavBar.css";
 
 export default function NavBar() {
-
-	const { isLoggedIn } = useContext(LoginContext);
-	console.log(isLoggedIn, "navaariss");
+	const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
+	
 	const handleLogout = async () => {
-		const response = await fetch(`${import.meta.env.VITE_API_URL}/log-out`, {
-			method: "POST",
-		})
-		const data = await response.json()
-		console.log(data, 'data')
-	};
+	fetch(`${import.meta.env.VITE_API_URL}/log-out`, {
+		method: "POST",
+	})
+		.then((response) => response.json())
+		.then((data) => {
+			console.log(data, "data");
+			setIsLoggedIn(false);
+		});
+	}
 	return (
 		<>
 			<nav className="navbar">
@@ -32,9 +34,7 @@ export default function NavBar() {
 								</li>
 							) : (
 								<li>
-									<Link to="/log-out" onClick={handleLogout}>
-										Log out
-									</Link>
+									<Link onClick={handleLogout}>Log out</Link>
 								</li>
 							)}
 							<li>
