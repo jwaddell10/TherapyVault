@@ -69,39 +69,44 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-	console.log(user, 'user in serialize')
-	done(null, JSON.stringify(user));
+	done(null, user);
 });
 
-passport.deserializeUser(async (id, done) => {
-	console.log('deserializing')
+passport.deserializeUser(async (error, id, done) => {
 	try {
 		const user = await db.findUser(id);
-		console.log(user, 'user in deserialize')
 		done(null, user);
 	} catch (err) {
 		done(err);
 	}
 });
 
-app.post('/log-in', passport.authenticate('local'),
-  function(req, res) {
-     req.session.user = req.user;
-     res.json(req.session.user)
-  }
-);
-
-app.post("/log-out", (req, res, next) => {
-	req.logout((error) => {
-		// console.log(req.user, 'requser in logout')
-		if (error) {
-			return next(error);
+app.post("/log-in", (req, res, next) => {
+	passport.authenticate("local", (err, user, info) => {
+		if (err) {
+			return res.status(500).json({ message: "An error occurred" });
 		}
-		// console.log(req.user, "req user");
-	});
-	// console.log(req.user, "requser after logout");
+		if (!user) {
+			return res.status(401).json({ message: "No user found" });
+		}
+		req.login(user, (loginErr) => {
+			if (loginErr) {
+				return res.status(500).json({ message: "Login failed" });
+			}
+			return res.json({ message: "Login successful", user });
+		});
+	})(req, res, next);
 });
 
+app.post("/log-out", (req, res) => {
+	req.logout((err) => {
+		if (err) {
+			return res.status(500).json({ message: "Logout failed" });
+		}
+		res.json({ message: "Logout successful" });
+	});
+});
+//
 // configurePassport(passport);
 app.use(express.urlencoded({ extended: false }));
 

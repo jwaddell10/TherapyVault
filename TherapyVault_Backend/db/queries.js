@@ -4,7 +4,6 @@ const bcrypt = require("bcryptjs");
 
 module.exports = {
 	findUser: async (username) => {
-        console.log(username, 'username finduser')
 		try {
 			const user = await prisma.user.findUnique({
 				where: {
@@ -26,5 +25,6 @@ module.exports = {
 				password: securePassword,
 			},
 		});
+        return user;
 	},
 };

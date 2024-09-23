@@ -33,13 +33,13 @@ exports.signUp = asyncHandler(async (req, res, next) => {
 // 	// authAndLogin(req, res, next);
 // });
 
-exports.logOutPost = asyncHandler(async (req, res, next) => {
-    // console.log('/users/' + req.user.username);
-    console.log(req.session, 'reqsession before logout')
-	req.logout((error) => {
-        if (error) {
-            return next(error);
-        } console.log(req.user, 'req user')
-    })
-    console.log(req.session, 'reqsession after logout')
-});
+// exports.logOutPost = asyncHandler(async (req, res, next) => {
+//     // console.log('/users/' + req.user.username);
+//     console.log(req.session, 'reqsession before logout')
+// 	req.logout((error) => {
+//         if (error) {
+//             return next(error);
+//         } console.log(req.user, 'req user')
+//     })
+//     console.log(req.session, 'reqsession after logout')
+// });
