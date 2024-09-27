@@ -3,22 +3,19 @@ const LocalStrategy = require("passport-local").Strategy;
 const db = require("../db/queries.js");
 
 module.exports = async function authAndLogin(req, res, next) {
-    console.log('auth and login runs')
-	passport.authenticate("local", async (req, res) => {
-		try {
-			// if (error) {
-			// 	console.log(error, "error");
-			// }
-            console.log(req, 'req in authenticate')
-
-			req.login(user, async (error) => {
-				if (error) {
-					console.log(error, "error in login");
-				}
-				return res.send({ user, info });
-			});
-		} catch (error) {
-			console.log(error, "error in catch block");
+	passport.authenticate("local", (err, user, info) => {
+		if (err) {
+			return res.status(500).json({ message: "An error occurred" });
 		}
+		if (!user) {
+			return res.status(401).json({ message: "No user found" });
+		}
+		req.login(user, (loginErr) => {
+			const sessionID = req.sessionID;
+			if (loginErr) {
+				throw new Error("login failed")
+			}
+			return res.json({ message: "Login successful", sessionID });
+		});
 	})(req, res, next);
 };

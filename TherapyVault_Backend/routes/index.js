@@ -6,12 +6,19 @@ const passport = require("passport");
 
 /* GET home page. */
 router.get("/", function (req, res, next) {
-	res.json("home page")
+	console.log(req.session, 'req session /')
+	if (!req.session) {
+		return;
+	}
+
+	if (req.session) {
+		res.json(req.session)
+	}
 });
 
 router.post("/sign-up", userController.signUp);
 
-// router.post("/log-in", userController.logInPost);
+router.post("/log-in", userController.logInPost)
 
 router.post("/log-out", userController.logOutPost);
 
