@@ -10,24 +10,16 @@ export default async function postFormData(formData, url) {
 		}),
 		headers: { "Content-type": "application/json" },
 	})
-		.then((response) => response.json()).then((data) => data)
+		.then((response) => {
+			if (!response.ok) throw new Error(response.status);
+			return response.json();
+		})
+		.then((data) => {
+			console.log("Data received:", data);
+			return data; // Return the data for further processing if needed
+		})
 		.catch((error) => {
-			throw new Error(error);
+			console.log("Error:", error);
+			throw error; // Re-throw the error for the caller to handle
 		});
-
-	// try {
-	// 	const response = await fetch(`${import.meta.env.VITE_API_URL}${url}`, {
-	// 		method: "POST",
-	// 		body: JSON.stringify({
-	// 			username,
-	// 			password,
-	// 			confirmPassword,
-	// 		}),
-	// 		headers: { "Content-type": "application/json" },
-	// 	});
-
-	// 	return response.json();
-	// } catch (error) {
-	// 	console.log(error, "error");
-	// }
 }

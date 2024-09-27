@@ -1,22 +1,41 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { LoginContext } from "../App";
 import "./NavBar.css";
 
 export default function NavBar() {
-	const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext);
-	
+	// const { setIsLoggedIn } = useContext(LoginContext);
+	const session = sessionStorage.getItem("sessionID")
+	const navigate = useNavigate()
+
 	const handleLogout = async () => {
-	fetch(`${import.meta.env.VITE_API_URL}/log-out`, {
-		method: "POST",
-	})
-		.then((response) => response.json())
-		.then((data) => {
-			console.log(data, "data");
-			setIsLoggedIn(false);
-		});
-	}
+		const sessionID = sessionStorage.getItem("sessionID");
+
+		try {
+			const response = await fetch(
+				`${import.meta.env.VITE_API_URL}/log-out`,
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: sessionID,
+					},
+				}
+			);
+
+			if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`);
+			}
+
+			const data = await response.json();
+			if (data) {
+				sessionStorage.removeItem("sessionID");
+				navigate("/")
+			}
+			
+		} catch (error) {
+			console.error("Logout failed:", error);
+		}
+	};
 	return (
 		<>
 			<nav className="navbar">
@@ -28,7 +47,7 @@ export default function NavBar() {
 					</li>
 					<li className="nav-link">
 						<ul>
-							{!isLoggedIn ? (
+							{!session ? (
 								<li>
 									<Link to="/log-in">Log in</Link>
 								</li>

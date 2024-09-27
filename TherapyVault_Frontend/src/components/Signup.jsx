@@ -1,6 +1,7 @@
 import Button from "./helpers/Button";
-import postFormData  from "./helpers/postFormData.jsx";
+import postFormData from "./helpers/postFormData.jsx";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Signup() {
 	const [formData, setFormData] = useState({
@@ -8,9 +9,9 @@ export default function Signup() {
 		password: "",
 		confirmPassword: "",
 	});
-	const [inputError, setInputError] = useState(null);
+	const [error, setError] = useState(null);
 	const [passwordError, setPasswordError] = useState(null);
-	const [data, setData] = useState(null)
+	const navigate = useNavigate();
 
 	function handleChange(event) {
 		const { name, value } = event.target;
@@ -19,14 +20,29 @@ export default function Signup() {
 
 	async function handleSubmit(event) {
 		event.preventDefault();
-		
+		setError("");
+		setPasswordError("");
+
 		if (formData.password !== formData.confirmPassword) {
 			setPasswordError("Passwords must match");
 			return;
 		}
 
-		const data = await postFormData(formData, '/sign-up')
-		setData(data)
+		try {
+			const data = await postFormData(formData, "/sign-up");
+			if (data) {
+				sessionStorage.setItem("sessionID", data.sessionID);
+				navigate("/");
+			}
+		} catch (error) {
+			if (error.message === "Failed to fetch") {
+				setError("Sever error. Please try again later");
+			}
+			if (error.message.startsWith("4")) {
+				setError("Username taken. Please try another");
+			}
+			return error;
+		}
 	}
 
 	return (
@@ -42,9 +58,8 @@ export default function Signup() {
 						onChange={handleChange}
 						required
 					/>
-					{data && data.message}
 				</label>
-				{inputError && <div style={{ color: "red" }}>{inputError}</div>}
+				{error && <div style={{ color: "red" }}>{error}</div>}
 
 				<label htmlFor="">
 					Password:

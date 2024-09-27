@@ -1,14 +1,11 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "./helpers/Button";
 import postFormData from "./helpers/postFormData";
-import { LoginContext } from "../App";
 
 export default function Login() {
 	const navigate = useNavigate();
 
-    const { isLoggedIn, setIsLoggedIn } = useContext(LoginContext)
-	const [data, setData] = useState(null);
 	const [formData, setFormData] = useState({
 		username: "",
 		password: "",
@@ -22,10 +19,8 @@ export default function Login() {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		await postFormData(formData, "/log-in").then((data) => {
-			setData(data);
 			if (data) {
-                console.log(data, 'data in login')
-                setIsLoggedIn(true)
+                sessionStorage.setItem("sessionID", data.sessionID)
 				navigate("/");
 			}
 		});
