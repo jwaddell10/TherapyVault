@@ -8,10 +8,10 @@ datasource db {
 }
 
 model Session {
-  id        String   @id
-  sid       String   @unique
-  data      String
-  expiresAt DateTime
+    id        String   @id
+    sid       String   @unique
+    data      String
+    expiresAt DateTime
 }
 
 model Profile {
@@ -21,22 +21,29 @@ model Profile {
 }
 
 model User {
-    id       Int      @id @default(autoincrement())
-    username     String?  @unique @db.VarChar(255)
-    password String?  @db.VarChar(255)
-    profile  Profile?
-    upload   Upload?
+    id         Int         @id @default(autoincrement())
+    username   String?     @unique @db.VarChar(255)
+    password   String?     @db.VarChar(255)
+    profile    Profile?
+    worksheets Worksheets?
 }
 
-model Upload {
-    id         Int        @id @default(autoincrement())
-    title      String     @db.VarChar(255)
-    author     User       @relation(fields: [id], references: [id])
-    categories Category[] @relation
+model Worksheets {
+    id          Int           @id @default(autoincrement())
+    title       String        @db.VarChar(255)
+    author      User          @relation(fields: [id], references: [id])
+    categories  Category[]    @relation
+    Demographic Demographic[]
 }
 
 model Category {
-    id         Int      @id @default(autoincrement())
-    categories String?  @db.VarChar(255)
-    Upload     Upload[]
+    id         Int          @id @default(autoincrement())
+    categories String       @db.VarChar(255)
+    Worksheets Worksheets[]
+}
+
+model Demographic {
+    id           Int          @id @default(autoincrement())
+    demographics String       @db.VarChar(255)
+    Worksheets   Worksheets[]
 }
