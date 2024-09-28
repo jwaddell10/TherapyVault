@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "./helpers/Button";
+import Button from "./helpers/Button/Button";
 import postFormData from "./helpers/postFormData";
 
 export default function Login() {

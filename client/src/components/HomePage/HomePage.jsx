@@ -1,4 +1,4 @@
-import Button from "../helpers/Button";
+import Button from "../helpers/Button/Button";
 
 export default function Home() {
 	return (

@@ -4,7 +4,7 @@ import NavBar from "./components/NavBar.jsx";
 import HomePage from "./components/HomePage/HomePage.jsx";
 import Login from "./components/Login.jsx";
 import Signup from "./components/Signup.jsx";
-// import fetchCookie from "./components/helpers/fetchCookie.jsx";
+import TherapyWorksheets from "./components/TherapyWorksheets/TherapyWorksheets.jsx";
 
 export default function App() {
 	const router = createBrowserRouter([
@@ -16,6 +16,10 @@ export default function App() {
 				{
 					path: "/",
 					element: <HomePage />,
+				},
+				{
+					path: "/therapy-worksheets",
+					element: <TherapyWorksheets />
 				},
 				{
 					path: "/log-in",

@@ -1,4 +1,4 @@
-import Button from "./helpers/Button.jsx";
+import Button from "./helpers/Button/Button.jsx";
 import postFormData from "./helpers/postFormData.jsx";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";

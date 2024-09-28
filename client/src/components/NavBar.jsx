@@ -3,9 +3,8 @@ import { Link } from "react-router-dom";
 import "./NavBar.css";
 
 export default function NavBar() {
-	// const { setIsLoggedIn } = useContext(LoginContext);
-	const session = sessionStorage.getItem("sessionID")
-	const navigate = useNavigate()
+	const session = sessionStorage.getItem("sessionID");
+	const navigate = useNavigate();
 
 	const handleLogout = async () => {
 		const sessionID = sessionStorage.getItem("sessionID");
@@ -29,9 +28,8 @@ export default function NavBar() {
 			const data = await response.json();
 			if (data) {
 				sessionStorage.removeItem("sessionID");
-				navigate("/")
+				navigate("/");
 			}
-			
 		} catch (error) {
 			console.error("Logout failed:", error);
 		}
@@ -48,17 +46,29 @@ export default function NavBar() {
 					<li className="nav-link">
 						<ul>
 							{!session ? (
-								<li>
-									<Link to="/log-in">Log in</Link>
-								</li>
+								<div className="no-session-links">
+									<li>
+										<Link to="/log-in">Log in</Link>
+									</li>
+									<li>
+										<Link to="/sign-up">Sign up</Link>
+									</li>
+								</div>
 							) : (
-								<li>
-									<Link onClick={handleLogout}>Log out</Link>
-								</li>
+								<div className="session-links">
+									<li>
+										<Link to="/">Home</Link>
+									</li>
+									<li>
+										<Link to="/therapy-worksheets">Worksheets</Link>
+									</li>
+									<li>
+										<Link onClick={handleLogout}>
+											Log out
+										</Link>
+									</li>
+								</div>
 							)}
-							<li>
-								<Link to="/sign-up">Sign up</Link>
-							</li>
 						</ul>
 					</li>
 				</ul>

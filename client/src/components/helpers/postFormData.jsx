@@ -16,10 +16,10 @@ export default async function postFormData(formData, url) {
 		})
 		.then((data) => {
 			console.log("Data received:", data);
-			return data; // Return the data for further processing if needed
+			return data;
 		})
 		.catch((error) => {
 			console.log("Error:", error);
-			throw error; // Re-throw the error for the caller to handle
+			throw error;
 		});
 }
