@@ -1,0 +1,6 @@
+.topics-container {
+    border-radius: 10px;
+    background-color: whitesmoke;
+    box-shadow: 1px 1px 1px lightgray;
+    border: 1px solid lightgray;
+}

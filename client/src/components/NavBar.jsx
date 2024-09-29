@@ -44,7 +44,7 @@ export default function NavBar() {
 						</Link>
 					</li>
 					<li className="nav-link">
-						<ul>
+						<ul className="navbar-routes">
 							{!session ? (
 								<div className="no-session-links">
 									<li>

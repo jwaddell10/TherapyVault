@@ -1,0 +1,8 @@
+.sidebar-container {
+    width: 15rem;
+}
+
+.main-content {
+    width: -webkit-fill-available; 
+    margin: 1rem;
+}
