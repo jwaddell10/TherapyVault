@@ -10,7 +10,6 @@ module.exports = {
 					username: username,
 				},
 			});
-            // console.log(user, 'user in findUser')
 			return user;
 		} catch (error) {
 			console.log(error, "error");
@@ -25,6 +24,24 @@ module.exports = {
 				password: securePassword,
 			},
 		});
-        return user;
+		return user;
+	},
+	findDemographics: async () => {
+		try {
+			const demographics = await prisma.demographic.findMany();
+			return demographics;
+		} catch (error) {
+			console.log(error, "error");
+			throw new Error(error);
+		}
+	},
+	findTopics: async () => {
+		try {
+			const topics = await prisma.topic.findMany();
+			return topics;
+		} catch (error) {
+			console.log(error, "error");
+			throw new Error(error);
+		}
 	},
 };

@@ -26,6 +26,7 @@ exports.logInPost = asyncHandler(async (req, res, next) => {
 });
 
 exports.logOutPost = asyncHandler(async (req, res, next) => {
+	//fix bug where user hits logout (and theres a session) but it fails to fetch the correct session
 
 	req.logout(function(error) {
 		if (error) {
@@ -42,7 +43,6 @@ async function handleSessionDelete(req, res) {
 			id: req.headers.authorization,
 		},
 	});
-	console.log(session, 'session handlesess')
 
 	if (!session) {
 		throw new Error("session error")

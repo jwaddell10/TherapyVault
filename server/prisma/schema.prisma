@@ -32,13 +32,13 @@ model Worksheets {
     id          Int           @id @default(autoincrement())
     title       String        @db.VarChar(255)
     author      User          @relation(fields: [id], references: [id])
-    categories  Category[]    @relation
+    topics      Topic[]       @relation
     Demographic Demographic[]
 }
 
-model Category {
+model Topic {
     id         Int          @id @default(autoincrement())
-    categories String       @db.VarChar(255)
+    topics     String       @db.VarChar(255)
     Worksheets Worksheets[]
 }
 

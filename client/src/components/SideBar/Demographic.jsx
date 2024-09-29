@@ -1,13 +1,15 @@
+import useFetchFilters from "../helpers/useFetchFilters";
+
 export default function Demographic() {
-	const demographics = ["Children", "Adolescents", "Adults"];
+	const { demographics } = useFetchFilters();
+
 	return (
-		<div className="demographics-container">
+		<section className="demographic-section">
 			<h1>Filter by Demographic</h1>
-			{demographics.map((demographic) => (
-				<ul key={demographic}>
-					<li>{demographic}</li>
-				</ul>
-			))}
-		</div>
+			{demographics &&
+				demographics.map((item) => (
+					<li key={item.id}>{item.demographics}</li>
+				))}
+		</section>
 	);
 }
