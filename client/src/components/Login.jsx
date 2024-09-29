@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "./helpers/Button/Button";
 import postFormData from "./helpers/postFormData";
+import "./Login.css";
 
 export default function Login() {
 	const navigate = useNavigate();
@@ -20,7 +21,7 @@ export default function Login() {
 		event.preventDefault();
 		await postFormData(formData, "/log-in").then((data) => {
 			if (data) {
-                sessionStorage.setItem("sessionID", data.sessionID)
+				sessionStorage.setItem("sessionID", data.sessionID);
 				navigate("/");
 			}
 		});
@@ -29,27 +30,27 @@ export default function Login() {
 		<main>
 			<h1 className="title">Log in</h1>
 			<form method="POST" onSubmit={handleSubmit}>
-				<label htmlFor="">
-					Username:
-					<input
-						type="text"
-						name="username"
-						value={formData.username}
-						onChange={handleChange}
-						required
-					/>
-				</label>
-				<label htmlFor="">
-					Password:
-					<input
-						type="password"
-						name="password"
-						value={formData.password}
-						onChange={handleChange}
-						required
-					/>
-				</label>
-				<Button type="submit" text="Log in"></Button>
+				<label htmlFor="">Username:</label>
+				<input
+					type="text"
+					name="username"
+					value={formData.username}
+					onChange={handleChange}
+					required
+				/>
+				<label htmlFor="">Password:</label>
+				<input
+					type="password"
+					name="password"
+					value={formData.password}
+					onChange={handleChange}
+					required
+				/>
+				<Button className="login-button" type="submit" text="Log in"></Button>
+				<section>
+					Don&apos;t have an account?
+					<Link to="/sign-up"> Sign up here</Link>
+				</section>
 			</form>
 		</main>
 	);

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 export default function Button({ text }) {
 	return (
-		<button className="button" style={{ width: "200px" }}>
+		<button className="button">
 			{text}
 		</button>
 	);
