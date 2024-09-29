@@ -15,11 +15,9 @@ export default async function postFormData(formData, url) {
 			return response.json();
 		})
 		.then((data) => {
-			console.log("Data received:", data);
 			return data;
 		})
 		.catch((error) => {
-			console.log("Error:", error);
 			throw error;
 		});
 }

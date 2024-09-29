@@ -1,5 +1,6 @@
-import Demographic from "./Demographic.jsx";
-import Topic from "./Topic.jsx";
+import Demographic from "./DemographicsBar/Demographic.jsx";
+import Topic from "./TopicsBar/Topic.jsx";
+import "./SideBar.css"
 
 export default function SideBar() {
 	return (
