@@ -9,3 +9,7 @@ Minimum Feature goals:
 
 Extra (possible) features:
 1) Share files with other users
+
+<img width="949" alt="Screenshot 2024-09-28 at 12 52 19 PM" src="https://github.com/user-attachments/assets/be93dcfe-d04c-4d43-8ee9-1e861a07613e">
+
+<img width="1427" alt="Screenshot 2024-09-28 at 9 32 24 PM" src="https://github.com/user-attachments/assets/c5b9d177-8402-4e5e-9493-55d30dcc4914">
