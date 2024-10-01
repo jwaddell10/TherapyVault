@@ -38,7 +38,7 @@ export default function NavBar() {
 		<>
 			<nav className="navbar">
 				<ul>
-					<li className="title">
+					<li className="navbar-title">
 						<Link to="/">
 							<h1>TherapyVault</h1>
 						</Link>

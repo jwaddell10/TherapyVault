@@ -5,6 +5,10 @@
 	padding: 1px;
 }
 
+.navbar-title {
+    font-size: 1.5rem;
+}
+
 .navbar ul {
 	display: flex;
 	justify-content: space-between;
