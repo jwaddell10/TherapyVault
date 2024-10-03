@@ -14,3 +14,7 @@ exports.getTopics = expressAsyncHandler(async(req, res, next) => {
         return res.json(topics)
     }
 })
+
+exports.getOne = expressAsyncHandler(async(req, res, next) => {
+    console.log(req.body, 'this is req get one')
+})

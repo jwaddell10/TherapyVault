@@ -22,6 +22,7 @@ const app = express();
 app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
+// app.use(bodyparser.urlencoded({ limit: "50mb", extended: true }));
 app.use(express.urlencoded({ extended: false }));
 // app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
@@ -33,7 +34,7 @@ app.use(
 		},
 		secret: process.env.SECRET,
 		resave: true,
-		saveUninitialized: true,
+		saveUninitialized: false,
 		store: new PrismaSessionStore(new PrismaClient(), {
 			checkPeriod: 2 * 60 * 1000, //ms
 			dbRecordIdIsSessionId: true,

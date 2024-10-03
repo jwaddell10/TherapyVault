@@ -4,8 +4,17 @@ const userController = require("../controllers/userController.js");
 const authUser = require("../utilities/authAndLogin.js");
 const passport = require("passport");
 const worksheetController = require("../controllers/worksheetController.js");
-const multer = require("multer")
-const upload = multer();
+const multer = require("multer");
+const storage = multer.diskStorage({
+	destination: (req, file, cb) => {
+		cb(null, "uploads/");
+	},
+	filename: (req, file, cb) => {
+		cb(null, `${Date.now()}-${file.originalname}`);
+	},
+});
+const upload = multer({ storage });
+
 /* GET home page. */
 router.get("/", function (req, res, next) {
 	if (!req.session) {
@@ -27,8 +36,18 @@ router.get("/demographics", worksheetController.getDemographics);
 
 router.get("/topics", worksheetController.getTopics);
 
-router.post("/worksheets", upload.none(), (req, res, next) => {
-	console.log(req, 'req worksheets')
-})
+router.post("/worksheet", upload.single("worksheet"), (req, res) => {
+	try {
+		console.log(req.body, "Request Body");
+		console.log(req.file, "Uploaded File");
+
+		res.status(200).json({ message: "File uploaded successfully" });
+	} catch (error) {
+		console.error("Error in /worksheet route:", error);
+		res.status(500).json({ error: "Internal Server Error" });
+	}
+});
+
+router.get("/worksheet/:id", worksheetController.getOne);
 
 module.exports = router;

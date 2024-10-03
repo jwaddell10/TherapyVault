@@ -6,3 +6,7 @@
 .page-container {
     display: flex;
 }
+
+.header-container {
+    width: -webkit-fill-available;
+}
