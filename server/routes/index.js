@@ -7,7 +7,7 @@ const worksheetController = require("../controllers/worksheetController.js");
 const multer = require("multer");
 const storage = multer.diskStorage({
 	destination: (req, file, cb) => {
-		cb(null, "uploads/");
+		cb(null, "uploads");
 	},
 	filename: (req, file, cb) => {
 		cb(null, `${Date.now()}-${file.originalname}`);
@@ -36,17 +36,7 @@ router.get("/demographics", worksheetController.getDemographics);
 
 router.get("/topics", worksheetController.getTopics);
 
-router.post("/worksheet", upload.single("worksheet"), (req, res) => {
-	try {
-		console.log(req.body, "Request Body");
-		console.log(req.file, "Uploaded File");
-
-		res.status(200).json({ message: "File uploaded successfully" });
-	} catch (error) {
-		console.error("Error in /worksheet route:", error);
-		res.status(500).json({ error: "Internal Server Error" });
-	}
-});
+router.post("/worksheet", upload.single("worksheet"), worksheetController.uploadWorksheet);
 
 router.get("/worksheet/:id", worksheetController.getOne);
 

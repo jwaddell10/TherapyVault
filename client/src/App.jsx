@@ -2,7 +2,7 @@ import "./App.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import NavBar from "./components/NavBar.jsx";
 import HomePage from "./components/HomePage/HomePage.jsx";
-import Login from "./components/Login.jsx";
+import Login from "./components/Login/Login.jsx";
 import Signup from "./components/Signup.jsx";
 import TherapyWorksheets from "./components/TherapyWorksheets/TherapyWorksheets.jsx";
 

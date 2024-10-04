@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Button from "./helpers/Button/Button";
-import postFormData from "./helpers/postFormData";
+import Button from "../helpers/Button/Button";
+import postFormData from "../helpers/postFormData";
 import "./Login.css";
 
 export default function Login() {

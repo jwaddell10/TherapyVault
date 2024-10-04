@@ -105,6 +105,7 @@ export default function UploadForm({ setPopup }) {
 						handleFileChange(event);
 					}}
 					type="file"
+                    accept="image/*"
 					className="form-control-file"
 					name="worksheet"
 					required
