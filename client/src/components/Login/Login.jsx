@@ -28,10 +28,13 @@ export default function Login() {
 	};
 	return (
 		<main>
-			<h1 className="title">Log in</h1>
+			<h1 aria-label="log in title" className="title">
+				Log in
+			</h1>
 			<form method="POST" onSubmit={handleSubmit}>
 				<label htmlFor="">Username:</label>
 				<input
+					aria-label="username"
 					type="text"
 					name="username"
 					value={formData.username}
@@ -40,13 +43,19 @@ export default function Login() {
 				/>
 				<label htmlFor="">Password:</label>
 				<input
+					aria-label="password"
 					type="password"
 					name="password"
 					value={formData.password}
 					onChange={handleChange}
 					required
 				/>
-				<Button className="login-button" type="submit" text="Log in"></Button>
+				<Button
+					role="button"
+					className="login-button"
+					type="submit"
+					text="Log in"
+				></Button>
 				<section>
 					Don&apos;t have an account?
 					<Link to="/sign-up"> Sign up here</Link>
