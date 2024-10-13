@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../helpers/Button/Button";
-import postFormData from "../helpers/postFormData";
+import postAuthFormData from "../helpers/postAuthFormData";
 import "./Login.css";
 
 export default function Login() {
@@ -20,7 +20,7 @@ export default function Login() {
 	const handleSubmit = async (event) => {
 		console.log('handle submit runs')
 		event.preventDefault();
-		await postFormData(formData, "/log-in").then((data) => {
+		await postAuthFormData(formData, "/users/log-in").then((data) => {
 			if (data) {
 				sessionStorage.setItem("sessionID", data.sessionID);
 				navigate("/");

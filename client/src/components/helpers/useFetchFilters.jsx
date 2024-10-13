@@ -5,7 +5,7 @@ export default function useFetchFilters() {
 	const [topics, setTopics] = useState(null);
 
 	useEffect(() => {
-		fetch(`${import.meta.env.VITE_API_URL}/demographics`, {
+		fetch(`${import.meta.env.VITE_API_URL}/worksheet/demographics`, {
 			method: "GET",
 		})
 			.then((response) => response.json())
@@ -16,7 +16,7 @@ export default function useFetchFilters() {
 				throw error;
 			});
 
-		fetch(`${import.meta.env.VITE_API_URL}/topics`, {
+		fetch(`${import.meta.env.VITE_API_URL}/worksheet/topics`, {
 			method: "GET",
 		})
 			.then((response) => response.json())

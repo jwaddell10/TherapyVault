@@ -2,7 +2,7 @@ import { useState } from "react";
 import CloseIcon from "@rsuite/icons/Close";
 import postUploadForm from "../postUploadForm";
 
-export default function UploadForm({ setPopup }) {
+export default function UploadForm({ setPopupUploadForm }) {
 	const [formData, setFormData] = useState({
 		title: "",
 		demographic: "",
@@ -21,7 +21,7 @@ export default function UploadForm({ setPopup }) {
 	};
 
 	const handleClose = () => {
-		setPopup(false);
+		setPopupUploadForm(false);
 	};
 
 	const handleSubmit = async (event) => {
@@ -36,7 +36,7 @@ export default function UploadForm({ setPopup }) {
 
 		try {
 			await postUploadForm(formDataToSend, "worksheet");
-			setPopup(false);
+			setPopupUploadForm(false);
 		} catch (error) {
 			console.error("Error uploading worksheet:", error);
 		}

@@ -1,7 +1,5 @@
-export default async function postFormData(formData, url) {
+export default async function postAuthFormData(formData, url) {
 	const { username, password, confirmPassword } = formData;
-
-	console.log(formData, 'formdata', url, 'url', import.meta.env.VITE_API_URL, 'viteapi')
 
 	return fetch(`${import.meta.env.VITE_API_URL}${url}`, {
 		method: "POST",

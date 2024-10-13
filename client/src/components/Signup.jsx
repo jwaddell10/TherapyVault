@@ -1,5 +1,5 @@
 import Button from "./helpers/Button/Button.jsx";
-import postFormData from "./helpers/postFormData.jsx";
+import postAuthFormData from "./helpers/postAuthFormData.jsx";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -29,7 +29,7 @@ export default function Signup() {
 		}
 
 		try {
-			const data = await postFormData(formData, "/sign-up");
+			const data = await postAuthFormData(formData, "/users/sign-up");
 			if (data) {
 				sessionStorage.setItem("sessionID", data.sessionID);
 				navigate("/");
