@@ -2,13 +2,14 @@ import SideBar from "../SideBar/SideBar.jsx";
 import UploadForm from "../helpers/UploadForm/UploadForm.jsx";
 import CreateFolder from "../helpers/CreateFolder.jsx";
 import { useState } from "react";
-import FileUploadIcon from "@rsuite/icons/FileUpload";
+import UploadFileIcon from "@mui/icons-material/UploadFile";
+import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
 import "./TherapyWorksheets.css";
 
 export default function TherapyWorksheets() {
 	//display folders, need to fetch folders from database, display them to user
 	//dont want folder and file component, because they'd be out of order
-	//could do const data = fetchData, then data.map in this component
+	//could do const data = fetchData, then data.map in this component, maybe useffect?
 	const [popupUploadForm, setPopupUploadForm] = useState(false);
 	const [popupFolderForm, setPopupFolderForm] = useState(false);
 
@@ -28,20 +29,29 @@ export default function TherapyWorksheets() {
 					<header className="worksheets-header">
 						<h1>Worksheets</h1>
 						<div className="upload-container">
-							<h1 onClick={handleUploadFolder}>Upload Folder</h1>
+							<h1 onClick={handleUploadFolder}>
+								<DriveFolderUploadIcon />
+								Upload Folder
+							</h1>
 							<h1 onClick={handleUploadFile}>
-								<FileUploadIcon /> Upload File
+								<UploadFileIcon /> Upload File
 							</h1>
 						</div>
 						{popupFolderForm && (
-							<CreateFolder
-								setPopupFolderForm={setPopupFolderForm}
-							></CreateFolder>
+							<>
+								<div className="background"></div>
+								<CreateFolder
+									setPopupFolderForm={setPopupFolderForm}
+								></CreateFolder>
+							</>
 						)}
 						{popupUploadForm && (
-							<UploadForm
-								setPopupUploadForm={setPopupUploadForm}
-							></UploadForm>
+							<>
+								<div className="background"></div>
+								<UploadForm
+									setPopupUploadForm={setPopupUploadForm}
+								></UploadForm>
+							</>
 						)}
 					</header>
 				</section>

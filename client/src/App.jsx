@@ -7,7 +7,7 @@ import Signup from "./components/Signup.jsx";
 import TherapyWorksheets from "./components/TherapyWorksheets/TherapyWorksheets.jsx";
 
 export default function App() {
-	// sessionStorage.clear();
+	sessionStorage.clear();
 	const router = createBrowserRouter([
 		{
 			path: "/",

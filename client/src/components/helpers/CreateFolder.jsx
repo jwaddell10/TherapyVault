@@ -1,6 +1,7 @@
 import { useState } from "react";
 import CloseIcon from "@rsuite/icons/Close";
 import postUploadForm from "./postUploadForm";
+import "./CreateFolder.css";
 
 export default function CreateFolder({ setPopupFolderForm }) {
 	const [formData, setFormData] = useState({
@@ -13,27 +14,27 @@ export default function CreateFolder({ setPopupFolderForm }) {
 		setFormData((prevState) => ({ ...prevState, [name]: value }));
 	};
 
-    const handleClose = () => {
-        setPopupFolderForm(false); 
-    }
+	const handleClose = () => {
+		setPopupFolderForm(false);
+	};
 
 	const handleSubmit = async (event) => {
 		// setPopupFolderForm(true)
-        event.preventDefault();
-		setPopupFolderForm(false)
-        try {
-            await postUploadForm(formData, 'folder')
-        } catch(error) {
-            console.log(error, 'error')
-        }
+		event.preventDefault();
+		setPopupFolderForm(false);
+		try {
+			await postUploadForm(formData, "folder");
+		} catch (error) {
+			console.log(error, "error");
+		}
 		// const {name, value}
 		// setFormData((prevState) => {( ...prevState, [name]: value)})
 	};
 	return (
-		<form onSubmit={handleSubmit}>
-            <div onClick={handleClose}>
-					<CloseIcon />
-				</div>
+		<form className="folder-form" onSubmit={handleSubmit}>
+			<div onClick={handleClose}>
+				<CloseIcon />
+			</div>
 			<label htmlFor="">Name:</label>
 			<input
 				type="text"

@@ -1,5 +1,11 @@
 import { Outlet, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import LoginIcon from "@mui/icons-material/Login";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import HomeIcon from "@mui/icons-material/Home";
+import DescriptionIcon from "@mui/icons-material/Description";
+import LogoutIcon from "@mui/icons-material/Logout";
+import styled from "styled-components";
 import "./NavBar.css";
 
 export default function NavBar() {
@@ -47,26 +53,37 @@ export default function NavBar() {
 						<ul className="navbar-routes">
 							{!session ? (
 								<div className="no-session-links">
-									<li>
+									<StyledLink>
+										<LoginIcon sx={{ color: "white" }} />
 										<Link to="/log-in">Log in</Link>
-									</li>
-									<li>
+									</StyledLink>
+									<StyledLink>
+										<PersonAddIcon
+											sx={{ color: "white" }}
+										/>
 										<Link to="/sign-up">Sign up</Link>
-									</li>
+									</StyledLink>
 								</div>
 							) : (
 								<div className="session-links">
-									<li>
+									<StyledLink>
+										<HomeIcon sx={{ color: "white" }} />
 										<Link to="/">Home</Link>
-									</li>
-									<li>
-										<Link to="/therapy-worksheets">Worksheets</Link>
-									</li>
-									<li>
+									</StyledLink>
+									<StyledLink>
+										<DescriptionIcon
+											sx={{ color: "white" }}
+										/>
+										<Link to="/therapy-worksheets">
+											Worksheets
+										</Link>
+									</StyledLink>
+									<StyledLink>
+										<LogoutIcon sx={{ color: "white" }} />
 										<Link onClick={handleLogout}>
 											Log out
 										</Link>
-									</li>
+									</StyledLink>
 								</div>
 							)}
 						</ul>
@@ -77,3 +94,9 @@ export default function NavBar() {
 		</>
 	);
 }
+
+const StyledLink = styled(Link)`
+	display: flex;
+	align-items: center;
+	padding: 5px;
+`;

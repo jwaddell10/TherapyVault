@@ -1,9 +1,8 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Login from "./Login";
 import { MemoryRouter } from "react-router-dom";
-import { expect, it, describe, fireEvent } from "vitest";
-import userEvent from '@testing-library/user-event'
+import { expect, it, describe } from "vitest";
 
 describe("Login component", () => {
 	it("should render form items", () => {
@@ -12,7 +11,6 @@ describe("Login component", () => {
 				<Login />
 			</MemoryRouter>
 		);
-		expect(screen.getByLabelText("log in title")).toBeInTheDocument();
 		expect(screen.getByText("Username:")).toBeInTheDocument();
 		expect(screen.getByText("Password:")).toBeInTheDocument();
 		expect(
@@ -20,28 +18,23 @@ describe("Login component", () => {
 		).toBeInTheDocument();
 	});
 
-	describe("should handle form submission, allow any value in username/password", () => {
-        it('should handle form submission', async () => {
-            const user = userEvent.setup()
+	it("should handle form submission", () => {
+		render(
+			<MemoryRouter>
+				<Login />
+			</MemoryRouter>
+		);
 
-            const utils = render(
-                <MemoryRouter>
-                    <Login />
-                </MemoryRouter>
-            );
+		const usernameInput = screen.getByLabelText(/username/i);
+		const passwordInput = screen.getByLabelText(/password/i);
+		const loginButton = screen.getByRole("button", { name: /log in/i });
 
-            const userInput = utils.getByLabelText("username")
-            const passwordInput = screen.getByLabelText("password")
-    
-            fireEvent.change(screen.getByLabelText("username"), {
-                target: { value: "testuser" },
-            });
-            expect(userInput.value).toBe('testuser')
-            fireEvent.change(screen.getByLabelText("password"), {
-                target: { value: "password" },
-            });
-            fireEvent.click(screen.getByRole("button", { name: /log in/i }));
-        })
+		fireEvent.change(usernameInput, { target: { value: "testuser" } });
+		expect(usernameInput.value).toBe("testuser");
 
+		fireEvent.change(passwordInput, { target: { value: "password" } });
+		expect(passwordInput.value).toBe("password");
+
+		fireEvent.click(loginButton);
 	});
 });

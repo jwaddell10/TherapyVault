@@ -1,12 +1,22 @@
 .worksheets-header {
-    display: flex;
-    justify-content: space-between;
+	display: flex;
+	justify-content: space-between;
 }
 
 .page-container {
-    display: flex;
+	display: flex;
 }
 
 .header-container {
-    width: -webkit-fill-available;
+	width: -webkit-fill-available;
+}
+
+.background {
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+    left: 0;
+    top: 0;
+    background-color: gray;
+    opacity: 0.33;
 }

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import CloseIcon from "@rsuite/icons/Close";
 import postUploadForm from "../postUploadForm";
+import "./UploadForm.css"
 
 export default function UploadForm({ setPopupUploadForm }) {
 	const [formData, setFormData] = useState({
@@ -44,6 +45,7 @@ export default function UploadForm({ setPopupUploadForm }) {
 
 	return (
 		<form
+		className="upload-form"
 			onSubmit={handleSubmit}
 			encType="multipart/form-data"
 			method="post"
