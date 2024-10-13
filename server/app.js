@@ -15,6 +15,8 @@ const LocalStrategy = require("passport-local").Strategy;
 const db = require("./db/queries.js");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
+const worksheetRouter = require("./routes/worksheet");
+const folderRouter = require("./routes/folder");
 require("dotenv").config();
 
 const app = express();
@@ -33,7 +35,7 @@ app.use(
 			maxAge: 7 * 24 * 60 * 60 * 1000, // ms
 		},
 		secret: process.env.SECRET,
-		resave: true,
+		resave: false,
 		saveUninitialized: false,
 		store: new PrismaSessionStore(new PrismaClient(), {
 			checkPeriod: 2 * 60 * 1000, //ms
@@ -63,7 +65,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 passport.use(
 	new LocalStrategy(async (username, password, done) => {
+		console.log("local strat runs");
 		try {
+			console.log("local strat runs try");
+
 			const user = await db.findUser(username);
 			if (!user) {
 				return done(null, false, { message: "Incorrect username" });
@@ -102,6 +107,8 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/worksheet", worksheetRouter);
+app.use("/folder", folderRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

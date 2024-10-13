@@ -22,6 +22,7 @@ exports.signUp = asyncHandler(async (req, res, next) => {
 });
 
 exports.logInPost = asyncHandler(async (req, res, next) => {
+	console.log('login post runs')
 	authAndLogin(req, res, next)
 });
 

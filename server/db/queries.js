@@ -44,4 +44,12 @@ module.exports = {
 			throw new Error(error);
 		}
 	},
+	createFolder: async (title) => {
+		const folder = await prisma.folder.create({
+			data: {
+				title: title,
+			},
+		});
+		return folder;
+	},
 };

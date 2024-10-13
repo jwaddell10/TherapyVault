@@ -28,6 +28,11 @@ model User {
     worksheets Worksheets?
 }
 
+model Folder {
+    id    Int    @id @default(autoincrement())
+    title String @db.VarChar(255)
+}
+
 model Worksheets {
     id          Int           @id @default(autoincrement())
     title       String        @db.VarChar(255)

@@ -7,6 +7,10 @@ exports.getDemographics = expressAsyncHandler(async (req, res, next) => {
 	if (demographics) {
 		return res.json(demographics);
 	}
+
+	if (!demographics) {
+		res.status(404).json({ message: "no demographics found" });
+	}
 });
 
 exports.getTopics = expressAsyncHandler(async (req, res, next) => {
@@ -21,16 +25,17 @@ exports.getOne = expressAsyncHandler(async (req, res, next) => {
 });
 
 exports.uploadWorksheet = expressAsyncHandler(async (req, res, next) => {
-	const file = req.file;
-	console.log(req.body, "req body");
+	console.log('upload worksheet route works')
+	// const file = req.file;
+	// console.log(req.body, "req body");
 
-	console.log(file, "file");
+	// console.log(file, "file");
 
-	const uploadedResult = await cloudinary.uploader
-		.upload(file)
-		.catch((error) => console.log(error, "error"));
-    
-    console.log(uploadedResult, 'uplaoded result')
+	// const uploadedResult = await cloudinary.uploader
+	// 	.upload(file)
+	// 	.catch((error) => console.log(error, "error"));
+
+	// console.log(uploadedResult, "uplaoded result");
 
 	// const uploadResult = await cloudinary.uploader
 	// .upload(
