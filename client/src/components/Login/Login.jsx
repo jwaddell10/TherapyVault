@@ -18,6 +18,7 @@ export default function Login() {
 	}
 
 	const handleSubmit = async (event) => {
+		console.log('handle submit runs')
 		event.preventDefault();
 		await postFormData(formData, "/log-in").then((data) => {
 			if (data) {
