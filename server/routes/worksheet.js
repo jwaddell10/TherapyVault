@@ -12,6 +12,8 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
+router.get("/", worksheetController.getWorksheet);
+
 router.get("/demographics", worksheetController.getDemographics);
 
 router.get("/topics", worksheetController.getTopics);
