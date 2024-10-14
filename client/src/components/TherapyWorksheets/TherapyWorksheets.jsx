@@ -4,6 +4,7 @@ import CreateFolder from "../helpers/CreateFolder.jsx";
 import { useState } from "react";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
+import DisplayFilesFolders from "./DisplayFilesFolders.jsx";
 import "./TherapyWorksheets.css";
 
 export default function TherapyWorksheets() {
@@ -12,7 +13,6 @@ export default function TherapyWorksheets() {
 	//could do const data = fetchData, then data.map in this component, maybe useffect?
 	const [popupUploadForm, setPopupUploadForm] = useState(false);
 	const [popupFolderForm, setPopupFolderForm] = useState(false);
-
 	const handleUploadFile = () => {
 		setPopupUploadForm(true);
 	};
@@ -54,6 +54,9 @@ export default function TherapyWorksheets() {
 							</>
 						)}
 					</header>
+				</section>
+				<section className="worksheet-container">
+					<DisplayFilesFolders />
 				</section>
 			</main>
 		</section>

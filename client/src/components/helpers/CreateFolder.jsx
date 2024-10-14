@@ -1,6 +1,6 @@
 import { useState } from "react";
 import CloseIcon from "@rsuite/icons/Close";
-import postUploadForm from "./postUploadForm";
+import postUploadForm from "./FetchRequests/postUploadForm";
 import "./CreateFolder.css";
 
 export default function CreateFolder({ setPopupFolderForm }) {

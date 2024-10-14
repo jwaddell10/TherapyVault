@@ -1,4 +1,4 @@
-import useFetchFilters from "../../helpers/useFetchFilters";
+import useFetchFilters from "../../helpers/FetchRequests/useFetchFilters";
 import "./Topic.css";
 import styled from "styled-components";
 
