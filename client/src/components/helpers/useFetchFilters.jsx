@@ -3,30 +3,40 @@ import { useState, useEffect } from "react";
 export default function useFetchFilters() {
 	const [demographics, setDemographics] = useState(null);
 	const [topics, setTopics] = useState(null);
+	const [error, setError] = useState(null);
 
 	useEffect(() => {
-		fetch(`${import.meta.env.VITE_API_URL}/worksheet/demographics`, {
-			method: "GET",
-		})
-			.then((response) => response.json())
-			.then((data) => {
-				setDemographics(data);
-			})
-			.catch((error) => {
-				throw error;
-			});
+		const fetchData = async () => {
+			try {
+				const [demographicsResponse, topicsResponse] =
+					await Promise.all([
+						fetch(
+							`${
+								import.meta.env.VITE_API_URL
+							}/worksheet/demographics`
+						),
+						fetch(
+							`${import.meta.env.VITE_API_URL}/worksheet/topics`
+						),
+					]);
 
-		fetch(`${import.meta.env.VITE_API_URL}/worksheet/topics`, {
-			method: "GET",
-		})
-			.then((response) => response.json())
-			.then((data) => {
-				setTopics(data);
-			})
-			.catch((error) => {
-				throw error;
-			});
-	}, []);
+				if (!demographicsResponse.ok)
+					throw new Error("Failed to fetch demographics");
+				if (!topicsResponse.ok)
+					throw new Error("Failed to fetch topics");
 
-	return { demographics, topics };
+				const demographicsData = await demographicsResponse.json();
+				const topicsData = await topicsResponse.json();
+
+				setDemographics(demographicsData);
+				setTopics(topicsData);
+			} catch (err) {
+				setError(err.message);
+			}
+		};
+
+		fetchData();
+	}, []); // Empty dependency array
+
+	return { demographics, topics, error };
 }

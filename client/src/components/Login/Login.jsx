@@ -18,12 +18,15 @@ export default function Login() {
 	}
 
 	const handleSubmit = async (event) => {
-		console.log('handle submit runs')
 		event.preventDefault();
 		await postAuthFormData(formData, "/users/log-in").then((data) => {
 			if (data) {
 				sessionStorage.setItem("sessionID", data.sessionID);
 				navigate("/");
+			}
+
+			if (!data) {
+				throw new Error("login failed")
 			}
 		});
 	};
