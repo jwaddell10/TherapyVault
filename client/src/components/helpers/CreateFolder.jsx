@@ -10,7 +10,6 @@ export default function CreateFolder({ setPopupFolderForm }) {
 
 	const handleChange = (event) => {
 		const { name, value } = event.target;
-		console.log(name, "name", value, "value");
 		setFormData((prevState) => ({ ...prevState, [name]: value }));
 	};
 

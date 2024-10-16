@@ -23,7 +23,7 @@ export default function TherapyWorksheets() {
 
 	return (
 		<section className="page-container">
-			<SideBar />
+			{/* <SideBar /> */}
 			<main className="main-content">
 				<section className="header-container">
 					<header className="worksheets-header">
@@ -55,9 +55,7 @@ export default function TherapyWorksheets() {
 						)}
 					</header>
 				</section>
-				<section className="worksheet-container">
-					<DisplayFilesFolders />
-				</section>
+				<DisplayFilesFolders />
 			</main>
 		</section>
 	);

@@ -36,7 +36,7 @@ export default function useFetchFilters() {
 		};
 
 		fetchData();
-	}, []); // Empty dependency array
+	}, []);
 
 	return { demographics, topics, error };
 }

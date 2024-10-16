@@ -1,8 +1,19 @@
 body {
 	margin: 0px;
-    background-color: 	#E8E8E8;
+	background-color: #e8e8e8;
 }
 body,
 html {
 	font-family: Arial, "Vazir", sans-serif;
+}
+
+th,
+td {
+	padding: 8px;
+	text-align: left;
+	border-bottom: 1px solid #ddd;
+}
+
+th {
+	background-color: #f2f2f2;
 }
