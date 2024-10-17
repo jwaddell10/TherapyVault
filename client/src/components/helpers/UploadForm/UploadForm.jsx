@@ -1,7 +1,7 @@
 import { useState } from "react";
 import CloseIcon from "@rsuite/icons/Close";
-import postUploadForm from "../FetchRequests/postUploadForm";
-import "./UploadForm.css"
+import postUploadForm from "../../helpers/FetchRequests/postUploadForm";
+import "./UploadForm.css";
 
 export default function UploadForm({ setPopupUploadForm }) {
 	const [formData, setFormData] = useState({
@@ -45,7 +45,7 @@ export default function UploadForm({ setPopupUploadForm }) {
 
 	return (
 		<form
-		className="upload-form"
+			className="upload-form"
 			onSubmit={handleSubmit}
 			encType="multipart/form-data"
 			method="post"
@@ -107,7 +107,7 @@ export default function UploadForm({ setPopupUploadForm }) {
 						handleFileChange(event);
 					}}
 					type="file"
-                    accept="image/*"
+					accept="image/*"
 					className="form-control-file"
 					name="worksheet"
 					required

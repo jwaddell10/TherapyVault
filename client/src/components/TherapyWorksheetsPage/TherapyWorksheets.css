@@ -23,4 +23,17 @@
 
 .upload-container {
 	display: flex;
+	gap: 1rem;
+}
+
+.upload-link {
+	display: flex;
+	align-items: center;
+	gap: 0.25rem;
+	color: blue;
+	text-decoration: none;
+}
+
+.upload-link:hover {
+	text-decoration: underline;
 }

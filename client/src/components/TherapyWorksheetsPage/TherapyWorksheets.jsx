@@ -5,6 +5,7 @@ import { useState } from "react";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
 import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
 import DisplayFilesFolders from "./DisplayFilesFolders.jsx";
+import { Link } from "react-router-dom";
 import "./TherapyWorksheets.css";
 
 export default function TherapyWorksheets() {
@@ -29,13 +30,18 @@ export default function TherapyWorksheets() {
 					<header className="worksheets-header">
 						<h1>Worksheets</h1>
 						<div className="upload-container">
-							<h1 onClick={handleUploadFolder}>
-								<DriveFolderUploadIcon />
-								Upload Folder
-							</h1>
-							<h1 onClick={handleUploadFile}>
+							<Link
+								className="upload-link"
+								onClick={handleUploadFolder}
+							>
+								<DriveFolderUploadIcon /> Upload Folder
+							</Link>
+							<Link
+								className="upload-link"
+								onClick={handleUploadFile}
+							>
 								<UploadFileIcon /> Upload File
-							</h1>
+							</Link>
 						</div>
 						{popupFolderForm && (
 							<>
@@ -48,6 +54,7 @@ export default function TherapyWorksheets() {
 						{popupUploadForm && (
 							<>
 								<div className="background"></div>
+								<Link></Link>
 								<UploadForm
 									setPopupUploadForm={setPopupUploadForm}
 								></UploadForm>
