@@ -5,10 +5,14 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import PopUpForm from "./PopUpForm";
 
 export default function DisplayFilesFolders() {
+	//stuck on how to change edit state of single item, need to do it based on ID, need to pass id somehow...
 	const { files, folders } = useFetchFilesFolders();
+	const [isEditingId, setIsEditingId] = useState(null);
+	const [isEditing, setIsEditing] = useState(false);
 	const [y, setY] = useState(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const ref = useRef();
+	//if isEditing at the id is true, it should be an input
 
 	useClickOnOutside(ref, () => setIsModalOpen(false));
 
@@ -29,20 +33,30 @@ export default function DisplayFilesFolders() {
 				{data?.map((item, id) => {
 					return (
 						<tr key={id}>
-							<td>{item.title}</td>
+							{isEditing && isEditingId === id ? (
+								<input />
+							) : (
+								<td>{item.title}</td>
+							)}
 							<td>&nbsp;</td>
 							<td>&nbsp;</td>
 							<td>&nbsp;</td>
 							<td>
 								<MoreHorizIcon
 									onClick={(event) => {
+										setIsEditingId(id);
 										setIsModalOpen(true);
 										setY(event.pageY);
 									}}
 								/>
 								{isModalOpen && (
 									<div ref={ref}>
-										<PopUpForm y={y} />
+										<PopUpForm
+											id={id}
+											isEditing={isEditing}
+											setIsEditing={setIsEditing}
+											y={y}
+										/>
 									</div>
 								)}
 							</td>

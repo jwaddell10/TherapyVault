@@ -18,7 +18,6 @@ export default function CreateFolder({ setPopupFolderForm }) {
 	};
 
 	const handleSubmit = async (event) => {
-		// setPopupFolderForm(true)
 		event.preventDefault();
 		setPopupFolderForm(false);
 		try {
@@ -26,8 +25,6 @@ export default function CreateFolder({ setPopupFolderForm }) {
 		} catch (error) {
 			console.log(error, "error");
 		}
-		// const {name, value}
-		// setFormData((prevState) => {( ...prevState, [name]: value)})
 	};
 	return (
 		<form className="folder-form" onSubmit={handleSubmit}>

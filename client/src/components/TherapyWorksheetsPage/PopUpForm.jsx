@@ -1,14 +1,10 @@
-import { useState, useRef } from "react";
-import useClickOnOutside from "../helpers/useClickOnOutside";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import styled from "styled-components";
 
-export default function PopUpForm({ y }) {
-    console.log(y, 'y in popup')
-	// const handleClick = () => {
-	// 	setPopUp(false);
-	// };
+export default function PopUpForm({ isEditing, setIsEditing, y }) {
+    const handleEditing = () => {
+        setIsEditing(!isEditing)
+    }
 	return (
 		<>
 			<section
@@ -21,12 +17,11 @@ export default function PopUpForm({ y }) {
 					width: "20rem",
 					border: "1px solid black",
 				}}
-				// onClick={handleClick}
 				type="text"
 			>
 				<div>
-					<EditIcon />
-					Edit
+					<EditIcon onClick={handleEditing} />
+					{isEditing ? "Save" : "Edit"}
 					<DeleteIcon />
 					Delete
 				</div>
