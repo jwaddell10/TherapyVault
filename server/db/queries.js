@@ -44,12 +44,26 @@ module.exports = {
 			throw new Error(error);
 		}
 	},
-	findFolders: async() => {
+	findFolder: async (id) => {
+		try {
+			const folder = await prisma.folder.findUnique({
+				where: {
+					id: id,
+				},
+			});
+			console.log(folder, 'folder in find')
+			return folder;
+		} catch (error) {
+			console.log(error, "error");
+			throw new Error(error);
+		}
+	},
+	findFolders: async () => {
 		try {
 			const folders = await prisma.folder.findMany();
 			return folders;
-		} catch(error) {
-			throw new Error(error)
+		} catch (error) {
+			throw new Error(error);
 		}
 	},
 	createFolder: async (title) => {

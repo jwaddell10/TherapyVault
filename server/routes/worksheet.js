@@ -24,6 +24,6 @@ router.post(
 	worksheetController.uploadWorksheet
 );
 
-router.get("/worksheet/:id", worksheetController.getOne);
+// router.get("/worksheet/:id", worksheetController.getOne);
 
 module.exports = router;
