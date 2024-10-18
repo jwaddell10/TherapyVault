@@ -5,18 +5,54 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import PopUpForm from "./PopUpForm";
 
 export default function DisplayFilesFolders() {
-	//stuck on how to change edit state of single item, need to do it based on ID, need to pass id somehow...
-	const { files, folders } = useFetchFilesFolders();
 	const [isEditingId, setIsEditingId] = useState(null);
+	// const [items, setItems] = useState("")
 	const [isEditing, setIsEditing] = useState(false);
 	const [y, setY] = useState(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	
+	//close popup when user clicks outside popup div
 	const ref = useRef();
-	//if isEditing at the id is true, it should be an input
-
 	useClickOnOutside(ref, () => setIsModalOpen(false));
 
+	const { files, folders } = useFetchFilesFolders();
 	const data = (files?.files || []).concat(folders?.folders || []);
+	//sort data by id
+	const sortedData = data.sort((a, b) => a.id - b.id);
+
+	const handleKeyDown = async (id, event) => {
+		// console.log('keydown runs')
+		if (event.key === "Enter") {
+			try {
+				const response = await fetch(
+					`${import.meta.env.VITE_API_URL}/folder/${id}/update`,
+					{
+						method: "PUT",
+						body: JSON.stringify({ title: event.target.value }),
+						headers: {
+							"Content-Type": "application/json",
+						},
+					}
+				);
+				if (!response.ok) {
+					throw new Error("Network response was not ok");
+				}
+				const result = await response.json();
+				console.log(response, "response");
+				console.log(result, "result");
+				setIsEditing(!isEditing);
+				// setItems(prev => [...prev, result])
+				// console.log(items, 'items after update')
+
+				// Optionally update the state or UI here
+			} catch (error) {
+				console.error(
+					"There was a problem with the PUT request:",
+					error
+				);
+			}
+		}
+	};
 
 	return (
 		<table style={{ width: "-webkit-fill-available" }}>
@@ -30,11 +66,15 @@ export default function DisplayFilesFolders() {
 				</tr>
 			</thead>
 			<tbody>
-				{data?.map((item, id) => {
+				{sortedData?.map((item) => {
 					return (
-						<tr key={id}>
-							{isEditing && isEditingId === id ? (
-								<input />
+						<tr key={item.id}>
+							{isEditing && isEditingId === item.id ? (
+								<input
+									onKeyDown={(event) => {
+										handleKeyDown(item.id, event);
+									}}
+								/>
 							) : (
 								<td>{item.title}</td>
 							)}
@@ -44,7 +84,7 @@ export default function DisplayFilesFolders() {
 							<td>
 								<MoreHorizIcon
 									onClick={(event) => {
-										setIsEditingId(id);
+										setIsEditingId(item.id);
 										setIsModalOpen(true);
 										setY(event.pageY);
 									}}
@@ -52,7 +92,7 @@ export default function DisplayFilesFolders() {
 								{isModalOpen && (
 									<div ref={ref}>
 										<PopUpForm
-											id={id}
+											id={item.id}
 											isEditing={isEditing}
 											setIsEditing={setIsEditing}
 											y={y}

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import CloseIcon from "@rsuite/icons/Close";
-import postUploadForm from "../../helpers/FetchRequests/postUploadForm";
-import "./UploadForm.css";
+import postUploadForm from "../FetchRequests/postUploadForm";
+import "./UploadFileForm.css";
 
 export default function UploadForm({ setPopupUploadForm }) {
 	const [formData, setFormData] = useState({

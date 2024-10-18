@@ -1,5 +1,5 @@
 import SideBar from "../SideBar/SideBar.jsx";
-import UploadForm from "../helpers/UploadForm/UploadForm.jsx";
+import UploadForm from "../helpers/UploadForm/UploadFileForm.jsx";
 import CreateFolder from "../helpers/CreateFolder.jsx";
 import { useState } from "react";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
