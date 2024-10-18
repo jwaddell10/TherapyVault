@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export default function useFetchFilesFolders() {
+export default function useFetchFilesFolders(isEditing) {
 	const [files, setFiles] = useState([]);
 	const [folders, setFolders] = useState([]);
 
@@ -18,7 +18,7 @@ export default function useFetchFilesFolders() {
 			}
 		};
 		fetchData();
-	}, []);
+	}, [isEditing]);
 	// console.log(files, 'files', folders, 'folders')
 	return { files, folders };
 }

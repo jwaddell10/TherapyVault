@@ -15,7 +15,7 @@ export default function DisplayFilesFolders() {
 	const ref = useRef();
 	useClickOnOutside(ref, () => setIsModalOpen(false));
 
-	const { files, folders } = useFetchFilesFolders();
+	const { files, folders } = useFetchFilesFolders(isEditing);
 	const data = (files?.files || []).concat(folders?.folders || []);
 	//sort data by id
 	const sortedData = data.sort((a, b) => a.id - b.id);
@@ -37,14 +37,8 @@ export default function DisplayFilesFolders() {
 				if (!response.ok) {
 					throw new Error("Network response was not ok");
 				}
-				const result = await response.json();
-				console.log(response, "response");
-				console.log(result, "result");
+				// const result = await response.json();
 				setIsEditing(!isEditing);
-				// setItems(prev => [...prev, result])
-				// console.log(items, 'items after update')
-
-				// Optionally update the state or UI here
 			} catch (error) {
 				console.error(
 					"There was a problem with the PUT request:",
