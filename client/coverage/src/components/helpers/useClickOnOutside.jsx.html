@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/components/TherapyWorksheets/TherapyWorksheets.jsx</title>
+    <title>Code coverage report for src/components/helpers/useClickOnOutside.jsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/components/TherapyWorksheets</a> TherapyWorksheets.jsx</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/components/helpers</a> useClickOnOutside.jsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">20.83% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>5/24</span>
+                <span class='fraction'>15/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">20.83% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/24</span>
+                <span class='fraction'>15/20</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -92,6 +92,7 @@
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
 <a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -99,54 +100,53 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import SideBar from "../SideBar/SideBar.jsx";
-import UploadForm from "../helpers/UploadForm/UploadForm.jsx";
-import { useState } from "react";
-import FileUploadIcon from '@rsuite/icons/FileUpload';
-import "./TherapyWorksheets.css";
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useEffect } from "react";
 &nbsp;
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >export default function TherapyWorksheets() {</span></span>
-<span class="cstat-no" title="statement not covered" >	const [popup, setPopup] = useState(false)</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >	const handleUpload = () =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >		setPopup(true);</span>
-<span class="cstat-no" title="statement not covered" >	}</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >	return (</span>
-<span class="cstat-no" title="statement not covered" >		&lt;section className="page-container"&gt;</span>
-<span class="cstat-no" title="statement not covered" >			&lt;SideBar /&gt;</span>
-<span class="cstat-no" title="statement not covered" >			&lt;main className="main-content"&gt;</span>
-<span class="cstat-no" title="statement not covered" >				&lt;section className="header-container"&gt;</span>
-<span class="cstat-no" title="statement not covered" >					&lt;header className="worksheets-header"&gt;</span>
-<span class="cstat-no" title="statement not covered" >						&lt;h1&gt;Worksheets&lt;/h1&gt;</span>
-<span class="cstat-no" title="statement not covered" >						&lt;h1 onClick={handleUpload}&gt;&lt;FileUploadIcon /&gt; Upload File&lt;/h1&gt;</span>
-<span class="cstat-no" title="statement not covered" >						{popup &amp;&amp; &lt;UploadForm setPopup={setPopup}&gt;&lt;/UploadForm&gt;}</span>
-<span class="cstat-no" title="statement not covered" >					&lt;/header&gt;</span>
-<span class="cstat-no" title="statement not covered" >				&lt;/section&gt;</span>
-<span class="cstat-no" title="statement not covered" >			&lt;/main&gt;</span>
-<span class="cstat-no" title="statement not covered" >		&lt;/section&gt;</span>
+export default function useOnClickOutside(ref, handler) {
+	useEffect(
+		() =&gt; {
+			const listener = <span class="fstat-no" title="function not covered" >(event) =&gt; {</span>
+				// Do nothing if clicking ref's element or descendent elements
+<span class="cstat-no" title="statement not covered" >				if (!ref.current || ref.current.contains(event.target)) {</span>
+<span class="cstat-no" title="statement not covered" >					return;</span>
+<span class="cstat-no" title="statement not covered" >				}</span>
+<span class="cstat-no" title="statement not covered" >				handler(event);</span>
+<span class="cstat-no" title="statement not covered" >			};</span>
+			document.addEventListener("mousedown", listener);
+			document.addEventListener("touchstart", listener);
+			return () =&gt; {
+				document.removeEventListener("mousedown", listener);
+				document.removeEventListener("touchstart", listener);
+			};
+		},
+		// Add ref and handler to effect dependencies
+		// It's worth noting that because passed in handler is a new ...
+		// ... function on every render that will cause this effect ...
+		// ... callback/cleanup to run every render. It's not a big deal ...
+		// ... but to optimize you can wrap handler in useCallback before ...
+		// ... passing it into this hook.
+		[ref, handler]
 	);
-<span class="cstat-no" title="statement not covered" >}</span>
+}
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -154,7 +154,7 @@ import "./TherapyWorksheets.css";
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-10-04T19:25:45.883Z
+                at 2024-10-18T20:28:43.866Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

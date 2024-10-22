@@ -63,7 +63,7 @@ export default function NavBar() {
 										/>
 										<Link to="/sign-up">Sign up</Link>
 									</StyledLink>
-								</div>
+								</div> 
 							) : (
 								<div className="session-links">
 									<StyledLink>
@@ -80,7 +80,7 @@ export default function NavBar() {
 									</StyledLink>
 									<StyledLink>
 										<LogoutIcon sx={{ color: "white" }} />
-										<Link onClick={handleLogout}>
+										<Link to="/" onClick={handleLogout}>
 											Log out
 										</Link>
 									</StyledLink>

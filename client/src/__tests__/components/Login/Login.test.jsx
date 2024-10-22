@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import Login from "./Login";
+import Login from "../../../components/Login/Login";
 import { MemoryRouter } from "react-router-dom";
 import { expect, it, describe } from "vitest";
 

@@ -1,4 +1,3 @@
-import SideBar from "../SideBar/SideBar.jsx";
 import UploadForm from "../helpers/UploadForm/UploadFileForm.jsx";
 import CreateFolder from "../helpers/CreateFolder.jsx";
 import { useState } from "react";
@@ -9,9 +8,6 @@ import { Link } from "react-router-dom";
 import "./TherapyWorksheets.css";
 
 export default function TherapyWorksheets() {
-	//display folders, need to fetch folders from database, display them to user
-	//dont want folder and file component, because they'd be out of order
-	//could do const data = fetchData, then data.map in this component, maybe useffect?
 	const [popupUploadForm, setPopupUploadForm] = useState(false);
 	const [popupFolderForm, setPopupFolderForm] = useState(false);
 	const handleUploadFile = () => {

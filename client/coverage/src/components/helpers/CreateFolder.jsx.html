@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/components/helpers/useFetchFilters.jsx</title>
+    <title>Code coverage report for src/components/helpers/CreateFolder.jsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/components/helpers</a> useFetchFilters.jsx</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/components/helpers</a> CreateFolder.jsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">3.57% </span>
+                <span class="strong">10.52% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>1/28</span>
+                <span class='fraction'>4/38</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">3.57% </span>
+                <span class="strong">10.52% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>1/28</span>
+                <span class='fraction'>4/38</span>
             </div>
         
             
@@ -95,7 +95,31 @@
 <a name='L30'></a><a href='#L30'>30</a>
 <a name='L31'></a><a href='#L31'>31</a>
 <a name='L32'></a><a href='#L32'>32</a>
-<a name='L33'></a><a href='#L33'>33</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a>
+<a name='L39'></a><a href='#L39'>39</a>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a>
+<a name='L44'></a><a href='#L44'>44</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -112,7 +136,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -126,38 +149,48 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useState, useEffect } from "react";
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useState } from "react";
+import CloseIcon from "@rsuite/icons/Close";
+import postUploadForm from "./FetchRequests/postUploadForm";
+import "./CreateFolder.css";
 &nbsp;
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >export default function useFetchFilters() {</span></span>
-<span class="cstat-no" title="statement not covered" >	const [demographics, setDemographics] = useState(null);</span>
-<span class="cstat-no" title="statement not covered" >	const [topics, setTopics] = useState(null);</span>
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >export default function CreateFolder({ setPopupFolderForm }) {</span></span>
+<span class="cstat-no" title="statement not covered" >	const [formData, setFormData] = useState({</span>
+<span class="cstat-no" title="statement not covered" >		name: "",</span>
+<span class="cstat-no" title="statement not covered" >	});</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >	useEffect(() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >		fetch(`${import.meta.env.VITE_API_URL}/demographics`, {</span>
-<span class="cstat-no" title="statement not covered" >			method: "GET",</span>
-<span class="cstat-no" title="statement not covered" >		})</span>
-<span class="cstat-no" title="statement not covered" >			.then((response) =&gt; response.json())</span>
-<span class="cstat-no" title="statement not covered" >			.then((data) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >				setDemographics(data);</span>
-<span class="cstat-no" title="statement not covered" >			})</span>
-<span class="cstat-no" title="statement not covered" >			.catch((error) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >				throw error;</span>
-<span class="cstat-no" title="statement not covered" >			});</span>
+<span class="cstat-no" title="statement not covered" >	const handleChange = (event) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >		const { name, value } = event.target;</span>
+<span class="cstat-no" title="statement not covered" >		setFormData((prevState) =&gt; ({ ...prevState, [name]: value }));</span>
+<span class="cstat-no" title="statement not covered" >	};</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >		fetch(`${import.meta.env.VITE_API_URL}/topics`, {</span>
-<span class="cstat-no" title="statement not covered" >			method: "GET",</span>
-<span class="cstat-no" title="statement not covered" >		})</span>
-<span class="cstat-no" title="statement not covered" >			.then((response) =&gt; response.json())</span>
-<span class="cstat-no" title="statement not covered" >			.then((data) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >				setTopics(data);</span>
-<span class="cstat-no" title="statement not covered" >			})</span>
-<span class="cstat-no" title="statement not covered" >			.catch((error) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >				throw error;</span>
-<span class="cstat-no" title="statement not covered" >			});</span>
-<span class="cstat-no" title="statement not covered" >	}, []);</span>
+<span class="cstat-no" title="statement not covered" >	const handleClose = () =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >		setPopupFolderForm(false);</span>
+<span class="cstat-no" title="statement not covered" >	};</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >	return { demographics, topics };</span>
+<span class="cstat-no" title="statement not covered" >	const handleSubmit = async (event) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >		event.preventDefault();</span>
+<span class="cstat-no" title="statement not covered" >		setPopupFolderForm(false);</span>
+<span class="cstat-no" title="statement not covered" >		try {</span>
+<span class="cstat-no" title="statement not covered" >			await postUploadForm(formData, "folder");</span>
+<span class="cstat-no" title="statement not covered" >		} catch (error) {</span>
+<span class="cstat-no" title="statement not covered" >			console.log(error, "error");</span>
+<span class="cstat-no" title="statement not covered" >		}</span>
+<span class="cstat-no" title="statement not covered" >	};</span>
+<span class="cstat-no" title="statement not covered" >	return (</span>
+<span class="cstat-no" title="statement not covered" >		&lt;form className="folder-form" onSubmit={handleSubmit}&gt;</span>
+<span class="cstat-no" title="statement not covered" >			&lt;div onClick={handleClose}&gt;</span>
+<span class="cstat-no" title="statement not covered" >				&lt;CloseIcon /&gt;</span>
+<span class="cstat-no" title="statement not covered" >			&lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >			&lt;label htmlFor=""&gt;Name:&lt;/label&gt;</span>
+<span class="cstat-no" title="statement not covered" >			&lt;input</span>
+<span class="cstat-no" title="statement not covered" >				type="text"</span>
+<span class="cstat-no" title="statement not covered" >				name="name"</span>
+<span class="cstat-no" title="statement not covered" >				value={formData.name}</span>
+<span class="cstat-no" title="statement not covered" >				onChange={handleChange}</span>
+<span class="cstat-no" title="statement not covered" >			/&gt;</span>
+<span class="cstat-no" title="statement not covered" >		&lt;/form&gt;</span>
+	);
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;</pre></td></tr></table></pre>
 
@@ -166,7 +199,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-10-04T19:25:45.883Z
+                at 2024-10-18T20:28:43.866Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

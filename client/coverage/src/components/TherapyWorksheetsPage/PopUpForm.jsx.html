@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/components/helpers/postFormData.jsx</title>
+    <title>Code coverage report for src/components/TherapyWorksheetsPage/PopUpForm.jsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/components/helpers</a> postFormData.jsx</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/components/TherapyWorksheetsPage</a> PopUpForm.jsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">7.4% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>2/27</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">7.4% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/22</span>
+                <span class='fraction'>2/27</span>
             </div>
         
             
@@ -86,8 +86,16 @@
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
 <a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L24'></a><a href='#L24'>24</a>
+<a name='L25'></a><a href='#L25'>25</a>
+<a name='L26'></a><a href='#L26'>26</a>
+<a name='L27'></a><a href='#L27'>27</a>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -106,31 +114,47 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >export default async function postFormData(formData, url) {</span></span>
-<span class="cstat-no" title="statement not covered" >	const { username, password, confirmPassword } = formData;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 &nbsp;
-<span class="cstat-no" title="statement not covered" >	return fetch(`${import.meta.env.VITE_API_URL}${url}`, {</span>
-<span class="cstat-no" title="statement not covered" >		method: "POST",</span>
-<span class="cstat-no" title="statement not covered" >		body: JSON.stringify({</span>
-<span class="cstat-no" title="statement not covered" >			username,</span>
-<span class="cstat-no" title="statement not covered" >			password,</span>
-<span class="cstat-no" title="statement not covered" >			confirmPassword,</span>
-<span class="cstat-no" title="statement not covered" >		}),</span>
-<span class="cstat-no" title="statement not covered" >		headers: { "Content-type": "application/json" },</span>
-<span class="cstat-no" title="statement not covered" >	})</span>
-<span class="cstat-no" title="statement not covered" >		.then((response) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >			if (!response.ok) throw new Error(response.status);</span>
-<span class="cstat-no" title="statement not covered" >			return response.json();</span>
-<span class="cstat-no" title="statement not covered" >		})</span>
-<span class="cstat-no" title="statement not covered" >		.then((data) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >			return data;</span>
-<span class="cstat-no" title="statement not covered" >		})</span>
-<span class="cstat-no" title="statement not covered" >		.catch((error) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >			throw error;</span>
-<span class="cstat-no" title="statement not covered" >		});</span>
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >export default function PopUpForm({ isEditing, setIsEditing, y }) {</span></span>
+<span class="cstat-no" title="statement not covered" >    const handleEditing = () =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        setIsEditing(!isEditing)</span>
+<span class="cstat-no" title="statement not covered" >    }</span>
+<span class="cstat-no" title="statement not covered" >	return (</span>
+<span class="cstat-no" title="statement not covered" >		&lt;&gt;</span>
+<span class="cstat-no" title="statement not covered" >			&lt;section</span>
+<span class="cstat-no" title="statement not covered" >				style={{</span>
+<span class="cstat-no" title="statement not covered" >                    display: "flex",</span>
+<span class="cstat-no" title="statement not covered" >                    flexDirection: "column",</span>
+<span class="cstat-no" title="statement not covered" >					position: "absolute",</span>
+<span class="cstat-no" title="statement not covered" >					top: `${y}px`,</span>
+<span class="cstat-no" title="statement not covered" >					height: "2rem",</span>
+<span class="cstat-no" title="statement not covered" >					width: "20rem",</span>
+<span class="cstat-no" title="statement not covered" >					border: "1px solid black",</span>
+<span class="cstat-no" title="statement not covered" >				}}</span>
+<span class="cstat-no" title="statement not covered" >				type="text"</span>
+			&gt;
+<span class="cstat-no" title="statement not covered" >				&lt;div&gt;</span>
+<span class="cstat-no" title="statement not covered" >					&lt;EditIcon onClick={handleEditing} /&gt;</span>
+<span class="cstat-no" title="statement not covered" >					{isEditing ? "Save" : "Edit"}</span>
+<span class="cstat-no" title="statement not covered" >					&lt;DeleteIcon /&gt;</span>
+					Delete
+<span class="cstat-no" title="statement not covered" >				&lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >			&lt;/section&gt;</span>
+<span class="cstat-no" title="statement not covered" >		&lt;/&gt;</span>
+	);
 <span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;</pre></td></tr></table></pre>
 
@@ -139,7 +163,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-10-04T19:25:45.883Z
+                at 2024-10-18T20:28:43.866Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

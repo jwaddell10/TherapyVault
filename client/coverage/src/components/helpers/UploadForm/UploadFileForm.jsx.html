@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/components/helpers/UploadForm/UploadForm.jsx</title>
+    <title>Code coverage report for src/components/helpers/UploadForm/UploadFileForm.jsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../../prettify.css" />
     <link rel="stylesheet" href="../../../../base.css" />
@@ -19,13 +19,13 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">src/components/helpers/UploadForm</a> UploadForm.jsx</h1>
+        <h1><a href="../../../../index.html">All files</a> / <a href="index.html">src/components/helpers/UploadForm</a> UploadFileForm.jsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">2.91% </span>
+                <span class="strong">3.8% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>3/103</span>
+                <span class='fraction'>4/105</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">2.91% </span>
+                <span class="strong">3.8% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>3/103</span>
+                <span class='fraction'>4/105</span>
             </div>
         
             
@@ -179,9 +179,12 @@
 <a name='L114'></a><a href='#L114'>114</a>
 <a name='L115'></a><a href='#L115'>115</a>
 <a name='L116'></a><a href='#L116'>116</a>
-<a name='L117'></a><a href='#L117'>117</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L117'></a><a href='#L117'>117</a>
+<a name='L118'></a><a href='#L118'>118</a>
+<a name='L119'></a><a href='#L119'>119</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -223,6 +226,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -297,9 +301,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useState } from "react";
 import CloseIcon from "@rsuite/icons/Close";
-import postUploadForm from "../postUploadForm";
+import postUploadForm from "../FetchRequests/postUploadForm";
+import "./UploadFileForm.css";
 &nbsp;
-<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >export default function UploadForm({ setPopup }) {</span></span>
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >export default function UploadForm({ setPopupUploadForm }) {</span></span>
 <span class="cstat-no" title="statement not covered" >	const [formData, setFormData] = useState({</span>
 <span class="cstat-no" title="statement not covered" >		title: "",</span>
 <span class="cstat-no" title="statement not covered" >		demographic: "",</span>
@@ -318,7 +323,7 @@ import postUploadForm from "../postUploadForm";
 <span class="cstat-no" title="statement not covered" >	};</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >	const handleClose = () =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >		setPopup(false);</span>
+<span class="cstat-no" title="statement not covered" >		setPopupUploadForm(false);</span>
 <span class="cstat-no" title="statement not covered" >	};</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >	const handleSubmit = async (event) =&gt; {</span>
@@ -333,7 +338,7 @@ import postUploadForm from "../postUploadForm";
 &nbsp;
 <span class="cstat-no" title="statement not covered" >		try {</span>
 <span class="cstat-no" title="statement not covered" >			await postUploadForm(formDataToSend, "worksheet");</span>
-<span class="cstat-no" title="statement not covered" >			setPopup(false);</span>
+<span class="cstat-no" title="statement not covered" >			setPopupUploadForm(false);</span>
 <span class="cstat-no" title="statement not covered" >		} catch (error) {</span>
 <span class="cstat-no" title="statement not covered" >			console.error("Error uploading worksheet:", error);</span>
 <span class="cstat-no" title="statement not covered" >		}</span>
@@ -341,6 +346,7 @@ import postUploadForm from "../postUploadForm";
 &nbsp;
 <span class="cstat-no" title="statement not covered" >	return (</span>
 <span class="cstat-no" title="statement not covered" >		&lt;form</span>
+<span class="cstat-no" title="statement not covered" >			className="upload-form"</span>
 <span class="cstat-no" title="statement not covered" >			onSubmit={handleSubmit}</span>
 <span class="cstat-no" title="statement not covered" >			encType="multipart/form-data"</span>
 <span class="cstat-no" title="statement not covered" >			method="post"</span>
@@ -402,7 +408,7 @@ import postUploadForm from "../postUploadForm";
 <span class="cstat-no" title="statement not covered" >						handleFileChange(event);</span>
 <span class="cstat-no" title="statement not covered" >					}}</span>
 <span class="cstat-no" title="statement not covered" >					type="file"</span>
-<span class="cstat-no" title="statement not covered" >                    accept="image/*"</span>
+<span class="cstat-no" title="statement not covered" >					accept="image/*"</span>
 <span class="cstat-no" title="statement not covered" >					className="form-control-file"</span>
 <span class="cstat-no" title="statement not covered" >					name="worksheet"</span>
 <span class="cstat-no" title="statement not covered" >					required</span>
@@ -418,7 +424,7 @@ import postUploadForm from "../postUploadForm";
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-10-04T19:25:45.883Z
+                at 2024-10-18T20:28:43.866Z
             </div>
         <script src="../../../../prettify.js"></script>
         <script>
