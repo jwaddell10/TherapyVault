@@ -6,5 +6,6 @@ router.get("/", folderController.getFolder);
 router.post("/", folderController.postFolder);
 
 router.put("/:id/update", folderController.updateFolder)
+router.delete("/:id/delete", folderController.deleteFolder)
 
 module.exports = router;

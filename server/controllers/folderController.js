@@ -30,3 +30,14 @@ exports.updateFolder = expressAsyncHandler(async (req, res, next) => {
 
 	res.json(updatedFolder);
 });
+
+exports.deleteFolder = expressAsyncHandler(async (req, res, next) => {
+	const parsedId = parseInt(req.params.id);
+	const folderToDelete = await db.deleteFolder(parsedId);
+	// console.log(folderToDelete, 'folder to delte')
+	if (folderToDelete) {
+		res.json(folderToDelete);
+	} else {
+		res.status(400).json({ message: "Error occurred" });
+	}
+});

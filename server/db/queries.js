@@ -51,7 +51,6 @@ module.exports = {
 					id: id,
 				},
 			});
-			console.log(folder, 'folder in find')
 			return folder;
 		} catch (error) {
 			console.log(error, "error");
@@ -67,11 +66,27 @@ module.exports = {
 		}
 	},
 	createFolder: async (title) => {
-		const folder = await prisma.folder.create({
-			data: {
-				title: title,
-			},
-		});
-		return folder;
+		try {
+			const folder = await prisma.folder.create({
+				data: {
+					title: title,
+				},
+			});
+			return folder;
+		} catch (error) {
+			throw new Error(error);
+		}
+	},
+	deleteFolder: async (id) => {
+		try {
+			const deletedFolder = await prisma.folder.delete({
+				where: {
+					id,
+				},
+			});
+			return deletedFolder;
+		} catch (error) {
+			throw new Error(error);
+		}
 	},
 };
