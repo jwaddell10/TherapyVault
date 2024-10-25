@@ -2,19 +2,14 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function OptionsForm({
-	deletedItemId,
 	isEditing,
 	setIsEditing,
 	position,
-	onDelete
+	onDelete,
 }) {
 	const handleEditing = () => {
 		setIsEditing(!isEditing);
 	};
-
-	// const handleFolderToDelete = () => {
-	// 	console.log('it works in options')
-	// }
 
 	return (
 		<>

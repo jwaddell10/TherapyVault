@@ -1,13 +1,15 @@
 import { useState, useRef } from "react";
-import useFetchFilesFolders from "../helpers/FetchRequests/useFetchFilesFolders";
 import useClickOnOutside from "../helpers/useClickOnOutside";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import OptionsForm from "./OptionsForm";
 
-export default function DisplayFilesFolders() {
-	const [isEditing, setIsEditing] = useState(false);
+export default function DisplayFilesFolders({
+	filesAndFoldersSortedById,
+	setRefreshTrigger,
+	isEditing,
+	setIsEditing,
+}) {
 	const [isEditingId, setIsEditingId] = useState(null);
-	const [refreshTrigger, setRefreshTrigger] = useState(null);
 
 	const [itemToDelete, setItemToDelete] = useState("");
 	const [deletedItemId, setDeletedItemId] = useState(null);
@@ -18,13 +20,6 @@ export default function DisplayFilesFolders() {
 	//close popup when user clicks outside popup div
 	const ref = useRef();
 	useClickOnOutside(ref, () => setIsModalOpen(false));
-
-	const { files, folders } = useFetchFilesFolders(isEditing, refreshTrigger);
-	const filesAndFoldersSortedById = (files?.files || [])
-		.concat(folders?.folders || [])
-		.sort((a, b) => a.id - b.id);
-
-	// console.log(typeof filesAndFoldersSortedById)
 
 	const handleFolderNameChange = async (id, event) => {
 		if (event.key === "Enter") {
@@ -74,7 +69,6 @@ export default function DisplayFilesFolders() {
 			}
 		} catch (error) {
 			console.error("Error deleting folder:", error);
-			// Optionally, show an error message to the user
 		}
 	};
 

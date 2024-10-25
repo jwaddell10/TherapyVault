@@ -3,7 +3,12 @@ import CloseIcon from "@rsuite/icons/Close";
 import postUploadForm from "./FetchRequests/postUploadForm";
 import "./CreateFolder.css";
 
-export default function CreateFolder({ setPopupFolderForm }) {
+export default function CreateFolder({
+	files,
+	setFiles,
+	setPopupFolderForm,
+	setRefreshTrigger,
+}) {
 	const [formData, setFormData] = useState({
 		name: "",
 	});
@@ -19,9 +24,12 @@ export default function CreateFolder({ setPopupFolderForm }) {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		setPopupFolderForm(false);
 		try {
-			await postUploadForm(formData, "folder");
+			const response = await postUploadForm(formData, "folder");
+			if (response) {
+				setPopupFolderForm(false);
+				setRefreshTrigger((prevState) => prevState + 1);
+			}
 		} catch (error) {
 			console.log(error, "error");
 		}

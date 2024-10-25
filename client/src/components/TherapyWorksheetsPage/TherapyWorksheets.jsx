@@ -6,8 +6,18 @@ import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
 import DisplayFilesFolders from "./DisplayFilesFolders.jsx";
 import { Link } from "react-router-dom";
 import "./TherapyWorksheets.css";
+import useFetchFilesFolders from "../helpers/FetchRequests/useFetchFilesFolders.jsx";
 
 export default function TherapyWorksheets() {
+	//state to refresh page when files/folders are altered
+	const [refreshTrigger, setRefreshTrigger] = useState(null);
+	const [isEditing, setIsEditing] = useState(false);
+
+	const { files, folders } = useFetchFilesFolders(isEditing, refreshTrigger);
+	const filesAndFoldersSortedById = (files?.files || [])
+		.concat(folders?.folders || [])
+		.sort((a, b) => a.id - b.id);
+	
 	const [popupUploadForm, setPopupUploadForm] = useState(false);
 	const [popupFolderForm, setPopupFolderForm] = useState(false);
 	const handleUploadFile = () => {
@@ -44,6 +54,7 @@ export default function TherapyWorksheets() {
 							<>
 								<div className="background"></div>
 								<CreateFolder
+									setRefreshTrigger={setRefreshTrigger}
 									setPopupFolderForm={setPopupFolderForm}
 								></CreateFolder>
 							</>
@@ -59,7 +70,12 @@ export default function TherapyWorksheets() {
 						)}
 					</header>
 				</section>
-				<DisplayFilesFolders />
+				<DisplayFilesFolders
+					filesAndFoldersSortedById={filesAndFoldersSortedById}
+					setRefreshTrigger={setRefreshTrigger}
+					isEditing={isEditing}
+					setIsEditing={setIsEditing}
+				/>
 			</main>
 		</section>
 	);
