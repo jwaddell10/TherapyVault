@@ -27,6 +27,7 @@ export default function TherapyWorksheets() {
 						<h1>Worksheets</h1>
 						<div className="upload-container">
 							<Link
+								role="uploadfolder"
 								className="upload-link"
 								onClick={handleUploadFolder}
 							>

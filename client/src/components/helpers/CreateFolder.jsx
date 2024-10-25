@@ -31,7 +31,7 @@ export default function CreateFolder({ setPopupFolderForm }) {
 			<div onClick={handleClose}>
 				<CloseIcon />
 			</div>
-			<label htmlFor="">Name:</label>
+			<label htmlFor="name">Name</label>
 			<input
 				type="text"
 				name="name"

@@ -9,6 +9,8 @@ describe("Therapy Worksheets", () => {
 			<TherapyWorksheets />
 		</MemoryRouter>
 	);
+	const uploadFolderButton = screen.getByText(/Upload Folder/i);
+
 
 	it("renders text on screen", () => {
 		expect(screen.getByText("Worksheets")).toBeInTheDocument();
@@ -17,8 +19,7 @@ describe("Therapy Worksheets", () => {
 	});
 
 	it("pops up form when user clicks upload links", () => {
-		const uploadFormButton = screen.getByText("Upload Folder")
-
-		fireEvent.click(uploadFormButton)
+		fireEvent.click(uploadFolderButton)
+		expect(screen.getByLabelText("Name")).toBeInTheDocument();
 	});
 });

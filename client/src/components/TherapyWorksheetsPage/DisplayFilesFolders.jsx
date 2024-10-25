@@ -2,26 +2,28 @@ import { useState, useRef } from "react";
 import useFetchFilesFolders from "../helpers/FetchRequests/useFetchFilesFolders";
 import useClickOnOutside from "../helpers/useClickOnOutside";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import PopUpForm from "./PopUpForm";
+import OptionsForm from "./OptionsForm";
 
 export default function DisplayFilesFolders() {
-	const [isEditingId, setIsEditingId] = useState(null);
-	// const [items, setItems] = useState("")
 	const [isEditing, setIsEditing] = useState(false);
-	const [y, setY] = useState(null);
+	const [isEditingId, setIsEditingId] = useState(null);
+
+	const [itemToDelete, setItemToDelete] = useState("");
+	const [deletedItemId, setDeletedItemId] = useState(null);
+
+	const [position, setPosition] = useState(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
-	
+
 	//close popup when user clicks outside popup div
 	const ref = useRef();
 	useClickOnOutside(ref, () => setIsModalOpen(false));
 
 	const { files, folders } = useFetchFilesFolders(isEditing);
-	const data = (files?.files || []).concat(folders?.folders || []);
-	//sort data by id
-	const sortedData = data.sort((a, b) => a.id - b.id);
+	const filesAndFoldersSortedById = (files?.files || [])
+		.concat(folders?.folders || [])
+		.sort((a, b) => a.id - b.id);
 
-	const handleKeyDown = async (id, event) => {
-		// console.log('keydown runs')
+	const handleFolderNameChange = async (id, event) => {
 		if (event.key === "Enter") {
 			try {
 				const response = await fetch(
@@ -37,7 +39,6 @@ export default function DisplayFilesFolders() {
 				if (!response.ok) {
 					throw new Error("Network response was not ok");
 				}
-				// const result = await response.json();
 				setIsEditing(!isEditing);
 			} catch (error) {
 				console.error(
@@ -60,13 +61,13 @@ export default function DisplayFilesFolders() {
 				</tr>
 			</thead>
 			<tbody>
-				{sortedData?.map((item) => {
+				{filesAndFoldersSortedById?.map((item) => {
 					return (
 						<tr key={item.id}>
 							{isEditing && isEditingId === item.id ? (
 								<input
 									onKeyDown={(event) => {
-										handleKeyDown(item.id, event);
+										handleFolderNameChange(item.id, event);
 									}}
 								/>
 							) : (
@@ -80,16 +81,19 @@ export default function DisplayFilesFolders() {
 									onClick={(event) => {
 										setIsEditingId(item.id);
 										setIsModalOpen(true);
-										setY(event.pageY);
+										setDeletedItemId(item.id);
+										setPosition(event.pageY);
 									}}
 								/>
 								{isModalOpen && (
 									<div ref={ref}>
-										<PopUpForm
-											id={item.id}
+										<OptionsForm
+											deletedItemId={deletedItemId}
 											isEditing={isEditing}
 											setIsEditing={setIsEditing}
-											y={y}
+											itemToDelete={itemToDelete}
+											setItemToDelete={setItemToDelete}
+											position={position}
 										/>
 									</div>
 								)}
