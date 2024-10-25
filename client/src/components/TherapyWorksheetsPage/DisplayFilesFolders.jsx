@@ -7,6 +7,7 @@ import OptionsForm from "./OptionsForm";
 export default function DisplayFilesFolders() {
 	const [isEditing, setIsEditing] = useState(false);
 	const [isEditingId, setIsEditingId] = useState(null);
+	const [refreshTrigger, setRefreshTrigger] = useState(null);
 
 	const [itemToDelete, setItemToDelete] = useState("");
 	const [deletedItemId, setDeletedItemId] = useState(null);
@@ -18,10 +19,12 @@ export default function DisplayFilesFolders() {
 	const ref = useRef();
 	useClickOnOutside(ref, () => setIsModalOpen(false));
 
-	const { files, folders } = useFetchFilesFolders(isEditing);
+	const { files, folders } = useFetchFilesFolders(isEditing, refreshTrigger);
 	const filesAndFoldersSortedById = (files?.files || [])
 		.concat(folders?.folders || [])
 		.sort((a, b) => a.id - b.id);
+
+	// console.log(typeof filesAndFoldersSortedById)
 
 	const handleFolderNameChange = async (id, event) => {
 		if (event.key === "Enter") {
@@ -46,6 +49,32 @@ export default function DisplayFilesFolders() {
 					error
 				);
 			}
+		}
+	};
+
+	const handleFolderDelete = async () => {
+		const choice = window.confirm("Are you sure you want to delete this?");
+		if (!choice) return;
+		try {
+			const response = await fetch(
+				`${
+					import.meta.env.VITE_API_URL
+				}/folder/${deletedItemId}/delete`,
+				{
+					method: "DELETE",
+				}
+			);
+			const data = await response.json();
+			console.log(data, "data");
+			if (response.ok) {
+				setRefreshTrigger((prev) => prev + 1);
+				setIsModalOpen(false);
+			} else {
+				throw new Error("Delete operation failed");
+			}
+		} catch (error) {
+			console.error("Error deleting folder:", error);
+			// Optionally, show an error message to the user
 		}
 	};
 
@@ -88,6 +117,7 @@ export default function DisplayFilesFolders() {
 								{isModalOpen && (
 									<div ref={ref}>
 										<OptionsForm
+											onDelete={handleFolderDelete}
 											deletedItemId={deletedItemId}
 											isEditing={isEditing}
 											setIsEditing={setIsEditing}

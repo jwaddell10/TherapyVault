@@ -6,27 +6,16 @@ export default function OptionsForm({
 	isEditing,
 	setIsEditing,
 	position,
+	onDelete
 }) {
 	const handleEditing = () => {
 		setIsEditing(!isEditing);
 	};
 
-	const handleDelete = async () => {
-		try {
-			await fetch(
-				`${
-					import.meta.env.VITE_API_URL
-				}/folder/${deletedItemId}/delete`,
-				{
-					method: "DELETE",
-				}
-			)
-				.then((response) => response.json())
-				.then((data) => console.log(data, "data"));
-		} catch (error) {
-			throw new Error(error);
-		}
-	};
+	// const handleFolderToDelete = () => {
+	// 	console.log('it works in options')
+	// }
+
 	return (
 		<>
 			<section
@@ -44,7 +33,7 @@ export default function OptionsForm({
 				<div>
 					<EditIcon onClick={handleEditing} />
 					{isEditing ? "Save" : "Edit"}
-					<DeleteIcon onClick={handleDelete} />
+					<DeleteIcon onClick={onDelete} />
 					Delete
 				</div>
 			</section>
