@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
+import Header from "./TherapyWorksheetsPage/Header";
 
 export default function DisplayFolder() {
 	let { folderId } = useParams();
@@ -17,6 +18,7 @@ export default function DisplayFolder() {
 
 	return (
 		<>
+			<Header name={folderData}/>
 			<div>
 				{folderData && (
 					<ul>

@@ -31,10 +31,11 @@ model User {
 }
 
 model Folder {
-    id        Int      @id @default(autoincrement())
-    title     String   @db.VarChar(255)
-    createdAt DateTime @db.Date
-    User      User[]
+    id         Int          @id @default(autoincrement())
+    title      String       @db.VarChar(255)
+    createdAt  DateTime     @db.Date
+    User       User[]
+    Worksheets Worksheets[] @relation
 }
 
 model Worksheets {
@@ -44,6 +45,7 @@ model Worksheets {
     topics      Topic[]       @relation
     Demographic Demographic[]
     createdAt   DateTime      @db.Date
+    Folder      Folder[]
 }
 
 model Topic {
