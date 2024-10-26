@@ -5,6 +5,8 @@ import HomePage from "./components/HomePage/HomePage.jsx";
 import Login from "./components/Login/Login.jsx";
 import Signup from "./components/Signup/Signup.jsx";
 import TherapyWorksheets from "./components/TherapyWorksheetsPage/TherapyWorksheets.jsx";
+import DisplayFile from "./components/DisplayFile.jsx";
+import DisplayFolder from "./components/DisplayFolder.jsx";
 
 export default function App() {
 	// sessionStorage.clear();
@@ -20,7 +22,15 @@ export default function App() {
 				},
 				{
 					path: "/therapy-worksheets",
-					element: <TherapyWorksheets />
+					element: <TherapyWorksheets />,
+				},
+				{
+					path: "/therapy-worksheets/worksheet/:worksheetId",
+					element: <DisplayFile />,
+				},
+				{
+					path: "/therapy-worksheets/folder/:folderId",
+					element: <DisplayFolder />,
 				},
 				{
 					path: "/log-in",

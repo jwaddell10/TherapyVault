@@ -24,7 +24,7 @@ exports.getWorksheet = expressAsyncHandler(async(req, res, next) => {
 	console.log('get worksheet runs')
 })
 
-exports.getOne = expressAsyncHandler(async (req, res, next) => {
+exports.getOneWorksheet = expressAsyncHandler(async (req, res, next) => {
 	console.log(req.body, "this is req get one");
 });
 

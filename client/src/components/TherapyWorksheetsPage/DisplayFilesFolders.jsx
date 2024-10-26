@@ -2,6 +2,8 @@ import { useState, useRef } from "react";
 import useClickOnOutside from "../helpers/useClickOnOutside";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import OptionsForm from "./OptionsForm";
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function DisplayFilesFolders({
 	filesAndFoldersSortedById,
@@ -9,6 +11,7 @@ export default function DisplayFilesFolders({
 	isEditing,
 	setIsEditing,
 }) {
+	const navigate = useNavigate();
 	const [isEditingId, setIsEditingId] = useState(null);
 
 	const [itemToDelete, setItemToDelete] = useState("");
@@ -20,6 +23,18 @@ export default function DisplayFilesFolders({
 	//close popup when user clicks outside popup div
 	const ref = useRef();
 	useClickOnOutside(ref, () => setIsModalOpen(false));
+
+	const handleClick = async (id, itemType) => {
+		// try {
+		// 	const response = await fetch(
+		// 		`${import.meta.env.VITE_API_URL}/${itemType}/${id}`
+		// 	);
+		// 	const data = await response.json();
+		// } catch (error) {
+		// 	throw new Error(error);
+		// }
+		navigate(`/therapy-worksheets/${itemType}/${id}`);
+	};
 
 	const handleFolderNameChange = async (id, event) => {
 		if (event.key === "Enter") {
@@ -100,7 +115,15 @@ export default function DisplayFilesFolders({
 									}}
 								/>
 							) : (
-								<td>{item.title}</td>
+								<td>
+									<Link
+										onClick={() => {
+											handleClick(item.id, item.type);
+										}}
+									>
+										{item.title}
+									</Link>
+								</td>
 							)}
 							<td>&nbsp;</td>
 							<td>{formatDate(item.createdAt)}</td>

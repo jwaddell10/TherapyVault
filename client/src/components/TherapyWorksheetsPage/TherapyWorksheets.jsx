@@ -15,9 +15,11 @@ export default function TherapyWorksheets() {
 
 	const { files, folders } = useFetchFilesFolders(isEditing, refreshTrigger);
 	const filesAndFoldersSortedById = (files?.files || [])
+		.map((file) => ({ ...file, type: "worksheet" }))
 		.concat(folders?.folders || [])
+		.map((folder) => ({ ...folder, type: "folder" }))
 		.sort((a, b) => a.id - b.id);
-	
+
 	const [popupUploadForm, setPopupUploadForm] = useState(false);
 	const [popupFolderForm, setPopupFolderForm] = useState(false);
 	const handleUploadFile = () => {
