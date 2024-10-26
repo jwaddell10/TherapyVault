@@ -72,6 +72,12 @@ export default function DisplayFilesFolders({
 		}
 	};
 
+	const formatDate = (date) => {
+		const newDate = new Date(date);
+		const options = { month: "long", day: "numeric", year: "numeric" };
+		return newDate.toLocaleDateString("en-US", options);
+	};
+
 	return (
 		<table style={{ width: "-webkit-fill-available" }}>
 			<thead>
@@ -97,7 +103,7 @@ export default function DisplayFilesFolders({
 								<td>{item.title}</td>
 							)}
 							<td>&nbsp;</td>
-							<td>&nbsp;</td>
+							<td>{formatDate(item.createdAt)}</td>
 							<td>&nbsp;</td>
 							<td>
 								<MoreHorizIcon

@@ -25,12 +25,16 @@ model User {
     username   String?     @unique @db.VarChar(255)
     password   String?     @db.VarChar(255)
     profile    Profile?
+    folder     Folder?     @relation(fields: [folderId], references: [id])
     worksheets Worksheets?
+    folderId   Int?
 }
 
 model Folder {
-    id    Int    @id @default(autoincrement())
-    title String @db.VarChar(255)
+    id        Int      @id @default(autoincrement())
+    title     String   @db.VarChar(255)
+    createdAt DateTime @db.Date
+    User      User[]
 }
 
 model Worksheets {
@@ -39,6 +43,7 @@ model Worksheets {
     author      User          @relation(fields: [id], references: [id])
     topics      Topic[]       @relation
     Demographic Demographic[]
+    createdAt   DateTime      @db.Date
 }
 
 model Topic {

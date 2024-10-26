@@ -12,26 +12,28 @@ module.exports = {
 			});
 			return user;
 		} catch (error) {
-			console.log(error, "error");
-			throw error;
+			throw new Error(error);
 		}
 	},
 	createUser: async (username, password) => {
-		const securePassword = await bcrypt.hash(password, 10);
-		const user = await prisma.user.create({
-			data: {
-				username: username,
-				password: securePassword,
-			},
-		});
-		return user;
+		try {
+			const securePassword = await bcrypt.hash(password, 10);
+			const user = await prisma.user.create({
+				data: {
+					username: username,
+					password: securePassword,
+				},
+			});
+			return user;
+		} catch (error) {
+			throw new Error(error);
+		}
 	},
 	findDemographics: async () => {
 		try {
 			const demographics = await prisma.demographic.findMany();
 			return demographics;
 		} catch (error) {
-			console.log(error, "error");
 			throw new Error(error);
 		}
 	},
@@ -40,7 +42,6 @@ module.exports = {
 			const topics = await prisma.topic.findMany();
 			return topics;
 		} catch (error) {
-			console.log(error, "error");
 			throw new Error(error);
 		}
 	},
@@ -53,7 +54,6 @@ module.exports = {
 			});
 			return folder;
 		} catch (error) {
-			console.log(error, "error");
 			throw new Error(error);
 		}
 	},
@@ -70,6 +70,7 @@ module.exports = {
 			const folder = await prisma.folder.create({
 				data: {
 					title: title,
+					createdAt: new Date(),
 				},
 			});
 			return folder;
