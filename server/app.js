@@ -24,7 +24,7 @@ app.use(cors());
 app.use(logger("dev"));
 app.use(express.json());
 // app.use(bodyparser.urlencoded({ limit: "50mb", extended: true }));
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 // app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -105,6 +105,8 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/worksheet", worksheetRouter);
 app.use("/folder", folderRouter);
+app.use('/uploads', express.static('./uploads'));
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

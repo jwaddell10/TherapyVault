@@ -1,6 +1,6 @@
 import { useState } from "react";
 import CloseIcon from "@rsuite/icons/Close";
-import postUploadForm from "../../helpers/FetchRequests/postUploadForm";
+import postUploadFolderForm from "../../helpers/FetchRequests/postUploadFolderForm";
 import "./CreateFolder.css";
 
 export default function CreateFolder({
@@ -26,7 +26,7 @@ export default function CreateFolder({
 		// console.log('submit runs')
 		event.preventDefault();
 		try {
-			const response = await postUploadForm(formData, "folder");
+			const response = await postUploadFolderForm(formData, "folder");
 			if (response) {
 				setPopupFolderForm(false);
 				setRefreshTrigger((prevState) => prevState + 1);
