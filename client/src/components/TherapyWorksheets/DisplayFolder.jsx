@@ -1,10 +1,11 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Header from "./TherapyWorksheetsPage/Header";
+import Header from "./TherapyWorksheetHeader";
 
 export default function DisplayFolder() {
 	let { folderId } = useParams();
 	const [folderData, setFolderData] = useState(null);
+	const [title, setTitle] = useState(null);
 	useEffect(() => {
 		const fetchData = async () => {
 			const response = await fetch(
@@ -12,21 +13,27 @@ export default function DisplayFolder() {
 			);
 			const data = await response.json();
 			setFolderData(data);
+			setTitle(data[0].title);
 		};
 		fetchData();
 	}, [folderId]);
 
 	return (
 		<>
-			<Header name={folderData}/>
+			<Header title={title} />
 			<div>
-				{folderData && (
-					<ul>
-						<li>{folderData.id}</li>
-						<li>{folderData.title}</li>
-						<li>{folderData.createdAt}</li>
-					</ul>
-				)}
+				{folderData &&
+					folderData.map((item) => {
+						return (
+							<>
+								{item.worksheets ? (
+									<>worksheet info here</>
+								) : (
+									<h1>No worksheets</h1>
+								)}
+							</>
+						);
+					})}
 			</div>
 		</>
 	);

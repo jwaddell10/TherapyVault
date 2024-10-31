@@ -1,8 +1,8 @@
 import { useState } from "react";
-import DisplayFilesFolders from "./DisplayFilesFolders.jsx";
+import DisplayAllFilesFolders from "./DisplayAllFilesFolders.jsx";
 import "./TherapyWorksheets.css";
 import useFetchFilesFolders from "../helpers/FetchRequests/useFetchFilesFolders.jsx";
-import Header from "./Header.jsx";
+import TherapyWorksheetHeader from "./TherapyWorksheetHeader.jsx";
 
 export default function TherapyWorksheets() {
 	//state to refresh page when files/folders are altered
@@ -20,8 +20,8 @@ export default function TherapyWorksheets() {
 		<section className="page-container">
 			{/* <SideBar /> */}
 			<main className="main-content">
-				<Header setRefreshTrigger={setRefreshTrigger} />
-				<DisplayFilesFolders
+				<TherapyWorksheetHeader setRefreshTrigger={setRefreshTrigger} />
+				<DisplayAllFilesFolders
 					filesAndFoldersSortedById={filesAndFoldersSortedById}
 					setRefreshTrigger={setRefreshTrigger}
 					isEditing={isEditing}

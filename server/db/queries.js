@@ -49,9 +49,10 @@ module.exports = {
 		try {
 			const folder = await prisma.folder.findUnique({
 				where: {
-					id: id,
+					id
 				},
 			});
+			console.log(folder, 'folder in find')
 			return folder;
 		} catch (error) {
 			throw new Error(error);

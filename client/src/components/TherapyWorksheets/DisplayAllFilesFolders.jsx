@@ -5,7 +5,7 @@ import OptionsForm from "./OptionsForm";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-export default function DisplayFilesFolders({
+export default function DisplayAllFilesFolders({
 	filesAndFoldersSortedById,
 	setRefreshTrigger,
 	isEditing,
@@ -25,14 +25,6 @@ export default function DisplayFilesFolders({
 	useClickOnOutside(ref, () => setIsModalOpen(false));
 
 	const handleClick = async (id, itemType) => {
-		// try {
-		// 	const response = await fetch(
-		// 		`${import.meta.env.VITE_API_URL}/${itemType}/${id}`
-		// 	);
-		// 	const data = await response.json();
-		// } catch (error) {
-		// 	throw new Error(error);
-		// }
 		navigate(`/therapy-worksheets/${itemType}/${id}`);
 	};
 

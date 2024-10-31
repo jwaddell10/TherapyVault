@@ -42,17 +42,17 @@ model Worksheets {
     id          Int           @id @default(autoincrement())
     title       String        @db.VarChar(255)
     author      User          @relation(fields: [id], references: [id])
-    topics      Topic[]       @relation
+    // topics      Topic[]       @relation
     Demographic Demographic[]
     createdAt   DateTime      @db.Date
     Folder      Folder[]
 }
 
-model Topic {
-    id         Int          @id @default(autoincrement())
-    topics     String       @db.VarChar(255)
-    Worksheets Worksheets[]
-}
+// model Topic {
+//     id         Int          @id @default(autoincrement())
+//     topics     String       @db.VarChar(255)
+//     Worksheets Worksheets[]
+// }
 
 model Demographic {
     id           Int          @id @default(autoincrement())

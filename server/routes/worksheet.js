@@ -20,10 +20,13 @@ router.get("/topics", worksheetController.getTopics);
 
 router.post(
 	"/",
-	// upload.single("worksheet"),
-	worksheetController.uploadWorksheet
+	upload.single("worksheet"),
+	function (req, res) {
+		console.log(req.file, "req file", req.body, "req body");
+	}
+	// worksheetController.uploadWorksheet
 );
 
-// router.get("/worksheet/:id", worksheetController.getOne);
+router.get("/worksheet/:id", worksheetController.getOneWorksheet);
 
 module.exports = router;

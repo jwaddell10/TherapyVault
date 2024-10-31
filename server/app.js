@@ -5,7 +5,6 @@ var cors = require("cors");
 const { Pool } = require("pg");
 const bcrypt = require("bcryptjs");
 // var GoogleStrategy = require("passport-google-oauth2").Strategy;
-
 const express = require("express");
 const passport = require("passport");
 const expressSession = require("express-session");
@@ -65,10 +64,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 passport.use(
 	new LocalStrategy(async (username, password, done) => {
-		console.log("local strat runs");
 		try {
-			console.log("local strat runs try");
-
 			const user = await db.findUser(username);
 			if (!user) {
 				return done(null, false, { message: "Incorrect username" });

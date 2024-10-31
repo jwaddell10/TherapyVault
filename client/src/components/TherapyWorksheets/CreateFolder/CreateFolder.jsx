@@ -1,6 +1,6 @@
 import { useState } from "react";
 import CloseIcon from "@rsuite/icons/Close";
-import postUploadForm from "./FetchRequests/postUploadForm";
+import postUploadForm from "../../helpers/FetchRequests/postUploadForm";
 import "./CreateFolder.css";
 
 export default function CreateFolder({
@@ -23,6 +23,7 @@ export default function CreateFolder({
 	};
 
 	const handleSubmit = async (event) => {
+		// console.log('submit runs')
 		event.preventDefault();
 		try {
 			const response = await postUploadForm(formData, "folder");

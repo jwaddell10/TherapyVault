@@ -4,9 +4,9 @@ import NavBar from "./components/NavBar/NavBar.jsx";
 import HomePage from "./components/HomePage/HomePage.jsx";
 import Login from "./components/Login/Login.jsx";
 import Signup from "./components/Signup/Signup.jsx";
-import TherapyWorksheets from "./components/TherapyWorksheetsPage/TherapyWorksheets.jsx";
+import TherapyWorksheets from "./components/TherapyWorksheets/TherapyWorksheets.jsx";
 import DisplayFile from "./components/DisplayFile.jsx";
-import DisplayFolder from "./components/DisplayFolder.jsx";
+import DisplayFolder from "./components/TherapyWorksheets/DisplayFolder.jsx";
 
 export default function App() {
 	// sessionStorage.clear();

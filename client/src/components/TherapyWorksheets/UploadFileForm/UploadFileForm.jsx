@@ -1,13 +1,12 @@
 import { useState } from "react";
 import CloseIcon from "@rsuite/icons/Close";
-import postUploadForm from "../FetchRequests/postUploadForm";
+import postUploadForm from "../../helpers/FetchRequests/postUploadForm";
 import "./UploadFileForm.css";
 
 export default function UploadForm({ setPopupUploadForm }) {
 	const [formData, setFormData] = useState({
 		title: "",
 		demographic: "",
-		topic: "",
 		description: "",
 	});
 	const [file, setFile] = useState(null);
@@ -28,14 +27,23 @@ export default function UploadForm({ setPopupUploadForm }) {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		const formDataToSend = new FormData();
-
-		Object.keys(formData).forEach((key) => {
+		console.log(formData, "formdata");
+		for (const key in formData) {
 			formDataToSend.append(key, formData[key]);
-		});
+			// console.log(Object.fromEntries(formDataToSend.entries()));
+		}
+		//need to append each item in formdata
+		if (file) {
+			console.log(file, 'file')
+			formDataToSend.append("worksheet", file);
+		}
 
-		formDataToSend.append("worksheet", file);
+		// for (const pair of formDataToSend.entries()) {
+		// 	console.log(pair, 'pair in formdatatosend')
+		// }
 
 		try {
+			console.log(formDataToSend.entries(), 'sent data')
 			await postUploadForm(formDataToSend, "worksheet");
 			setPopupUploadForm(false);
 		} catch (error) {
@@ -73,7 +81,7 @@ export default function UploadForm({ setPopupUploadForm }) {
 					<option value="adolescent">Adolescent</option>
 					<option value="adult">Adult</option>
 				</select>
-				<select
+				{/* <select
 					name="topic"
 					id="topic"
 					onChange={handleChange}
@@ -95,7 +103,7 @@ export default function UploadForm({ setPopupUploadForm }) {
 					<option value="Self-esteem">Self-esteem</option>
 					<option value="Social Skills">Social Skills</option>
 					<option value="Stress">Stress</option>
-				</select>
+				</select> */}
 				<textarea
 					name="description"
 					id="description"
@@ -107,11 +115,12 @@ export default function UploadForm({ setPopupUploadForm }) {
 						handleFileChange(event);
 					}}
 					type="file"
-					accept="image/*"
+					// accept="image/*"
 					className="form-control-file"
 					name="worksheet"
 					required
 				/>
+				<button onClick={handleSubmit}>Submit</button>
 			</div>
 		</form>
 	);
