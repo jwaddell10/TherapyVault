@@ -1,6 +1,8 @@
 const asyncHandler = require("express-async-handler");
 const db = require("../db/queries.js");
 const authAndLogin = require("../utilities/authAndLogin.js");
+const { PrismaClient } = require("@prisma/client");
+const prisma = new PrismaClient();
 
 exports.signUp = asyncHandler(async (req, res, next) => {
     const user = await db.findUser(req.body.username);
@@ -28,8 +30,9 @@ exports.logInPost = asyncHandler(async (req, res, next) => {
 
 exports.logOutPost = asyncHandler(async (req, res, next) => {
 	//fix bug where user hits logout (and theres a session) but it fails to fetch the correct session
-
+console.log('logout post runs')
 	req.logout(function (error) {
+		console.log('logout runs')
 		if (error) {
 			return next(error);
 		}
@@ -39,6 +42,7 @@ exports.logOutPost = asyncHandler(async (req, res, next) => {
 });
 
 async function handleSessionDelete(req, res) {
+	console.log(req, 'req in handle session delete')
 	const session = await prisma.session.findUnique({
 		where: {
 			id: req.headers.authorization,

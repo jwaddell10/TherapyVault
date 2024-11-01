@@ -23,7 +23,6 @@ export default function CreateFolder({
 	};
 
 	const handleSubmit = async (event) => {
-		// console.log('submit runs')
 		event.preventDefault();
 		try {
 			const response = await postUploadFolderForm(formData, "folder");

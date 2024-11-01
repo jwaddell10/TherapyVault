@@ -49,10 +49,10 @@ module.exports = {
 		try {
 			const folder = await prisma.folder.findUnique({
 				where: {
-					id
+					id,
 				},
 			});
-			console.log(folder, 'folder in find')
+			console.log(folder, "folder in find");
 			return folder;
 		} catch (error) {
 			throw new Error(error);
@@ -91,4 +91,24 @@ module.exports = {
 			throw new Error(error);
 		}
 	},
+	createWorksheet: async (title) => {
+		try {
+			const worksheet = await prisma.folder.create({
+				data: {
+					author: user,
+					title: title,
+					createdAt: new Date(),
+				},
+			});
+			return worksheet;
+		} catch (error) {
+			throw new Error(error);
+		}
+	},
+
+	// author      User          @relation(fields: [id], references: [id])
+	// // topics      Topic[]       @relation
+	// Demographic Demographic[]
+	// createdAt   DateTime      @db.Date
+	// Folder      Folder[]
 };

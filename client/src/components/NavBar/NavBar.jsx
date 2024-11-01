@@ -17,7 +17,7 @@ export default function NavBar() {
 
 		try {
 			const response = await fetch(
-				`${import.meta.env.VITE_API_URL}/log-out`,
+				`${import.meta.env.VITE_API_URL}/users/log-out`,
 				{
 					method: "POST",
 					headers: {
@@ -33,7 +33,8 @@ export default function NavBar() {
 
 			const data = await response.json();
 			if (data) {
-				sessionStorage.removeItem("sessionID");
+				console.log(data, 'data in')
+				sessionStorage.clear()
 				navigate("/");
 			}
 		} catch (error) {

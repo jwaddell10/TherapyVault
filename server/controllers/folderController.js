@@ -25,6 +25,7 @@ exports.getOneFolder = expressAsyncHandler(async (req, res, next) => {
 });
 
 exports.postFolder = expressAsyncHandler(async (req, res, next) => {
+	console.log(req.user, 'req userin postfolder')
 	const folder = await db.createFolder(req.body.name);
 	console.log(folder, "folder in psot");
 	// res.json(folder);

@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+const db = require("../db/queries.js")
 const worksheetController = require("../controllers/worksheetController.js");
 const multer = require("multer");
 const storage = multer.diskStorage({
@@ -22,6 +23,8 @@ router.get("/topics", worksheetController.getTopics);
 
 router.post("/", upload.single("worksheet"), function (req, res) {
 	try {
+        const worksheet = db.createWorksheet(req.body.title)
+        console.log(worksheet, 'created worksheet')
 		console.log(req.file, "req file", req.body, "req body");
 		res.status(200).json({ message: "File uploaded successfully" });
 	} catch (error) {

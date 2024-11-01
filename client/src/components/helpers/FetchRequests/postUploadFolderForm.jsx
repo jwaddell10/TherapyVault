@@ -1,11 +1,14 @@
 export default async function postUploadFolderForm(formData, url) {
+	console.log(formData, "formdata");
 	try {
 		const response = await fetch(`${import.meta.env.VITE_API_URL}/${url}`, {
 			method: "POST",
-			body: formData,
-			headers: { "Content-type": "application/json" },
+			body: JSON.stringify(formData),
+			headers: {
+				"Content-type": "application/json",
+			},
 		});
-
+		console.log(response, "response in postuplodad");
 		if (!response.ok) {
 			throw new Error(`HTTP error! status: ${response.status}`);
 		}

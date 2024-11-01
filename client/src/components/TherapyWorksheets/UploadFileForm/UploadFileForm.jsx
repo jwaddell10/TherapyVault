@@ -4,9 +4,9 @@ import postUploadFileForm from "../../helpers/FetchRequests/postUploadFileForm";
 import "./UploadFileForm.css";
 
 export default function UploadForm({ setPopupUploadForm }) {
-	// const [title, setTitle] = useState(null);
-	// const [demographic, setDemographic] = useState(null);
-	// const [description, setDescription] = useState(null);
+	const [title, setTitle] = useState(null);
+	const [demographic, setDemographic] = useState(null);
+	const [description, setDescription] = useState(null);
 	const [file, setFile] = useState(null);
 
 	// const [file, setFile] = useState(null);
@@ -28,16 +28,15 @@ export default function UploadForm({ setPopupUploadForm }) {
 		event.preventDefault();
 		const formDataToSend = new FormData();
 		formDataToSend.append("worksheet", file);
-		// formDataToSend.append('title', title);
-		// formDataToSend.append('demographic', demographic);
-		// formDataToSend.append('description', description);
-		// console.log(formDataToSend.entries(), 'formdata entries')
+		formDataToSend.append("title", title);
+		formDataToSend.append("demographic", demographic);
+		formDataToSend.append("description", description);
+		console.log(formDataToSend.entries(), "formdata entries");
 
 		// for (const key in formData) {
 		// 	formDataToSend.append(key, formData[key]);
 		// 	// console.log(Object.fromEntries(formDataToSend.entries()));
 		// }
-		//need to append each item in formdata
 
 		for (let [key, value] of formDataToSend.entries()) {
 			console.log(key, value, "key and value");
@@ -57,6 +56,30 @@ export default function UploadForm({ setPopupUploadForm }) {
 				<div onClick={handleClose}>
 					<CloseIcon />
 				</div>
+				<input
+					type="text"
+					onChange={(e) => {
+						setTitle(e.target.value);
+					}}
+					required
+				/>
+				<select
+					type="text"
+					onChange={(e) => {
+						setDemographic(e.target.value);
+					}}
+					required
+				>
+					<option value="child">Child</option>
+					<option value="adolescent">Adolescent</option>
+					<option value="adult">Adult</option>
+				</select>
+				<input
+					type="text"
+					onChange={(e) => {
+						setDescription(e.target.value);
+					}}
+				/>
 				<input
 					className="file-input"
 					onChange={(e) => {
