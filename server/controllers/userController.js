@@ -6,7 +6,6 @@ const prisma = new PrismaClient();
 
 exports.signUp = asyncHandler(async (req, res, next) => {
 	const user = await db.findUser(req.body.username);
-
 	if (user) {
 		return res
 			.status(400)
@@ -16,23 +15,15 @@ exports.signUp = asyncHandler(async (req, res, next) => {
 		req.body.username,
 		req.body.password
 	);
-
 	req.login(createdUser, function (err) {
 		if (err) {
 			return next(err);
 		}
-		res.json({ message: "signup successful" });
+		res.json({ sessionID: req.sessionID });
 	});
-	// authAndLogin(req, res, next);
 });
 
-exports.logInPost = asyncHandler(async (req, res, next) => {
-	console.log('post runs')
-	passport.authenticate("local"),
-		(req, res) => {
-			res.json({ user: req.user });
-		};
-});
+exports.logInPost = asyncHandler(async (req, res, next) => {});
 
 exports.logOutPost = asyncHandler(async (req, res, next) => {
 	req.logout(function (error) {

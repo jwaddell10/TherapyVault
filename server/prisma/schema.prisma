@@ -12,8 +12,8 @@ model Session {
     sid       String   @unique
     data      String
     expiresAt DateTime
-    userId    Int      @unique
-    user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
+    // userId    Int      @unique
+    // user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
 }
 
 model Profile {
@@ -30,7 +30,7 @@ model User {
     folder     Folder?     @relation(fields: [folderid], references: [id])
     folderid   Int?
     worksheets Worksheets?
-    Session    Session?
+    // Session    Session?
 }
 
 model Folder {

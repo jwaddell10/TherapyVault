@@ -14,14 +14,19 @@ router.post("/sign-up", userController.signUp);
 router.post("/log-in", function (req, res, next) {
 	passport.authenticate("local", function (err, user, info) {
 		if (err) {
+			console.log(err, "error was found");
 			return next(err);
 		}
 		if (!user) {
 			return res.json("Login failed");
 		}
-
 		// NEED TO CALL req.login()!!!
-		req.login(user, next);
+		req.login(user, function (err) {
+			if (err) {
+				return next(err);
+			}
+			return res.json({ sessionID: req.sessionID });
+		});
 	})(req, res, next);
 });
 
