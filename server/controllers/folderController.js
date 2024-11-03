@@ -4,6 +4,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 exports.getFolder = expressAsyncHandler(async (req, res, next) => {
+	console.log(req.sessionID, 'req sessionid')
 	const folders = await db.findFolders();
 	if (folders) {
 		return res.json({ folders: folders });
@@ -25,9 +26,7 @@ exports.getOneFolder = expressAsyncHandler(async (req, res, next) => {
 });
 
 exports.postFolder = expressAsyncHandler(async (req, res, next) => {
-	console.log(req.user, 'req userin postfolder')
 	const folder = await db.createFolder(req.body.name);
-	console.log(folder, "folder in psot");
 	// res.json(folder);
 });
 

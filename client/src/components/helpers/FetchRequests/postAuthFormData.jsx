@@ -1,6 +1,5 @@
 export default async function postAuthFormData(formData, url) {
 	const { username, password, confirmPassword } = formData;
-
 	try {
 		const response = await fetch(`${import.meta.env.VITE_API_URL}${url}`, {
 			method: "POST",

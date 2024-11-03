@@ -12,6 +12,8 @@ model Session {
     sid       String   @unique
     data      String
     expiresAt DateTime
+    userId    Int      @unique
+    user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
 }
 
 model Profile {
@@ -22,12 +24,13 @@ model Profile {
 
 model User {
     id         Int         @id @default(autoincrement())
-    username   String?     @unique @db.VarChar(255)
-    password   String?     @db.VarChar(255)
+    username   String      @unique @db.VarChar(255)
+    password   String      @db.VarChar(255)
     profile    Profile?
-    folder     Folder?     @relation(fields: [folderId], references: [id])
+    folder     Folder?     @relation(fields: [folderid], references: [id])
+    folderid   Int?
     worksheets Worksheets?
-    folderId   Int?
+    Session    Session?
 }
 
 model Folder {

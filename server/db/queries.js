@@ -60,7 +60,11 @@ module.exports = {
 	},
 	findFolders: async () => {
 		try {
-			const folders = await prisma.folder.findMany();
+			const folders = await prisma.folder.findMany({
+				where: {
+					
+				}
+			});
 			return folders;
 		} catch (error) {
 			throw new Error(error);

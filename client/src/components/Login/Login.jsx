@@ -6,6 +6,7 @@ import "./Login.css";
 
 export default function Login() {
 	const navigate = useNavigate();
+	const [error, setError] = useState(null);
 
 	const [formData, setFormData] = useState({
 		username: "",
@@ -19,16 +20,21 @@ export default function Login() {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		await postAuthFormData(formData, "/users/log-in").then((data) => {
-			if (data) {
-				sessionStorage.setItem("sessionID", data.sessionID);
-				navigate("/");
-			}
+		try {
+			await postAuthFormData(formData, "/users/log-in").then((data) => {
+				if (data) {
+					sessionStorage.setItem("sessionID", data.sessionID);
+					navigate("/");
+				}
 
-			if (!data) {
-				throw new Error("login failed")
-			}
-		});
+				if (!data) {
+					throw new Error("Login failed");
+				}
+			});
+		} catch (error) {
+			setError('Server error. Please try again later.')
+			throw new Error(error)
+		}
 	};
 	return (
 		<main>
@@ -64,6 +70,7 @@ export default function Login() {
 					Don&apos;t have an account?
 					<Link to="/sign-up"> Sign up here</Link>
 				</section>
+				{error && <h1>{error}</h1>}
 			</form>
 		</main>
 	);
