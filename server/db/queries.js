@@ -1,6 +1,7 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const bcrypt = require("bcryptjs");
+const { session } = require("passport");
 
 module.exports = {
 	findUser: async (username) => {
@@ -60,11 +61,7 @@ module.exports = {
 	},
 	findFolders: async () => {
 		try {
-			const folders = await prisma.folder.findMany({
-				where: {
-					
-				}
-			});
+			const folders = await prisma.folder.findMany();
 			return folders;
 		} catch (error) {
 			throw new Error(error);
@@ -95,11 +92,19 @@ module.exports = {
 			throw new Error(error);
 		}
 	},
-	createWorksheet: async (title) => {
+	findWorksheets: async () => {
 		try {
-			const worksheet = await prisma.folder.create({
+			const worksheets = await prisma.worksheets.findMany();
+			return worksheets
+		} catch (error) {
+			throw new Error(error);
+		}
+	},
+	createWorksheet: async (user, title) => {
+		try {
+			const worksheet = await prisma.worksheets.create({
 				data: {
-					author: user,
+					// author: user,
 					title: title,
 					createdAt: new Date(),
 				},

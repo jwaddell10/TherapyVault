@@ -31,7 +31,7 @@ export default function Signup() {
 		try {
 			const data = await postAuthFormData(formData, "/users/sign-up");
 			if (data) {
-				console.log(data, 'data')
+				sessionStorage.setItem("username", data.username)
 				sessionStorage.setItem("sessionID", data.sessionID);
 				navigate("/");
 			}

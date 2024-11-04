@@ -2,6 +2,8 @@ import { useState, useRef } from "react";
 import useClickOnOutside from "../helpers/useClickOnOutside";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import OptionsForm from "./OptionsForm";
+import FolderIcon from "@mui/icons-material/Folder";
+import DescriptionIcon from "@mui/icons-material/Description";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
@@ -11,6 +13,7 @@ export default function DisplayAllFilesFolders({
 	isEditing,
 	setIsEditing,
 }) {
+	filesAndFoldersSortedById?.map((item) => console.log(item.type, 'item in map'))
 	const navigate = useNavigate();
 	const [isEditingId, setIsEditingId] = useState(null);
 
@@ -108,13 +111,34 @@ export default function DisplayAllFilesFolders({
 								/>
 							) : (
 								<td>
-									<Link
-										onClick={() => {
-											handleClick(item.id, item.type);
-										}}
-									>
-										{item.title}
-									</Link>
+									{item.type === "folder" ? (
+										<>
+											<FolderIcon />
+											<Link
+												onClick={() => {
+													handleClick(
+														item.id,
+														item.type
+													);
+												}}
+											>
+												{item.title}
+											</Link>
+										</>
+									) : (
+										<>
+											<Link
+												onClick={() => {
+													handleClick(
+														item.id,
+														item.type
+													);
+												}}
+											>
+												{item.title}
+											</Link>
+										</>
+									)}
 								</td>
 							)}
 							<td>&nbsp;</td>

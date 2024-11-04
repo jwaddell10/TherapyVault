@@ -25,7 +25,10 @@ router.post("/log-in", function (req, res, next) {
 			if (err) {
 				return next(err);
 			}
-			return res.json({ sessionID: req.sessionID });
+			return res.json({
+				username: req.user.username,
+				sessionID: req.sessionID,
+			});
 		});
 	})(req, res, next);
 });

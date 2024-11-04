@@ -20,16 +20,20 @@ exports.getTopics = expressAsyncHandler(async (req, res, next) => {
 	}
 });
 
-exports.getWorksheet = expressAsyncHandler(async(req, res, next) => {
-	console.log('get worksheet runs')
-})
+exports.getWorksheets = expressAsyncHandler(async (req, res, next) => {
+	const worksheets = await db.findWorksheets();
+	if (!worksheets) {
+		res.status(400).json({ message: "An error has occurred" });
+	}
+	res.status(200).json(worksheets);
+});
 
 exports.getOneWorksheet = expressAsyncHandler(async (req, res, next) => {
 	console.log(req.body, "this is req get one");
 });
 
 exports.uploadWorksheet = expressAsyncHandler(async (req, res, next) => {
-	console.log('upload worksheet route works')
+	console.log("upload worksheet route works");
 	// const file = req.file;
 	// console.log(req.body, "req body");
 

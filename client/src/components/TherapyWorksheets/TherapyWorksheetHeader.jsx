@@ -1,11 +1,11 @@
 import { useState } from "react";
 import DriveFolderUploadIcon from "@mui/icons-material/DriveFolderUpload";
 import UploadFileIcon from "@mui/icons-material/UploadFile";
-import UploadForm from "./UploadFileForm/UploadFileForm";
+import UploadFileForm from "./UploadFileForm/UploadFileForm";
 import CreateFolder from "./CreateFolder/CreateFolder";
 import { Link } from "react-router-dom";
 
-export default function TherapyWorksheetHeader({ setRefreshTrigger, title }) {
+export default function TherapyWorksheetHeader({ setRefreshTrigger, title, username }) {
 	const [popupUploadForm, setPopupUploadForm] = useState(false);
 	const [popupFolderForm, setPopupFolderForm] = useState(false);
 	const handleUploadFile = () => {
@@ -45,9 +45,10 @@ export default function TherapyWorksheetHeader({ setRefreshTrigger, title }) {
 					<>
 						<div className="background"></div>
 						<Link></Link>
-						<UploadForm
+						<UploadFileForm
+						username={username}
 							setPopupUploadForm={setPopupUploadForm}
-						></UploadForm>
+						></UploadFileForm>
 					</>
 				)}
 			</header>

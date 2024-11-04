@@ -1,20 +1,20 @@
 export default async function postUploadFileForm(formData, url) {
-	console.log("Uploading file to:", url);
-	// Log FormData contents (for debugging)
-	for (let [key, value] of formData.entries()) {
-		console.log(key, value, "key and value");
+	for (const key of formData) {
+		console.log(key, 'does this owrk')
+	}
+	const username = sessionStorage.getItem("username");
+	if (username) {
+		formData.append("username", username);
 	}
 	try {
-		console.log(formData, 'formdata');
 		const response = await fetch(`${import.meta.env.VITE_API_URL}/${url}`, {
 			method: "POST",
 			body: formData,
 		});
 		if (!response.ok) {
-			console.log(response, 'response')
+			console.log(response, "response");
 			throw new Error(`HTTP error! status: ${response.status}`);
 		}
-		// console.log("try keeps running");
 
 		return await response.json();
 	} catch (error) {

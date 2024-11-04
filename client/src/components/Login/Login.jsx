@@ -4,7 +4,7 @@ import Button from "../helpers/Button/Button";
 import postAuthFormData from "../helpers/FetchRequests/postAuthFormData";
 import "./Login.css";
 
-export default function Login() {
+export default function Login({setUserName}) {
 	const navigate = useNavigate();
 	const [error, setError] = useState(null);
 
@@ -23,6 +23,8 @@ export default function Login() {
 		try {
 			await postAuthFormData(formData, "/users/log-in").then((data) => {
 				if (data) {
+					console.log(data, 'data')
+					sessionStorage.setItem("username", data.username)
 					sessionStorage.setItem("sessionID", data.sessionID);
 					navigate("/");
 				}

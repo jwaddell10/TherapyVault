@@ -3,7 +3,7 @@ import CloseIcon from "@rsuite/icons/Close";
 import postUploadFileForm from "../../helpers/FetchRequests/postUploadFileForm";
 import "./UploadFileForm.css";
 
-export default function UploadForm({ setPopupUploadForm }) {
+export default function UploadFileForm({ setPopupUploadForm, username }) {
 	const [title, setTitle] = useState(null);
 	const [demographic, setDemographic] = useState(null);
 	const [description, setDescription] = useState(null);
@@ -31,12 +31,7 @@ export default function UploadForm({ setPopupUploadForm }) {
 		formDataToSend.append("title", title);
 		formDataToSend.append("demographic", demographic);
 		formDataToSend.append("description", description);
-		console.log(formDataToSend.entries(), "formdata entries");
-
-		// for (const key in formData) {
-		// 	formDataToSend.append(key, formData[key]);
-		// 	// console.log(Object.fromEntries(formDataToSend.entries()));
-		// }
+		formDataToSend.append("sessionID", localStorage.getItem("sessionID"))
 
 		for (let [key, value] of formDataToSend.entries()) {
 			console.log(key, value, "key and value");

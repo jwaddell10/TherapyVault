@@ -5,6 +5,8 @@ generator client {
 datasource db {
     provider = "postgresql"
     url      = env("DATABASE_URL")
+
+    relationMode = "prisma"
 }
 
 model Session {
@@ -27,7 +29,7 @@ model User {
     username   String      @unique @db.VarChar(255)
     password   String      @db.VarChar(255)
     profile    Profile?
-    folder     Folder?     @relation(fields: [folderid], references: [id])
+    folder     Folder?
     folderid   Int?
     worksheets Worksheets?
     // Session    Session?
@@ -37,7 +39,7 @@ model Folder {
     id         Int          @id @default(autoincrement())
     title      String       @db.VarChar(255)
     createdAt  DateTime     @db.Date
-    User       User[]
+    author     User         @relation(fields: [id], references: [id])
     Worksheets Worksheets[] @relation
 }
 
@@ -48,7 +50,8 @@ model Worksheets {
     // topics      Topic[]       @relation
     Demographic Demographic[]
     createdAt   DateTime      @db.Date
-    Folder      Folder[]
+    Folder      Folder?       @relation(fields: [Folderid], references: [id])
+    Folderid    Int?          @unique
 }
 
 // model Topic {

@@ -1,5 +1,4 @@
 export default async function postUploadFolderForm(formData, url) {
-	console.log(formData, "formdata");
 	try {
 		const response = await fetch(`${import.meta.env.VITE_API_URL}/${url}`, {
 			method: "POST",

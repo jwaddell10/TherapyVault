@@ -7,6 +7,7 @@ const bcrypt = require("bcryptjs");
 // var GoogleStrategy = require("passport-google-oauth2").Strategy;
 const express = require("express");
 const passport = require("passport");
+const cookieParser = require("cookie-parser");
 const expressSession = require("express-session");
 const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
 const { PrismaClient } = require("@prisma/client");
@@ -25,7 +26,7 @@ app.use(logger("dev"));
 app.use(express.json());
 // app.use(bodyparser.urlencoded({ limit: "50mb", extended: true }));
 app.use(express.urlencoded({ extended: true }));
-// app.use(cookieParser());
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(
@@ -64,6 +65,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 passport.use(
 	new LocalStrategy(async (username, password, done) => {
+		// console.log("passport use runs")
 		try {
 			const user = await db.findUser(username);
 			if (!user) {
@@ -83,6 +85,7 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
+	console.log("serialize user runs");
 	done(null, user);
 });
 
@@ -100,13 +103,17 @@ passport.deserializeUser(async function (id, done) {
 
 // configurePassport(passport);
 app.use(express.urlencoded({ extended: false }));
+// const ensureAuthenticated = function (req, res, next) {
+// 	if (req.isAuthenticated()) return next();
+// 	else res.json({ message: "unable to authenticate" });
+// };
+// app.use(ensureAuthenticated);
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/worksheet", worksheetRouter);
 app.use("/folder", folderRouter);
-app.use('/uploads', express.static('./uploads'));
-
+app.use("/uploads", express.static("./uploads"));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
