@@ -23,11 +23,8 @@ router.get("/topics", worksheetController.getTopics);
 
 router.post("/", upload.single("worksheet"), async function (req, res) {
 	try {
-		// const findUserBySessionId = await db.findUserBySessionId(req.sessionID)
-		// console.log(findUserBySessionId)
-		// console.log(req.file, "req file", req.body, "req body");
 		const user = await db.findUser(req.body.username);
-		console.log(user, 'user in post')
+
 		if (!user) {
 			res.status(404).json({
 				message: "Username not found. Try again later",
@@ -35,13 +32,8 @@ router.post("/", upload.single("worksheet"), async function (req, res) {
 		}
 
 		const worksheet = await db.createWorksheet(user, req.body.title);
-		console.log(worksheet, "worksheet in createworksheet");
 
 		res.status(200).json({ message: "File uploaded successfully" });
-		// const worksheet = await db.createWorksheet(req.body.title)
-		// console.log(worksheet, 'created worksheet')
-		// console.log(req.file, "req file", req.body, "req body");
-		// res.status(200).json({ message: "File uploaded successfully" });
 	} catch (error) {
 		console.error("Error in file upload:", error);
 		res.status(500).json({ error: "An error occurred during file upload" });
@@ -49,5 +41,7 @@ router.post("/", upload.single("worksheet"), async function (req, res) {
 });
 
 router.get("/worksheet/:id", worksheetController.getOneWorksheet);
+
+router.delete("/:id/delete", worksheetController.deleteWorksheet);
 
 module.exports = router;

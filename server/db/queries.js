@@ -95,16 +95,15 @@ module.exports = {
 	findWorksheets: async () => {
 		try {
 			const worksheets = await prisma.worksheets.findMany();
-			return worksheets
+			return worksheets;
 		} catch (error) {
 			throw new Error(error);
 		}
 	},
-	createWorksheet: async (user, title) => {
+	createWorksheet: async (title) => {
 		try {
 			const worksheet = await prisma.worksheets.create({
 				data: {
-					// author: user,
 					title: title,
 					createdAt: new Date(),
 				},
@@ -114,10 +113,16 @@ module.exports = {
 			throw new Error(error);
 		}
 	},
-
-	// author      User          @relation(fields: [id], references: [id])
-	// // topics      Topic[]       @relation
-	// Demographic Demographic[]
-	// createdAt   DateTime      @db.Date
-	// Folder      Folder[]
+	deleteWorksheet: async (id) => {
+		try {
+			const worksheetToDelete = await prisma.worksheets.delete({
+				where: {
+					id: id,
+				},
+			});
+			return worksheetToDelete;
+		} catch (error) {
+			throw new Error(error);
+		}
+	},
 };

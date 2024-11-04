@@ -55,3 +55,12 @@ exports.uploadWorksheet = expressAsyncHandler(async (req, res, next) => {
 	//     console.log(error);
 	// });
 });
+
+exports.deleteWorksheet = expressAsyncHandler(async (req, res, next) => {
+	const parsedId = parseInt(req.params.id);
+	const deletedWorksheet = await db.deleteWorksheet(parsedId);
+
+	if (deletedWorksheet) {
+		res.json(deletedWorksheet);
+	} else return res.status(400).json({ message: "Error occurred" });
+});
