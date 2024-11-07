@@ -1,5 +1,5 @@
-import Button from "../helpers/Button/Button.jsx";
-import postAuthFormData from "../helpers/FetchRequests/postAuthFormData.jsx";
+import Button from "../../helpers/Button/Button.jsx";
+import postAuthFormData from "../../helpers/FetchRequests/postAuthFormData.jsx";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 

@@ -1,6 +1,6 @@
 import { useState, useParams } from "react";
 import CloseIcon from "@rsuite/icons/Close";
-import postUploadFolderForm from "../../helpers/FetchRequests/postUploadFolderForm";
+import postUploadFolderForm from "../../../helpers/FetchRequests/postUploadFolderForm";
 import "./CreateFolder.css";
 
 export default function CreateFolder({

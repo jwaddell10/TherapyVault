@@ -1,4 +1,4 @@
-import Button from "../helpers/Button/Button";
+import Button from "../../helpers/Button/Button";
 import { useNavigate } from "react-router-dom";
 
 export default function Home() {

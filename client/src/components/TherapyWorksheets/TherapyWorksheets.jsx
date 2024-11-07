@@ -1,7 +1,7 @@
 import { useState } from "react";
 import DisplayAllFilesFolders from "./DisplayAllFilesFolders.jsx";
 import "./TherapyWorksheets.css";
-import useFetchFilesFolders from "../helpers/FetchRequests/useFetchFilesFolders.jsx";
+import useFetchFilesFolders from "../../helpers/FetchRequests/useFetchFilesFolders.jsx";
 import TherapyWorksheetHeader from "./TherapyWorksheetHeader.jsx";
 
 export default function TherapyWorksheets({ username }) {
