@@ -3,6 +3,7 @@ export default async function postUploadFileForm(formData, url) {
 		console.log(key, 'does this owrk')
 	}
 	const username = sessionStorage.getItem("username");
+	console.log(username, 'username inpostfile')
 	if (username) {
 		formData.append("username", username);
 	}

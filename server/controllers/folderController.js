@@ -13,6 +13,7 @@ exports.getFolder = expressAsyncHandler(async (req, res, next) => {
 });
 
 exports.getOneFolder = expressAsyncHandler(async (req, res, next) => {
+	console.log(req, 'req in getone')
 	const folderId = parseInt(req.params.id);
 	// const folder = await db.findFolder()
 	const folderWithWorksheets = await prisma.folder.findMany({

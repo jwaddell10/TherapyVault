@@ -85,7 +85,6 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-	console.log("serialize user runs");
 	done(null, user);
 });
 

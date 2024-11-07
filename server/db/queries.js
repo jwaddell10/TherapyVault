@@ -11,8 +11,10 @@ module.exports = {
 					username: username,
 				},
 			});
+			console.log(user, 'user in prisma')
 			return user;
 		} catch (error) {
+			console.log(error, 'error')
 			throw new Error(error);
 		}
 	},
@@ -27,6 +29,7 @@ module.exports = {
 			});
 			return user;
 		} catch (error) {
+			console.log(error, 'error')
 			throw new Error(error);
 		}
 	},
@@ -35,6 +38,7 @@ module.exports = {
 			const demographics = await prisma.demographic.findMany();
 			return demographics;
 		} catch (error) {
+			console.log(error, 'error')
 			throw new Error(error);
 		}
 	},
@@ -43,6 +47,7 @@ module.exports = {
 			const topics = await prisma.topic.findMany();
 			return topics;
 		} catch (error) {
+			console.log(error, 'error')
 			throw new Error(error);
 		}
 	},
@@ -53,9 +58,9 @@ module.exports = {
 					id,
 				},
 			});
-			console.log(folder, "folder in find");
 			return folder;
 		} catch (error) {
+			console.log(error, 'error')
 			throw new Error(error);
 		}
 	},
@@ -64,6 +69,7 @@ module.exports = {
 			const folders = await prisma.folder.findMany();
 			return folders;
 		} catch (error) {
+			console.log(error, 'error')
 			throw new Error(error);
 		}
 	},
@@ -77,6 +83,7 @@ module.exports = {
 			});
 			return folder;
 		} catch (error) {
+			console.log(error, 'error')
 			throw new Error(error);
 		}
 	},
@@ -89,6 +96,7 @@ module.exports = {
 			});
 			return deletedFolder;
 		} catch (error) {
+			console.log(error, 'error')
 			throw new Error(error);
 		}
 	},
@@ -97,6 +105,7 @@ module.exports = {
 			const worksheets = await prisma.worksheets.findMany();
 			return worksheets;
 		} catch (error) {
+			console.log(error, 'error')
 			throw new Error(error);
 		}
 	},
@@ -110,6 +119,7 @@ module.exports = {
 			});
 			return worksheet;
 		} catch (error) {
+			console.log(error, 'error')
 			throw new Error(error);
 		}
 	},
@@ -122,6 +132,7 @@ module.exports = {
 			});
 			return worksheetToDelete;
 		} catch (error) {
+			console.log(error, 'error')
 			throw new Error(error);
 		}
 	},

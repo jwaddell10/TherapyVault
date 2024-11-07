@@ -12,7 +12,6 @@ import { useState } from "react";
 export default function App() {
 	// sessionStorage.clear();
 	const [username, setUserName] = useState(null)
-	console.log(username, 'username in app')
 	const router = createBrowserRouter([
 		{
 			path: "/",

@@ -9,6 +9,7 @@ export default function Signup() {
 		password: "",
 		confirmPassword: "",
 	});
+	const [usernameError, setUsernameError] = useState(null)
 	const [error, setError] = useState(null);
 	const [passwordError, setPasswordError] = useState(null);
 	const navigate = useNavigate();
@@ -31,17 +32,15 @@ export default function Signup() {
 		try {
 			const data = await postAuthFormData(formData, "/users/sign-up");
 			if (data) {
-				sessionStorage.setItem("username", data.username)
+				console.log(data, 'data in signup')
+				sessionStorage.setItem("username", data.username);
 				sessionStorage.setItem("sessionID", data.sessionID);
 				navigate("/");
 			}
 		} catch (error) {
-			if (error.message === "Failed to fetch") {
-				setError("Sever error. Please try again later");
-			}
 			if (error.message.startsWith("4")) {
-				setError("Username taken. Please try another");
-			}
+				setUsernameError("Username taken. Please try another");
+			} else setError("An error has occurred. Try again later");
 			return error;
 		}
 	}
@@ -58,7 +57,7 @@ export default function Signup() {
 					onChange={handleChange}
 					required
 				/>
-				{error && <div style={{ color: "red" }}>{error}</div>}
+				{usernameError && <div style={{ color: "red" }}>{usernameError}</div>}
 				<label htmlFor="">Password:</label>{" "}
 				<input
 					name="password"
@@ -83,6 +82,7 @@ export default function Signup() {
 				)}
 				<Button type="submit" text="Sign up"></Button>
 			</form>
+			{error && <div style={{ color: "red" }}>{error}</div>}
 		</main>
 	);
 }

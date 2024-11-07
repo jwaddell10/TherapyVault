@@ -6,15 +6,17 @@ const prisma = new PrismaClient();
 
 exports.signUp = asyncHandler(async (req, res, next) => {
 	const user = await db.findUser(req.body.username);
-	if (user) {
+	if (user !== null) {
 		return res
 			.status(400)
 			.json({ message: "This username is taken. Try another" });
 	}
+
 	const createdUser = await db.createUser(
 		req.body.username,
 		req.body.password
 	);
+	
 	req.login(createdUser, function (err) {
 		if (err) {
 			return next(err);

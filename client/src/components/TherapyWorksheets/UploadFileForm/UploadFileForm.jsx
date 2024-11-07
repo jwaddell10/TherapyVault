@@ -3,7 +3,11 @@ import CloseIcon from "@rsuite/icons/Close";
 import postUploadFileForm from "../../helpers/FetchRequests/postUploadFileForm";
 import "./UploadFileForm.css";
 
-export default function UploadFileForm({ setPopupUploadForm, username }) {
+export default function UploadFileForm({
+	setRefreshTrigger,
+	setPopupUploadForm,
+	username,
+}) {
 	const [title, setTitle] = useState(null);
 	const [demographic, setDemographic] = useState(null);
 	const [description, setDescription] = useState(null);
@@ -31,7 +35,7 @@ export default function UploadFileForm({ setPopupUploadForm, username }) {
 		formDataToSend.append("title", title);
 		formDataToSend.append("demographic", demographic);
 		formDataToSend.append("description", description);
-		formDataToSend.append("sessionID", localStorage.getItem("sessionID"))
+		formDataToSend.append("sessionID", localStorage.getItem("sessionID"));
 
 		for (let [key, value] of formDataToSend.entries()) {
 			console.log(key, value, "key and value");
@@ -40,6 +44,7 @@ export default function UploadFileForm({ setPopupUploadForm, username }) {
 		try {
 			await postUploadFileForm(formDataToSend, "worksheet");
 			setPopupUploadForm(false);
+			setRefreshTrigger((prevTrigger) => prevTrigger + 1);
 		} catch (error) {
 			console.error("Error uploading worksheet:", error);
 		}

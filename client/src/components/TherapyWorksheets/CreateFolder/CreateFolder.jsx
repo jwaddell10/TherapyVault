@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useParams } from "react";
 import CloseIcon from "@rsuite/icons/Close";
 import postUploadFolderForm from "../../helpers/FetchRequests/postUploadFolderForm";
 import "./CreateFolder.css";
@@ -9,6 +9,8 @@ export default function CreateFolder({
 	setPopupFolderForm,
 	setRefreshTrigger,
 }) {
+	// let { params } = useParams();
+	// console.log(params, "params in useparams");
 	const [formData, setFormData] = useState({
 		name: "",
 	});

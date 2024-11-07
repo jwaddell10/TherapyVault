@@ -6,6 +6,5 @@ import { render } from "@testing-library/react";
 describe('Signup', () => {
     it('renders component', () => {
       render(<MemoryRouter><Signup/></MemoryRouter>)
-  
     });
   });
