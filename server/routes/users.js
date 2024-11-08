@@ -12,13 +12,15 @@ router.get("/", function (req, res, next) {
 router.post("/sign-up", userController.signUp);
 
 router.post("/log-in", function (req, res, next) {
+	console.log(req.body, 'this is reqbody')
+
 	passport.authenticate("local", function (err, user, info) {
 		if (err) {
 			console.log(err, "error was found");
 			return next(err);
 		}
 		if (!user) {
-			return res.json("Login failed");
+			return res.json(info.message);
 		}
 		// NEED TO CALL req.login()!!!
 		req.login(user, function (err) {

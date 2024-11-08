@@ -22,20 +22,19 @@ export default function Login() {
 		event.preventDefault();
 		try {
 			await postAuthFormData(formData, "/users/log-in").then((data) => {
-				if (data) {
-					console.log(data, 'data')
-					sessionStorage.setItem("username", data.username)
+				if (data.username && data.sessionID) {
+					sessionStorage.setItem("username", data.username);
 					sessionStorage.setItem("sessionID", data.sessionID);
 					navigate("/");
-				}
+				} else setError(data)
 
 				if (!data) {
 					throw new Error("Login failed");
 				}
 			});
 		} catch (error) {
-			setError('Server error. Please try again later.')
-			throw new Error(error)
+			setError("Server error. Please try again later.");
+			throw new Error(error);
 		}
 	};
 	return (
