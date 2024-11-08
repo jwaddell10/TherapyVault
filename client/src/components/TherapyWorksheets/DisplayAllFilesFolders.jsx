@@ -30,11 +30,11 @@ export default function DisplayAllFilesFolders({
 		navigate(`/therapy-worksheets/${itemType}/${id}`);
 	};
 
-	const handleFolderNameChange = async (id, event) => {
+	const handleNameChange = async (id, type, event) => {
 		if (event.key === "Enter") {
 			try {
 				const response = await fetch(
-					`${import.meta.env.VITE_API_URL}/folder/${id}/update`,
+					`${import.meta.env.VITE_API_URL}/${type}/${id}/update`,
 					{
 						method: "PUT",
 						body: JSON.stringify({ title: event.target.value }),
@@ -105,7 +105,7 @@ export default function DisplayAllFilesFolders({
 							{isEditing && isEditingId === item.id ? (
 								<input
 									onKeyDown={(event) => {
-										handleFolderNameChange(item.id, event);
+										handleNameChange(item.id, item.type, event);
 									}}
 								/>
 							) : (

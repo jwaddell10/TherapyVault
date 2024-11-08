@@ -1,5 +1,6 @@
 const expressAsyncHandler = require("express-async-handler");
 const db = require("../db/queries.js");
+const express = require("express");
 const cloudinary = require("cloudinary").v2;
 
 exports.getDemographics = expressAsyncHandler(async (req, res, next) => {
@@ -71,4 +72,16 @@ exports.deleteWorksheet = expressAsyncHandler(async (req, res, next) => {
 	if (deletedWorksheet) {
 		res.json(deletedWorksheet);
 	} else return res.status(400).json({ message: "Error occurred" });
+});
+
+exports.updateWorksheet = expressAsyncHandler(async (req, res, next) => {
+	const worksheetToUpdate = await db.updateWorksheet(
+		parseInt(req.params.id),
+		req.body.title
+	);
+	if (!worksheetToUpdate) {
+		res.status(404).json({ message: "Server error. Try again later" });
+	}
+
+	res.json(worksheetToUpdate);
 });

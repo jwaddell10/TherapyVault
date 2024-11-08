@@ -4,11 +4,13 @@ const bcrypt = require("bcryptjs");
 const { session } = require("passport");
 
 module.exports = {
-	findUser: async (username) => {
+	createUser: async (username, password) => {
 		try {
-			const user = await prisma.user.findUnique({
-				where: {
+			const securePassword = await bcrypt.hash(password, 10);
+			const user = await prisma.user.create({
+				data: {
 					username: username,
+					password: securePassword,
 				},
 			});
 			return user;
@@ -17,13 +19,11 @@ module.exports = {
 			throw new Error(error);
 		}
 	},
-	createUser: async (username, password) => {
+	findUser: async (username) => {
 		try {
-			const securePassword = await bcrypt.hash(password, 10);
-			const user = await prisma.user.create({
-				data: {
+			const user = await prisma.user.findUnique({
+				where: {
 					username: username,
-					password: securePassword,
 				},
 			});
 			return user;
@@ -45,6 +45,21 @@ module.exports = {
 		try {
 			const topics = await prisma.topic.findMany();
 			return topics;
+		} catch (error) {
+			console.log(error, "error");
+			throw new Error(error);
+		}
+	},
+	createFolder: async (user, title) => {
+		try {
+			const folder = await prisma.folder.create({
+				data: {
+					title: title,
+					createdAt: new Date(),
+					authorId: user.id,
+				},
+			});
+			return folder;
 		} catch (error) {
 			console.log(error, "error");
 			throw new Error(error);
@@ -72,16 +87,17 @@ module.exports = {
 			throw new Error(error);
 		}
 	},
-	createFolder: async (user, title) => {
+	updateFolder: async (id, title) => {
 		try {
-			const folder = await prisma.folder.create({
+			const updatedFolder = await prisma.folder.update({
+				where: {
+					id: id,
+				},
 				data: {
 					title: title,
-					createdAt: new Date(),
-					authorId: user.id,
 				},
 			});
-			return folder;
+			return updatedFolder;
 		} catch (error) {
 			console.log(error, "error");
 			throw new Error(error);
@@ -95,6 +111,29 @@ module.exports = {
 				},
 			});
 			return deletedFolder;
+		} catch (error) {
+			console.log(error, "error");
+			throw new Error(error);
+		}
+	},
+	createWorksheet: async (user, title, folderId) => {
+		//if folder, place in folder?
+		try {
+			const worksheetData = {
+				authorId: user.id,
+				title: title,
+				createdAt: new Date(),
+			};
+
+			if (folderId) {
+				worksheetData.folderId = folderId;
+			}
+
+			const worksheet = await prisma.worksheet.create({
+				data: worksheetData,
+			});
+			console.log(worksheet, "worksheet in create");
+			// return worksheet;
 		} catch (error) {
 			console.log(error, "error");
 			throw new Error(error);
@@ -122,26 +161,19 @@ module.exports = {
 			throw new Error(error);
 		}
 	},
-	createWorksheet: async (user, title, folderId) => {
-		//if folder, place in folder?
+	updateWorksheet: async (id, title) => {
 		try {
-			const worksheetData = {
-				authorId: user.id,
-				title: title,
-				createdAt: new Date(),
-			};
-
-			if (folderId) {
-				worksheetData.folderId = folderId;
-			}
-
-			const worksheet = await prisma.worksheet.create({
-				data: worksheetData,
+			const updatedWorksheet = await prisma.worksheet.update({
+				where: {
+					id: id,
+				},
+				data: {
+					title: title
+				}
 			});
-			console.log(worksheet, "worksheet in create");
-			// return worksheet;
+			return updatedWorksheet;
 		} catch (error) {
-			console.log(error, "error");
+			console.log(error, "error in update worksheet");
 			throw new Error(error);
 		}
 	},
