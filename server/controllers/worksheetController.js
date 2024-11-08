@@ -29,7 +29,15 @@ exports.getWorksheets = expressAsyncHandler(async (req, res, next) => {
 });
 
 exports.getOneWorksheet = expressAsyncHandler(async (req, res, next) => {
-	console.log(req.body, "this is req get one");
+	const worksheet = await db.findWorksheet(parseInt(req.params.id));
+
+	if (!worksheet) {
+		res.status(404).json({
+			message: "Server error has occurred. Please try again later",
+		});
+	}
+
+	res.json(worksheet);
 });
 
 exports.uploadWorksheet = expressAsyncHandler(async (req, res, next) => {

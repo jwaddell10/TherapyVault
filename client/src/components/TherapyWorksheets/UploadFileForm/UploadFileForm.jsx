@@ -35,7 +35,7 @@ export default function UploadFileForm({
 		formDataToSend.append("title", title);
 		formDataToSend.append("demographic", demographic);
 		formDataToSend.append("description", description);
-		formDataToSend.append("folderId", folderId)
+		formDataToSend.append("folderId", folderId);
 		formDataToSend.append("sessionID", localStorage.getItem("sessionID"));
 
 		for (let [key, value] of formDataToSend.entries()) {
@@ -64,17 +64,18 @@ export default function UploadFileForm({
 					}}
 					required
 				/>
-				<select
+				{/* <select
 					type="text"
 					onChange={(e) => {
 						setDemographic(e.target.value);
 					}}
 					required
 				>
+					<option value=""></option>
 					<option value="child">Child</option>
 					<option value="adolescent">Adolescent</option>
 					<option value="adult">Adult</option>
-				</select>
+				</select> */}
 				<input
 					type="text"
 					onChange={(e) => {

@@ -16,6 +16,8 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 router.get("/", worksheetController.getWorksheets);
+router.get("/:id", worksheetController.getOneWorksheet);
+
 
 router.get("/demographics", worksheetController.getDemographics);
 
@@ -23,18 +25,22 @@ router.get("/topics", worksheetController.getTopics);
 
 router.post("/", upload.single("worksheet"), async function (req, res) {
 	//maybe double this and add worksheet to folder in query?
-	
-		console.log(req.body, 'reqbodyin upload', req.params, 'reqparams')
-	// 	const user = await db.findUser(req.body.username);
-	// 	console.log(user, 'user')
-	// 	if (!user) {
-	// 		console.log('no user')
-	// 		res.status(404).json({
-	// 			message: "Username not found. Try again later",
-	// 		});
-	// 	}
 
-	// 	const worksheet = await db.createWorksheet(req.body.title);
+	console.log(req.body, "reqbodyin upload", req.params, "reqparams");
+	try {
+		const user = await db.findUser(req.body.username);
+		if (!user) {
+			console.log("no user");
+			res.status(404).json({
+				message: "Username not found. Try again later",
+			});
+		}
+
+		const worksheet = await db.createWorksheet(user, req.body.title, parseInt(req.body.folderId));
+	} catch (error) {
+		console.log(error);
+		throw new Error(error);
+	}
 
 	// 	res.json({ message: "File uploaded successfully" });
 	// } catch (error) {
@@ -42,8 +48,6 @@ router.post("/", upload.single("worksheet"), async function (req, res) {
 	// 	res.status(500).json({ error: "An error occurred during file upload" });
 	// }
 });
-
-router.get("/worksheet/:id", worksheetController.getOneWorksheet);
 
 router.delete("/:id/delete", worksheetController.deleteWorksheet);
 

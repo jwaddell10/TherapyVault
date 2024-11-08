@@ -12,8 +12,6 @@ router.get("/", function (req, res, next) {
 router.post("/sign-up", userController.signUp);
 
 router.post("/log-in", function (req, res, next) {
-	console.log(req.body, 'this is reqbody')
-
 	passport.authenticate("local", function (err, user, info) {
 		if (err) {
 			console.log(err, "error was found");
@@ -22,7 +20,7 @@ router.post("/log-in", function (req, res, next) {
 		if (!user) {
 			return res.json(info.message);
 		}
-		// NEED TO CALL req.login()!!!
+
 		req.login(user, function (err) {
 			if (err) {
 				return next(err);
