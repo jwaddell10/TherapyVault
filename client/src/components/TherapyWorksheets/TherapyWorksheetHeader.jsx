@@ -5,11 +5,7 @@ import UploadFileForm from "./UploadFileForm/UploadFileForm";
 import CreateFolder from "./CreateFolder/CreateFolder";
 import { Link } from "react-router-dom";
 
-export default function TherapyWorksheetHeader({
-	setRefreshTrigger,
-	title,
-	username,
-}) {
+export default function TherapyWorksheetHeader({ setRefreshTrigger, title, folderId }) {
 	const [popupUploadForm, setPopupUploadForm] = useState(false);
 	const [popupFolderForm, setPopupFolderForm] = useState(false);
 	const handleUploadFile = () => {
@@ -50,8 +46,8 @@ export default function TherapyWorksheetHeader({
 						<div className="background"></div>
 						<Link></Link>
 						<UploadFileForm
+							folderId={folderId}
 							setRefreshTrigger={setRefreshTrigger}
-							username={username}
 							setPopupUploadForm={setPopupUploadForm}
 						></UploadFileForm>
 					</>

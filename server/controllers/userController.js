@@ -16,12 +16,11 @@ exports.signUp = asyncHandler(async (req, res, next) => {
 		req.body.username,
 		req.body.password
 	);
-	
 	req.login(createdUser, function (err) {
 		if (err) {
 			return next(err);
 		}
-		res.json({ sessionID: req.sessionID });
+		res.json({ sessionID: req.sessionID, username: createdUser.username });
 	});
 });
 

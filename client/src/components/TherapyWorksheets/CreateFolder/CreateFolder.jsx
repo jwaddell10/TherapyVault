@@ -11,6 +11,7 @@ export default function CreateFolder({
 }) {
 	// let { params } = useParams();
 	// console.log(params, "params in useparams");
+	const [error, setError] = useState(null)
 	const [formData, setFormData] = useState({
 		name: "",
 	});
@@ -38,6 +39,7 @@ export default function CreateFolder({
 	};
 	return (
 		<form className="folder-form" onSubmit={handleSubmit}>
+			{error}
 			<div onClick={handleClose}>
 				<CloseIcon />
 			</div>

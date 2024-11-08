@@ -11,7 +11,6 @@ module.exports = {
 					username: username,
 				},
 			});
-			console.log(user, 'user in prisma')
 			return user;
 		} catch (error) {
 			console.log(error, 'error')
@@ -67,18 +66,21 @@ module.exports = {
 	findFolders: async () => {
 		try {
 			const folders = await prisma.folder.findMany();
+			console.log(folders, 'folders')
 			return folders;
 		} catch (error) {
 			console.log(error, 'error')
 			throw new Error(error);
 		}
 	},
-	createFolder: async (title) => {
+	createFolder: async (user, title) => {
+		console.log(title, 'title in create', user, 'user in create')
 		try {
 			const folder = await prisma.folder.create({
 				data: {
 					title: title,
 					createdAt: new Date(),
+					authorId: user.id // Directly provide the authorId
 				},
 			});
 			return folder;
@@ -110,14 +112,19 @@ module.exports = {
 		}
 	},
 	createWorksheet: async (title) => {
+		//if folder, place in folder?
 		try {
 			const worksheet = await prisma.worksheets.create({
 				data: {
 					title: title,
 					createdAt: new Date(),
+					include: {
+						Folder: true
+					}
 				},
 			});
-			return worksheet;
+			console.log(worksheet, 'worksheet in create')
+			// return worksheet;
 		} catch (error) {
 			console.log(error, 'error')
 			throw new Error(error);

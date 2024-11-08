@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 export default function useFetchFilesFolders(isEditing, refreshTrigger) {
 	const [files, setFiles] = useState([]);
 	const [folders, setFolders] = useState([]);
-console.log(files, 'files in fetch', folders, 'folders in fetch')
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
@@ -19,6 +18,6 @@ console.log(files, 'files in fetch', folders, 'folders in fetch')
 		};
 		fetchData();
 	}, [isEditing, refreshTrigger]);
-	// console.log(files, 'files', folders, 'folders')
+
 	return { files, folders };
 }

@@ -7,11 +7,9 @@ import Signup from "./components/Signup/Signup.jsx";
 import TherapyWorksheets from "./components/TherapyWorksheets/TherapyWorksheets.jsx";
 import DisplayFile from "./components/DisplayFile.jsx";
 import DisplayFolder from "./components/TherapyWorksheets/DisplayFolder.jsx";
-import { useState } from "react";
 
 export default function App() {
 	// sessionStorage.clear();
-	const [username, setUserName] = useState(null)
 	const router = createBrowserRouter([
 		{
 			path: "/",
@@ -24,7 +22,7 @@ export default function App() {
 				},
 				{
 					path: "/therapy-worksheets",
-					element: <TherapyWorksheets username={username}/>,
+					element: <TherapyWorksheets />,
 				},
 				{
 					path: "/therapy-worksheets/worksheet/:worksheetId",
@@ -36,7 +34,7 @@ export default function App() {
 				},
 				{
 					path: "/log-in",
-					element: <Login setUserName={setUserName}/>,
+					element: <Login />,
 				},
 				{
 					path: "/sign-up",

@@ -20,7 +20,7 @@ export default function DisplayFolder() {
 
 	return (
 		<>
-			<Header title={title} />
+			<Header title={title} folderId={folderId} />
 			<div>
 				{folderData &&
 					folderData.map((item) => {

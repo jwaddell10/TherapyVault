@@ -1,8 +1,12 @@
 export default async function postUploadFolderForm(formData, url) {
+	const username = sessionStorage.getItem("username")
 	try {
 		const response = await fetch(`${import.meta.env.VITE_API_URL}/${url}`, {
 			method: "POST",
-			body: JSON.stringify(formData),
+			body: JSON.stringify({
+				formData,
+				username,
+			}),
 			headers: {
 				"Content-type": "application/json",
 			},

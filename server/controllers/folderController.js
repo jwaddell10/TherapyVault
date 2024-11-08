@@ -26,6 +26,7 @@ exports.getOneFolder = expressAsyncHandler(async (req, res, next) => {
 });
 
 exports.postFolder = expressAsyncHandler(async (req, res, next) => {
+	console.log(req.body, 'req in postfolder')
 	const folder = await db.createFolder(req.body.name);
 	res.json(folder);
 });

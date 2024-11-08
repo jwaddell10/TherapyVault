@@ -4,7 +4,7 @@ import Button from "../../helpers/Button/Button";
 import postAuthFormData from "../../helpers/FetchRequests/postAuthFormData";
 import "./Login.css";
 
-export default function Login({setUserName}) {
+export default function Login() {
 	const navigate = useNavigate();
 	const [error, setError] = useState(null);
 

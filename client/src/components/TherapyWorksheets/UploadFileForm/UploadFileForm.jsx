@@ -6,7 +6,7 @@ import "./UploadFileForm.css";
 export default function UploadFileForm({
 	setRefreshTrigger,
 	setPopupUploadForm,
-	username,
+	folderId,
 }) {
 	const [title, setTitle] = useState(null);
 	const [demographic, setDemographic] = useState(null);
@@ -35,6 +35,7 @@ export default function UploadFileForm({
 		formDataToSend.append("title", title);
 		formDataToSend.append("demographic", demographic);
 		formDataToSend.append("description", description);
+		formDataToSend.append("folderId", folderId)
 		formDataToSend.append("sessionID", localStorage.getItem("sessionID"));
 
 		for (let [key, value] of formDataToSend.entries()) {

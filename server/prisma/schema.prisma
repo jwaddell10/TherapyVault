@@ -25,33 +25,45 @@ model Profile {
 }
 
 model User {
-    id         Int          @id @default(autoincrement())
-    username   String       @unique @db.VarChar(255)
-    password   String       @db.VarChar(255)
-    profile    Profile?
-    folder     Folder[]
-    folderid   Int?
-    worksheets Worksheets[]
-    // Session    Session?
+    id        Int         @id @default(autoincrement())
+    username  String      @unique @db.VarChar(255)
+    password  String      @db.VarChar(255)
+    profile   Profile?
+    folder    Folder[]
+    folderid  Int?
+    worksheet Worksheet[]
 }
 
 model Folder {
-    id         Int          @id @default(autoincrement())
-    title      String       @db.VarChar(255)
-    createdAt  DateTime     @db.Date
-    author     User         @relation(fields: [id], references: [id])
-    Worksheets Worksheets[] @relation
+    id        Int         @id @default(autoincrement())
+    title     String      @db.VarChar(255)
+    size      Int?
+    createdAt DateTime    @db.Date
+    user      User        @relation(fields: [userId], references: [id])
+    userId    Int
+    parent    Folder?     @relation("ParentFolder", fields: [parentId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+    parentId  Int?
+    children  Folder[]    @relation("ParentFolder")
+    worksheet Worksheet[]
+
+    @@index([userId])
+    @@index([parentId])
 }
 
-model Worksheets {
+model Worksheet {
     id          Int           @id @default(autoincrement())
     title       String        @db.VarChar(255)
-    author      User          @relation(fields: [id], references: [id])
+    author      User          @relation(fields: [authorId], references: [id])
+    authorId    Int
     // topics      Topic[]       @relation
-    Demographic Demographic[]
+    demographic Demographic[]
     createdAt   DateTime      @db.Date
-    Folder      Folder?       @relation(fields: [Folderid], references: [id])
-    Folderid    Int?          @unique
+
+    folder   Folder? @relation(fields: [folderId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+    folderId Int?
+
+    @@index([authorId])
+    @@index([folderId])
 }
 
 // model Topic {
@@ -61,7 +73,7 @@ model Worksheets {
 // }
 
 model Demographic {
-    id           Int          @id @default(autoincrement())
-    demographics String       @db.VarChar(255)
-    Worksheets   Worksheets[]
+    id          Int         @id @default(autoincrement())
+    demographic String      @db.VarChar(255)
+    Worksheet   Worksheet[]
 }
