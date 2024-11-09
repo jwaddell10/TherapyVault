@@ -186,8 +186,13 @@ module.exports = {
 					id: id,
 				},
 				data: {
+<<<<<<< HEAD
 					title: title,
 				},
+=======
+					title: title
+				}
+>>>>>>> 51c8949597a262480d4a173cd74c68eee1798cfa
 			});
 			return updatedWorksheet;
 		} catch (error) {
