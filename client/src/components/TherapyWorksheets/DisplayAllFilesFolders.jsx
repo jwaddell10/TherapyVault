@@ -13,6 +13,7 @@ export default function DisplayAllFilesFolders({
 	isEditing,
 	setIsEditing,
 }) {
+	console.log(filesAndFoldersSortedById, 'files and folders in display')
 	const navigate = useNavigate();
 	const [isEditingId, setIsEditingId] = useState(null);
 
@@ -56,14 +57,14 @@ export default function DisplayAllFilesFolders({
 		}
 	};
 
-	const handleDelete = async (itemType) => {
+	const handleFolderDelete = async () => {
 		const choice = window.confirm("Are you sure you want to delete this?");
 		if (!choice) return;
 		try {
 			const response = await fetch(
 				`${
 					import.meta.env.VITE_API_URL
-				}/${itemType}/${deletedItemId}/delete`,
+				}/folder/${deletedItemId}/delete`,
 				{
 					method: "DELETE",
 				}
@@ -156,10 +157,7 @@ export default function DisplayAllFilesFolders({
 								{isModalOpen && (
 									<div ref={ref}>
 										<OptionsForm
-											itemType={item.type}
-											onDelete={() =>
-												handleDelete(item.type)
-											}
+											onDelete={handleFolderDelete}
 											deletedItemId={deletedItemId}
 											isEditing={isEditing}
 											setIsEditing={setIsEditing}

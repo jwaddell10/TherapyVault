@@ -18,7 +18,6 @@ const upload = multer({ storage: storage });
 router.get("/", worksheetController.getWorksheets);
 router.get("/:id", worksheetController.getOneWorksheet);
 
-
 router.get("/demographics", worksheetController.getDemographics);
 
 router.get("/topics", worksheetController.getTopics);
@@ -36,7 +35,11 @@ router.post("/", upload.single("worksheet"), async function (req, res) {
 			});
 		}
 
-		const worksheet = await db.createWorksheet(user, req.body.title, parseInt(req.body.folderId));
+		const worksheet = await db.createWorksheet(
+			user,
+			req.body.title,
+			parseInt(req.body.folderId)
+		);
 	} catch (error) {
 		console.log(error);
 		throw new Error(error);
@@ -50,5 +53,7 @@ router.post("/", upload.single("worksheet"), async function (req, res) {
 });
 
 router.delete("/:id/delete", worksheetController.deleteWorksheet);
+
+router.put("/:id/update", worksheetController.updateWorksheet);
 
 module.exports = router;

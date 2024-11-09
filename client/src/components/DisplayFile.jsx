@@ -1,26 +1,16 @@
-import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import OptionsForm from "./TherapyWorksheets/OptionsForm";
+import useGetFileData from "../helpers/FetchRequests/useGetFileData";
 
 export default function DisplayFile() {
 	const fileId = useParams();
-	console.log(
-		`${import.meta.env.VITE_API_URL}/worksheet/${fileId.worksheetId}`,
-		"url"
-	);
-	const [fileData, setFileData] = useState(null);
-	useEffect(() => {
-		const fetchFileData = async () => {
-			const response = await fetch(
-				`${import.meta.env.VITE_API_URL}/worksheet/${
-					fileId.worksheetId
-				}`
-			);
-			const data = await response.json();
-			console.log(data.title, "data tile");
-			setFileData(data);
-		};
-		fetchFileData();
-	}, [fileId.worksheetId]);
+	const { fileData } = useGetFileData(fileId);
+	console.log(fileData, 'file data from usegetfiledata')
 
-	return <>{fileData && <h1>{fileData.title}</h1>}</>;
+	return (
+		<>
+			<OptionsForm />
+			{fileData && <h1>{fileData.title}</h1>}
+		</>
+	);
 }

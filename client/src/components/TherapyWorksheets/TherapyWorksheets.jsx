@@ -10,7 +10,6 @@ export default function TherapyWorksheets({ username }) {
 	const [isEditing, setIsEditing] = useState(false);
 
 	const { files, folders } = useFetchFilesFolders(isEditing, refreshTrigger);
-	console.log(files, 'files', folders, 'folders')
 	const filesWithTypes = (files || []).map((file) => ({
 		...file,
 		type: "worksheet",
@@ -23,7 +22,6 @@ export default function TherapyWorksheets({ username }) {
 	const filesandFoldersSortedById = filesWithTypes
 		.concat(foldersWithTypes)
 		.sort((a, b) => a.id - b.id);
-
 	return (
 		<section className="page-container">
 			{/* <SideBar /> */}
