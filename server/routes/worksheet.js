@@ -24,8 +24,6 @@ router.get("/topics", worksheetController.getTopics);
 
 router.post("/", upload.single("worksheet"), async function (req, res) {
 	//maybe double this and add worksheet to folder in query?
-
-	console.log(req.body, "reqbodyin upload", req.params, "reqparams");
 	try {
 		const user = await db.findUser(req.body.username);
 		if (!user) {
@@ -40,6 +38,11 @@ router.post("/", upload.single("worksheet"), async function (req, res) {
 			req.body.title,
 			parseInt(req.body.folderId)
 		);
+
+		if (worksheet) {
+			console.log(worksheet, 'this is worksheet')
+			res.json({ message: "worksheet created" });
+		} else res.status(404).json({ message: "Error has occurred during file upload." });
 	} catch (error) {
 		console.log(error);
 		throw new Error(error);

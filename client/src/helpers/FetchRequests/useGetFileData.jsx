@@ -10,7 +10,7 @@ export default function useGetFileData(fileId) {
                 }`
             );
             const data = await response.json();
-            console.log(data.title, "data tile");
+            // console.log(data.title, "data tile");
             setFileData(data);
         };
         fetchFileData();

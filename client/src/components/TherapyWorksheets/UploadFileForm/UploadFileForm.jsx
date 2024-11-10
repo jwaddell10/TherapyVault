@@ -4,12 +4,12 @@ import postUploadFileForm from "../../../helpers/FetchRequests/postUploadFileFor
 import "./UploadFileForm.css";
 
 export default function UploadFileForm({
+	folderId,
 	setRefreshTrigger,
 	setPopupUploadForm,
-	folderId,
 }) {
 	const [title, setTitle] = useState(null);
-	const [demographic, setDemographic] = useState(null);
+	// const [demographic, setDemographic] = useState(null);
 	const [description, setDescription] = useState(null);
 	const [file, setFile] = useState(null);
 
@@ -33,7 +33,7 @@ export default function UploadFileForm({
 		const formDataToSend = new FormData();
 		formDataToSend.append("worksheet", file);
 		formDataToSend.append("title", title);
-		formDataToSend.append("demographic", demographic);
+		// formDataToSend.append("demographic", demographic);
 		formDataToSend.append("description", description);
 		formDataToSend.append("folderId", folderId);
 		formDataToSend.append("sessionID", localStorage.getItem("sessionID"));
@@ -43,9 +43,16 @@ export default function UploadFileForm({
 		}
 
 		try {
-			await postUploadFileForm(formDataToSend, "worksheet");
-			setPopupUploadForm(false);
-			setRefreshTrigger((prevTrigger) => prevTrigger + 1);
+			const response = await postUploadFileForm(
+				formDataToSend,
+				"worksheet"
+			);
+			if (response) {
+				console.log(response, "did a response come?");
+
+				setPopupUploadForm(false);
+				setRefreshTrigger((prevTrigger) => prevTrigger + 1);
+			}
 		} catch (error) {
 			console.error("Error uploading worksheet:", error);
 		}

@@ -1,16 +1,14 @@
-import { useState, useParams } from "react";
+import { useState } from "react";
 import CloseIcon from "@rsuite/icons/Close";
 import postUploadFolderForm from "../../../helpers/FetchRequests/postUploadFolderForm";
 import "./CreateFolder.css";
 
 export default function CreateFolder({
-	files,
-	setFiles,
+	folderId,
 	setPopupFolderForm,
 	setRefreshTrigger,
 }) {
-	// let { params } = useParams();
-	// console.log(params, "params in useparams");
+	console.log(folderId, 'folderid in create')
 	const [error, setError] = useState(null)
 	const [formData, setFormData] = useState({
 		name: "",
@@ -28,7 +26,7 @@ export default function CreateFolder({
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		try {
-			const response = await postUploadFolderForm(formData, "folder");
+			const response = await postUploadFolderForm(formData, folderId, "folder");
 			if (response) {
 				setPopupFolderForm(false);
 				setRefreshTrigger((prevState) => prevState + 1);

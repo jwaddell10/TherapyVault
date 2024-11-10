@@ -8,6 +8,8 @@ export default async function postUploadFileForm(formData, url) {
 			method: "POST",
 			body: formData,
 		});
+
+		console.log(response, 'this is response in postupload')
 		if (!response.ok) {
 			console.log(response, "response");
 			throw new Error(`HTTP error! status: ${response.status}`);
