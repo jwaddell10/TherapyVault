@@ -66,8 +66,8 @@ exports.uploadWorksheet = expressAsyncHandler(async (req, res, next) => {
 });
 
 exports.deleteWorksheet = expressAsyncHandler(async (req, res, next) => {
-	const parsedId = parseInt(req.params.id);
-	const deletedWorksheet = await db.deleteWorksheet(parsedId);
+	// const parsedId = parseInt(req.params.id);
+	const deletedWorksheet = await db.deleteWorksheet(parseInt(req.params.id));
 
 	if (deletedWorksheet) {
 		res.json(deletedWorksheet);

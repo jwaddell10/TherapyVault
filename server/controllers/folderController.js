@@ -13,20 +13,14 @@ exports.getFolder = expressAsyncHandler(async (req, res, next) => {
 });
 
 exports.getOneFolder = expressAsyncHandler(async (req, res, next) => {
-	const folderId = parseInt(req.params.id);
-	// const folder = await db.findFolder()
-	const folder = await prisma.folder.findMany({
-		include: {
-			worksheet: true,
-		},
-	});
+	const folder = await db.findFolder(parseInt(req.params.id))
 	res.json(folder);
 });
 
 exports.postFolder = expressAsyncHandler(async (req, res, next) => {
 	console.log(req.body, "req in postfolder");
 	const user = await db.findUser(req.body.username);
-	const folder = await db.createFolder(user, req.body.formData.name);
+	const folder = await db.createFolder(user, req.body.formData.name, parseInt(req.body.folderId));
 	res.json(folder);
 });
 

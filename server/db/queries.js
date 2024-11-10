@@ -1,7 +1,7 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const bcrypt = require("bcryptjs");
-const { session } = require("passport");
+const { session, authorize } = require("passport");
 
 module.exports = {
 	createUser: async (username, password) => {
@@ -50,14 +50,27 @@ module.exports = {
 			throw new Error(error);
 		}
 	},
-	createFolder: async (user, title) => {
+	createFolder: async (user, title, folderId) => {
 		try {
+			const folderData = {
+				title: title,
+				createdAt: new Date(),
+				authorId: user.id,
+			};
+			// const folder = await prisma.folder.create({
+			// 	data: {
+			// 		title: title,
+			// 		createdAt: new Date(),
+			// 		authorId: user.id,
+			// 	},
+			// });
+
+			if (folderId !== null) {
+				folderData.folderId = folderId;
+			}
+
 			const folder = await prisma.folder.create({
-				data: {
-					title: title,
-					createdAt: new Date(),
-					authorId: user.id,
-				},
+				data: folderData,
 			});
 			return folder;
 		} catch (error) {
@@ -70,6 +83,10 @@ module.exports = {
 			const folder = await prisma.folder.findUnique({
 				where: {
 					id,
+				},
+				include: {
+					worksheet: true,
+					children: true,
 				},
 			});
 			return folder;
@@ -112,7 +129,7 @@ module.exports = {
 				data: {
 					worksheets: {
 						set: [],
-					}
+					},
 				},
 			});
 		} catch (error) {
@@ -150,8 +167,7 @@ module.exports = {
 			const worksheet = await prisma.worksheet.create({
 				data: worksheetData,
 			});
-			console.log(worksheet, "worksheet in create");
-			// return worksheet;
+			return worksheet;
 		} catch (error) {
 			console.log(error, "error");
 			throw new Error(error);
@@ -186,13 +202,8 @@ module.exports = {
 					id: id,
 				},
 				data: {
-<<<<<<< HEAD
 					title: title,
 				},
-=======
-					title: title
-				}
->>>>>>> 51c8949597a262480d4a173cd74c68eee1798cfa
 			});
 			return updatedWorksheet;
 		} catch (error) {
@@ -201,7 +212,9 @@ module.exports = {
 		}
 	},
 	deleteWorksheet: async (id) => {
+		console.log("delete runs");
 		try {
+			console.log(id, "id here");
 			const worksheetToDelete = await prisma.worksheet.delete({
 				where: {
 					id: id,

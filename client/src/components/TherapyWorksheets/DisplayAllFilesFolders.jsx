@@ -13,13 +13,10 @@ export default function DisplayAllFilesFolders({
 	isEditing,
 	setIsEditing,
 }) {
-	console.log(filesAndFoldersSortedById, 'files and folders in display')
 	const navigate = useNavigate();
 	const [isEditingId, setIsEditingId] = useState(null);
 
-	const [itemToDelete, setItemToDelete] = useState("");
-	const [deletedItemId, setDeletedItemId] = useState(null);
-
+	const [itemToDelete, setItemToDelete] = useState({ id: null, type: null });
 	const [position, setPosition] = useState(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -29,6 +26,7 @@ export default function DisplayAllFilesFolders({
 
 	const handleClick = async (id, itemType) => {
 		navigate(`/therapy-worksheets/${itemType}/${id}`);
+		// <DisplayAllFilesFolders />
 	};
 
 	const handleNameChange = async (id, type, event) => {
@@ -57,14 +55,14 @@ export default function DisplayAllFilesFolders({
 		}
 	};
 
-	const handleFolderDelete = async () => {
+	const handleDelete = async () => {
+		const { id, type } = itemToDelete;
+		console.log(type, "type in itemtodelete");
 		const choice = window.confirm("Are you sure you want to delete this?");
 		if (!choice) return;
 		try {
 			const response = await fetch(
-				`${
-					import.meta.env.VITE_API_URL
-				}/folder/${deletedItemId}/delete`,
+				`${import.meta.env.VITE_API_URL}/${type}/${id}/delete`,
 				{
 					method: "DELETE",
 				}
@@ -106,7 +104,11 @@ export default function DisplayAllFilesFolders({
 							{isEditing && isEditingId === item.id ? (
 								<input
 									onKeyDown={(event) => {
-										handleNameChange(item.id, item.type, event);
+										handleNameChange(
+											item.id,
+											item.type,
+											event
+										);
 									}}
 								/>
 							) : (
@@ -132,7 +134,7 @@ export default function DisplayAllFilesFolders({
 												onClick={() => {
 													handleClick(
 														item.id,
-														item.type
+														"worksheet"
 													);
 												}}
 											>
@@ -150,19 +152,21 @@ export default function DisplayAllFilesFolders({
 									onClick={(event) => {
 										setIsEditingId(item.id);
 										setIsModalOpen(true);
-										setDeletedItemId(item.id);
+										setItemToDelete({
+											id: item.id,
+											type: item.type,
+										});
 										setPosition(event.pageY);
 									}}
 								/>
 								{isModalOpen && (
 									<div ref={ref}>
 										<OptionsForm
-											onDelete={handleFolderDelete}
-											deletedItemId={deletedItemId}
+											onDelete={() => {
+												handleDelete(item.type);
+											}}
 											isEditing={isEditing}
 											setIsEditing={setIsEditing}
-											itemToDelete={itemToDelete}
-											setItemToDelete={setItemToDelete}
 											position={position}
 										/>
 									</div>

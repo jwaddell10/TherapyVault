@@ -10,17 +10,17 @@ export default function TherapyWorksheets({ username }) {
 	const [isEditing, setIsEditing] = useState(false);
 
 	const { files, folders } = useFetchFilesFolders(isEditing, refreshTrigger);
-	const filesWithTypes = (files || []).map((file) => ({
+	const filesWithTypesAndNoParentFolder = (files || []).map((file) => ({
 		...file,
 		type: "worksheet",
-	}));
-	const foldersWithTypes = (folders?.folders || []).map((folder) => ({
+	})).filter((item) => item.folderId === null);
+	const foldersWithTypesAndNoParentFolder = (folders?.folders || []).map((folder) => ({
 		...folder,
 		type: "folder",
-	}));
+	})).filter((item) => item.folderId === null);
 
-	const filesandFoldersSortedById = filesWithTypes
-		.concat(foldersWithTypes)
+	const filesandFoldersSortedById = filesWithTypesAndNoParentFolder
+		.concat(foldersWithTypesAndNoParentFolder)
 		.sort((a, b) => a.id - b.id);
 	return (
 		<section className="page-container">

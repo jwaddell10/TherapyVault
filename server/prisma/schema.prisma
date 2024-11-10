@@ -39,13 +39,13 @@ model Folder {
     createdAt DateTime    @db.Date
     author    User        @relation(fields: [authorId], references: [id])
     authorId  Int
-    parent    Folder?     @relation("ParentFolder", fields: [parentId], references: [id], onDelete: Cascade)
-    parentId  Int?
+    folder    Folder?     @relation("ParentFolder", fields: [folderId], references: [id], onDelete: Cascade)
+    folderId  Int?
     children  Folder[]    @relation("ParentFolder")
     worksheet Worksheet[]
 
     @@index([authorId])
-    @@index([parentId])
+    @@index([folderId])
 }
 
 model Worksheet {
