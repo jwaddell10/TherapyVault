@@ -151,14 +151,16 @@ module.exports = {
 			throw new Error(error);
 		}
 	},
-	createWorksheet: async (user, title, folderId) => {
+	createWorksheet: async (user, title, folderId, imgUrl) => {
 		//if folder, place in folder?
 		try {
 			const worksheetData = {
 				authorId: user.id,
 				title: title,
 				createdAt: new Date(),
+				imgUrl: imgUrl,
 			};
+			console.log(worksheetData, 'worksheet data in creat')
 
 			if (folderId) {
 				worksheetData.folderId = folderId;

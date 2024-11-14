@@ -43,7 +43,6 @@ model Folder {
     folderId  Int?
     children  Folder[]    @relation("ParentFolder")
     worksheet Worksheet[]
-
     @@index([authorId])
     @@index([folderId])
 }
@@ -56,9 +55,9 @@ model Worksheet {
     // topics      Topic[]       @relation
     // demographic Demographic[]
     createdAt DateTime @db.Date
-
-    folder   Folder? @relation(fields: [folderId], references: [id], onDelete: Cascade)
-    folderId Int?
+    imgUrl    String?
+    folder    Folder?  @relation(fields: [folderId], references: [id], onDelete: Cascade)
+    folderId  Int?
 
     @@index([authorId])
     @@index([folderId])

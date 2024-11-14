@@ -10,7 +10,7 @@ export default function TherapyWorksheetHeader({
 	title,
 	folderId,
 }) {
-	console.log(folderId, "folderid in header");
+	// console.log(folderId, "folderid in header");
 	const [popupUploadForm, setPopupUploadForm] = useState(false);
 	const [popupFolderForm, setPopupFolderForm] = useState(false);
 	const handleUploadFile = () => {

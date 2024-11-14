@@ -10,7 +10,7 @@ export default function TherapyWorksheets({ username }) {
 	const [isEditing, setIsEditing] = useState(false);
 
 	const { files, folders } = useFetchFilesFolders(isEditing, refreshTrigger);
-	const filesWithTypesAndNoParentFolder = (files || []).map((file) => ({
+	const filesWithTypesAndNoParentFolder = (files?.files || []).map((file) => ({
 		...file,
 		type: "worksheet",
 	})).filter((item) => item.folderId === null);

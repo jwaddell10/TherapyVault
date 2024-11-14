@@ -9,9 +9,9 @@ export default async function postUploadFileForm(formData, url) {
 			body: formData,
 		});
 
-		console.log(response, 'this is response in postupload')
+		// console.log(response, 'this is response in postupload')
 		if (!response.ok) {
-			console.log(response, "response");
+			// console.log(response, "response");
 			throw new Error(`HTTP error! status: ${response.status}`);
 		}
 
