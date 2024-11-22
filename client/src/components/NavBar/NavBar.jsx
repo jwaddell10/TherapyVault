@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
 import LoginIcon from "@mui/icons-material/Login";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
@@ -6,40 +6,16 @@ import HomeIcon from "@mui/icons-material/Home";
 import DescriptionIcon from "@mui/icons-material/Description";
 import LogoutIcon from "@mui/icons-material/Logout";
 import styled from "styled-components";
+import { useContext } from "react";
+import { AuthContext } from "../../App.jsx";
 import "./NavBar.css";
 
 export default function NavBar() {
-	const session = sessionStorage.getItem("sessionID");
-	const navigate = useNavigate();
+	const { authed, setAuthed } = useContext(AuthContext);
 
-	const handleLogout = async () => {
-		const sessionID = sessionStorage.getItem("sessionID");
-
-		try {
-			const response = await fetch(
-				`${import.meta.env.VITE_API_URL}/users/log-out`,
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: sessionID,
-					},
-				}
-			);
-
-			if (!response.ok) {
-				throw new Error(`HTTP error! status: ${response.status}`);
-			}
-
-			const data = await response.json();
-			if (data) {
-				console.log(data, 'data in')
-				sessionStorage.clear()
-				navigate("/");
-			}
-		} catch (error) {
-			console.error("Logout failed:", error);
-		}
+	const handleLogout = () => {
+		localStorage.removeItem("token");
+		setAuthed(false);
 	};
 	return (
 		<>
@@ -52,7 +28,7 @@ export default function NavBar() {
 					</li>
 					<li className="nav-link">
 						<ul className="navbar-routes">
-							{!session ? (
+							{!authed ? (
 								<div className="no-session-links">
 									<StyledLink>
 										<LoginIcon sx={{ color: "white" }} />
@@ -64,7 +40,7 @@ export default function NavBar() {
 										/>
 										<Link to="/sign-up">Sign up</Link>
 									</StyledLink>
-								</div> 
+								</div>
 							) : (
 								<div className="session-links">
 									<StyledLink>

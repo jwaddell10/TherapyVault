@@ -1,12 +1,15 @@
 var express = require("express");
 var router = express.Router();
+const loggedIn = require('../utilities/loggedIn.js')
+const passport = require('../passport')
 require("dotenv").config();
 // import { handleUpload } from "../utilities/cloudinary.js";
 const { Readable } = require("stream");
 const cloudinary = require("cloudinary").v2;
 const db = require("../db/queries.js");
 const worksheetController = require("../controllers/worksheetController.js");
-
+const checkAuthentication = require("../utilities/checkAuthentication.js")
+// console.log(checkAuthentication, 'check auth')
 cloudinary.config({
 	cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
 	api_key: process.env.CLOUDINARY_API_KEY,
@@ -14,23 +17,11 @@ cloudinary.config({
 });
 
 const multer = require("multer");
+const { check } = require("express-validator");
 const storage = multer.memoryStorage(); // store image in memory
 const upload = multer({ storage: storage });
 
-// module.exports = upload;
-// const multer = require("multer");
-// const storage = multer.diskStorage({
-// 	destination: function (req, file, cb) {
-// 		cb(
-// 			null,
-// 			`https://api.cloudinary.com/v1_1/${process.env.CLOUD_NAME}/upload`
-// 		);
-// 	},
-// 	filename: function (req, file, cb) {
-// 		// const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-// 		return cb(null, `${Date.now()}_${file.originalname}`);
-// 	},
-// });
+
 router.get("/", worksheetController.getWorksheets);
 router.get("/:id", worksheetController.getOneWorksheet);
 
@@ -38,8 +29,8 @@ router.get("/demographics", worksheetController.getDemographics);
 
 router.get("/topics", worksheetController.getTopics);
 
-router.post("/", upload.single("worksheet"), async function (req, res) {
-	console.log("post runs");
+router.post("/", passport.authenticate('session'), upload.single("worksheet"), async function (req, res) {
+	console.log(req.session, 'req user in worksheet');
 	try {
 		if (!req.file) {
 			return res.status(400).json({ message: "No file uploaded" });
@@ -53,8 +44,8 @@ router.post("/", upload.single("worksheet"), async function (req, res) {
 		const result = await new Promise((resolve, reject) => {
 			const uploadStream = cloudinary.uploader.upload_stream(
 				{
-					folder: "worksheets", // Optional: specify a folder in your Cloudinary account
-					resource_type: "auto", // Automatically detect the file type
+					folder: "worksheets", 
+					resource_type: "auto",
 				},
 				(error, result) => {
 					if (error) reject(error);

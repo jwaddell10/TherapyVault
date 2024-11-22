@@ -7,6 +7,7 @@ export default function DisplayFolder() {
 	let { folderId } = useParams();
 	const [folderData, setFolderData] = useState();
 	const [title, setTitle] = useState(null);
+	console.log(title, 'title')
 	const [refreshTrigger, setRefreshTrigger] = useState(0)
 	useEffect(() => {
 		const fetchData = async () => {
@@ -21,6 +22,7 @@ export default function DisplayFolder() {
 			const data = await response.json();
 
 			if (data) {
+				// console.log(data.title, 'this is data from fetch')
 				const fileWithType = data.worksheet.map((item) => ({
 					...item,
 					type: "worksheet",
@@ -31,7 +33,7 @@ export default function DisplayFolder() {
 				}));
 				const folderChildren = fileWithType.concat(folderWithType);
 				setFolderData(folderChildren);
-				setTitle(data[0].title);
+				setTitle(data.title);
 			}
 		};
 		fetchData();

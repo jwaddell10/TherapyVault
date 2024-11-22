@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../helpers/Button/Button";
 import postAuthFormData from "../../helpers/FetchRequests/postAuthFormData";
 import "./Login.css";
+import { AuthContext } from "../../App";
 
 export default function Login() {
 	const navigate = useNavigate();
 	const [error, setError] = useState(null);
+	const { setAuthed } = useContext(AuthContext)
 
 	const [formData, setFormData] = useState({
 		username: "",
@@ -22,15 +24,11 @@ export default function Login() {
 		event.preventDefault();
 		try {
 			await postAuthFormData(formData, "/users/log-in").then((data) => {
-				if (data.username && data.sessionID) {
-					sessionStorage.setItem("username", data.username);
-					sessionStorage.setItem("sessionID", data.sessionID);
+				if (data.token) {
+					localStorage.setItem("token", data.token);
+					setAuthed(true)
 					navigate("/");
-				} else setError(data)
-
-				if (!data) {
-					throw new Error("Login failed");
-				}
+				} else setError(data.message);
 			});
 		} catch (error) {
 			setError("Server error. Please try again later.");

@@ -1,38 +1,55 @@
 var createError = require("http-errors");
 var path = require("path");
 var logger = require("morgan");
-var cors = require("cors");
+const cors = require("cors");
 const { Pool } = require("pg");
 const bcrypt = require("bcryptjs");
 // var GoogleStrategy = require("passport-google-oauth2").Strategy;
 const express = require("express");
-const passport = require("passport");
+const app = express();
+
 const cookieParser = require("cookie-parser");
-const expressSession = require("express-session");
+const session = require("express-session");
 const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
 const { PrismaClient } = require("@prisma/client");
-const LocalStrategy = require("passport-local").Strategy;
+const passport = require("passport");
+const LocalStrategy = require("./passport/localStrategy.js"); // Adjust the path as needed
 const db = require("./db/queries.js");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 const worksheetRouter = require("./routes/worksheet");
 const folderRouter = require("./routes/folder");
 require("dotenv").config();
+const jwt = require("jsonwebtoken")
+const corsOptions = {
+	origin: process.env.CLIENT_URL,
+	optionsSuccessStatus: 200,
+};
 
-const app = express();
-
-app.use(cors());
+app.use(
+	cors({
+		origin: process.env.CLIENT_URL,
+		credentials: true,
+	})
+);
+// app.options("*", cors());
 app.use(logger("dev"));
 app.use(express.json());
 // app.use(bodyparser.urlencoded({ limit: "50mb", extended: true }));
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser(process.env.SECRET));
+app.use((req, res, next) => {
+	// Test
+	next();
+});
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use(
-	expressSession({
+	session({
 		cookie: {
-			maxAge: 7 * 24 * 60 * 60 * 1000, // ms
+			sameSite: "none",
+			secure: false,
+			maxAge: 3600000, // ms
 		},
 		secret: process.env.SECRET,
 		resave: false,
@@ -44,7 +61,7 @@ app.use(
 		}),
 	})
 );
-
+app.use(passport.initialize());
 // passport.use(
 // 	new GoogleStrategy(
 // 		{
@@ -60,48 +77,16 @@ app.use(
 // 		}
 // 	)
 // );
+passport.use(LocalStrategy);
 
-app.use(passport.initialize());
-app.use(passport.session());
-passport.use(
-	new LocalStrategy(async (username, password, done) => {
-		// console.log("passport use runs")
-		try {
-			const user = await db.findUser(username);
-			if (!user) {
-				return done(null, false, { message: "Incorrect username" });
-			}
-
-			const match = await bcrypt.compare(password, user.password);
-			if (!match) {
-				return done(null, false, { message: "Incorrect password" });
-			}
-
-			return done(null, user);
-		} catch (error) {
-			return done(error);
-		}
-	})
-);
-
-passport.serializeUser((user, done) => {
-	done(null, user);
-});
-
-passport.deserializeUser(async function (id, done) {
-	try {
-		const user = await db.findUser(id);
-		if (!user) {
-			return done(null, false);
-		}
-		done(null, user);
-	} catch (error) {
-		done(error);
-	}
-});
+const ensureAuthenticated = function (req, res, next) {
+	console.log(req.user, "this is req user auth", req.body, "req body");
+	if (req.isAuthenticated()) return next();
+	else res.json({ message: "unable to authenticate" });
+};
 
 // configurePassport(passport);
-app.use(express.urlencoded({ extended: false }));
+// app.use(express.urlencoded({ extended: false }));
 // const ensureAuthenticated = function (req, res, next) {
 // 	if (req.isAuthenticated()) return next();
 // 	else res.json({ message: "unable to authenticate" });
@@ -109,6 +94,8 @@ app.use(express.urlencoded({ extended: false }));
 // app.use(ensureAuthenticated);
 
 app.use("/", indexRouter);
+app.use(passport.session());
+
 app.use("/users", usersRouter);
 app.use("/worksheet", worksheetRouter);
 app.use("/folder", folderRouter);

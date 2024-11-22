@@ -13,6 +13,7 @@ export default function DisplayAllFilesFolders({
 	isEditing,
 	setIsEditing,
 }) {
+	// console.log(filesAndFoldersSortedById, 'files and folders')
 	const navigate = useNavigate();
 	const [isEditingId, setIsEditingId] = useState(null);
 

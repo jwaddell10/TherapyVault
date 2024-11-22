@@ -8,6 +8,7 @@ export default function UploadFileForm({
 	setRefreshTrigger,
 	setPopupUploadForm,
 }) {
+	console.log(setRefreshTrigger, 'setrefreshtriggers')
 	const [title, setTitle] = useState(null);
 	// const [demographic, setDemographic] = useState(null);
 	const [description, setDescription] = useState(null);
@@ -49,9 +50,9 @@ export default function UploadFileForm({
 			);
 			if (response) {
 				console.log(response, "did a response come?");
-
 				setPopupUploadForm(false);
 				setRefreshTrigger((prevTrigger) => prevTrigger + 1);
+				console.log('setrefresh shouldve run')
 			}
 		} catch (error) {
 			console.error("Error uploading worksheet:", error);

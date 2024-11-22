@@ -9,7 +9,7 @@ export default function Signup() {
 		password: "",
 		confirmPassword: "",
 	});
-	const [usernameError, setUsernameError] = useState(null)
+	const [usernameError, setUsernameError] = useState(null);
 	const [error, setError] = useState(null);
 	const [passwordError, setPasswordError] = useState(null);
 	const navigate = useNavigate();
@@ -31,9 +31,7 @@ export default function Signup() {
 
 		try {
 			const data = await postAuthFormData(formData, "/users/sign-up");
-			if (data) {
-				sessionStorage.setItem("username", data.username);
-				sessionStorage.setItem("sessionID", data.sessionID);
+			if (data.token) {
 				navigate("/");
 			}
 		} catch (error) {
@@ -56,7 +54,9 @@ export default function Signup() {
 					onChange={handleChange}
 					required
 				/>
-				{usernameError && <div style={{ color: "red" }}>{usernameError}</div>}
+				{usernameError && (
+					<div style={{ color: "red" }}>{usernameError}</div>
+				)}
 				<label htmlFor="">Password:</label>{" "}
 				<input
 					name="password"

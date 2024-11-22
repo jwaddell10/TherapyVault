@@ -4,12 +4,14 @@ import UploadFileIcon from "@mui/icons-material/UploadFile";
 import UploadFileForm from "./UploadFileForm/UploadFileForm";
 import CreateFolder from "./CreateFolder/CreateFolder";
 import { Link } from "react-router-dom";
+import { setRef } from "@mui/material";
 
 export default function TherapyWorksheetHeader({
-	setRefreshTrigger,
 	title,
+	setRefreshTrigger,
 	folderId,
 }) {
+	console.log(setRefreshTrigger)
 	// console.log(folderId, "folderid in header");
 	const [popupUploadForm, setPopupUploadForm] = useState(false);
 	const [popupFolderForm, setPopupFolderForm] = useState(false);

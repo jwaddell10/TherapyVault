@@ -2,16 +2,25 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 const db = require("../db/queries.js");
 
-// module.exports = async function authAndLogin(req, res, next) {
-// 	console.log('auth and login runs')
-// 	passport.authenticate("local", (err, user, info) => {
-// 		if (err) {
-// 			console.log(err, "error logged here");
-// 			return res.status(500).json({ message: "An error occurred" });
-// 		}
+module.exports = async function authAndLogin(req, res, next) {
+	console.log("auth and login runs");
+	passport.authenticate("local", function (err, user, info) {
+		if (err) {
+			console.log(err, "error was found");
+			return next(err);
+		}
+		if (!user) {
+			return res.json(info.message);
+		}
 
-// 		if (!user) {
-// 			return res.status(401).json({ message: "No user found" });
-// 		}
-// 	})(req, res, next);
-// };
+		req.login(user, function (err) {
+			if (err) {
+				return next(err);
+			}
+			return res.json({
+				username: req.user.username,
+				sessionID: req.sessionID,
+			});
+		});
+	})(req, res, next);
+};

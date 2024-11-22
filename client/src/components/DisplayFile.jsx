@@ -7,18 +7,13 @@ import { useState } from "react";
 export default function DisplayFile() {
 	const fileId = useParams();
 	const { fileData } = useGetFileData(fileId);
-	const [refreshTrigger, setRefreshTrigger] = useState(null);
+	console.log(fileData, 'file data')
+	// const [refreshTrigger, setRefreshTrigger] = useState(null);
 
 	return (
 		<>
-			<OptionsForm
-				onDelete={() => {
-					handleDelete("worksheet", setRefreshTrigger, fileData.id);
-				}}
-			/>
 			{fileData && (
 				<>
-					<h1>{fileData.title}</h1>
 					<iframe
 						src={fileData.imgUrl}
 						width={"100%"}

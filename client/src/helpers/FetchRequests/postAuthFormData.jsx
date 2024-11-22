@@ -13,12 +13,18 @@ export default async function postAuthFormData(formData, url) {
 
 		if (!response.ok) {
 			const errorBody = await response.text();
-			throw new Error(errorBody);
+			throw new Error(
+				`HTTP error! status: ${response.status}, message: ${errorBody}`
+			);
 		}
 
 		const data = await response.json();
+		if (data.token) {
+			localStorage.setItem("token", data.token);
+		}
 		return data;
 	} catch (error) {
-		throw new Error(error);
+		console.error("Authentication error:", error);
+		throw error; // Re-throw the error for the caller to handle
 	}
 }

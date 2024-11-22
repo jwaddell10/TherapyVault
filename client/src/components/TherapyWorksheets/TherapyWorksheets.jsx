@@ -10,14 +10,23 @@ export default function TherapyWorksheets({ username }) {
 	const [isEditing, setIsEditing] = useState(false);
 
 	const { files, folders } = useFetchFilesFolders(isEditing, refreshTrigger);
-	const filesWithTypesAndNoParentFolder = (files?.files || []).map((file) => ({
-		...file,
-		type: "worksheet",
-	})).filter((item) => item.folderId === null);
-	const foldersWithTypesAndNoParentFolder = (folders?.folders || []).map((folder) => ({
-		...folder,
-		type: "folder",
-	})).filter((item) => item.folderId === null);
+	// console.log(files, 'files')
+	const filesWithTypesAndNoParentFolder = (files || [])
+		.map((file) => ({
+			...file,
+			type: "worksheet",
+		}))
+		.filter((item) => item.folderId === null);
+	console.log(
+		filesWithTypesAndNoParentFolder,
+		"files with types and no parent"
+	);
+	const foldersWithTypesAndNoParentFolder = (folders?.folders || [])
+		.map((folder) => ({
+			...folder,
+			type: "folder",
+		}))
+		.filter((item) => item.folderId === null);
 
 	const filesandFoldersSortedById = filesWithTypesAndNoParentFolder
 		.concat(foldersWithTypesAndNoParentFolder)

@@ -3,16 +3,21 @@
 /**
  * Module dependencies.
  */
-
-var app = require('../app');
-var debug = require('debug')('psychshelf:server');
-var http = require('http');
+console.log('bin starts running')
+const app = require('../app.js');
+console.log('app runs')
+const debug = require('debug')('psychshelf:server');
+// const debug = () => null;
+console.log('debug runs')
+const http = require('http');
+console.log('http runs')
 
 /**
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+const port = normalizePort(process.env.PORT || '3000');
+console.log('port runs', port)
 app.set('port', port);
 
 /**
@@ -20,14 +25,18 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+console.log('server runs')
 
 /**
  * Listen on provided port, on all network interfaces.
  */
 
 server.listen(port);
+// console.log()
 server.on('error', onError);
+console.log('server on and listen runs')
 server.on('listening', onListening);
+console.log('server listening')
 
 /**
  * Normalize a port into a number, string, or false.
@@ -54,6 +63,7 @@ function normalizePort(val) {
  */
 
 function onError(error) {
+  console.log('Error: ', error)
   if (error.syscall !== 'listen') {
     throw error;
   }
@@ -86,5 +96,6 @@ function onListening() {
   var bind = typeof addr === 'string'
     ? 'pipe ' + addr
     : 'port ' + addr.port;
+  console.log('Listening')
   debug('Listening on ' + bind);
 }

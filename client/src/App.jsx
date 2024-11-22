@@ -7,13 +7,27 @@ import Signup from "./components/Signup/Signup.jsx";
 import TherapyWorksheets from "./components/TherapyWorksheets/TherapyWorksheets.jsx";
 import DisplayFile from "./components/DisplayFile.jsx";
 import DisplayFolder from "./components/TherapyWorksheets/DisplayFolder.jsx";
+import { useState, createContext } from "react";
+// import fetchUsers from "./helpers/FetchRequests/fetchUsers.jsx";
+// import { locals } from "../../server/app.js";
+
+export const AuthContext = createContext(false);
 
 export default function App() {
-	// sessionStorage.clear();
+	const [authed, setAuthed] = useState(false);
+	// localStorage.clear();
+	// const users = fetchUsers()
+	// console.log(users, 'users')
+
 	const router = createBrowserRouter([
 		{
 			path: "/",
-			element: <NavBar />,
+			element: (
+				<AuthContext.Provider value={{ authed, setAuthed }}>
+					<NavBar />
+				</AuthContext.Provider>
+			),
+
 			// loader: rootLoader,
 			children: [
 				{
@@ -34,7 +48,11 @@ export default function App() {
 				},
 				{
 					path: "/log-in",
-					element: <Login />,
+					element: (
+						<AuthContext.Provider value={{ authed, setAuthed }}>
+							<Login />
+						</AuthContext.Provider>
+					),
 				},
 				{
 					path: "/sign-up",
