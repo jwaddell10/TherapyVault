@@ -6,6 +6,9 @@ const express = require("express");
 const app = express();
 
 const cookieParser = require("cookie-parser");
+const session = require("express-session");
+const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
+const { PrismaClient } = require("@prisma/client");
 const passport = require("passport");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -31,23 +34,23 @@ app.use((req, res, next) => {
 });
 app.use(express.static(path.join(__dirname, "public")));
 
-// app.use(
-// 	session({
-// 		cookie: {
-// 			sameSite: "none",
-// 			secure: false,
-// 			maxAge: 3600000, // ms
-// 		},
-// 		secret: process.env.SECRET,
-// 		resave: false,
-// 		saveUninitialized: false,
-// 		store: new PrismaSessionStore(new PrismaClient(), {
-// 			checkPeriod: 2 * 60 * 1000, //ms
-// 			dbRecordIdIsSessionId: true,
-// 			dbRecordIdFunction: undefined,
-// 		}),
-// 	})
-// );
+app.use(
+	session({
+		cookie: {
+			sameSite: "none",
+			secure: false,
+			maxAge: 3600000, // ms
+		},
+		secret: process.env.SECRET,
+		resave: false,
+		saveUninitialized: false,
+		store: new PrismaSessionStore(new PrismaClient(), {
+			checkPeriod: 2 * 60 * 1000, //ms
+			dbRecordIdIsSessionId: true,
+			dbRecordIdFunction: undefined,
+		}),
+	})
+);
 
 app.use("/", indexRouter);
 app.use(passport.session());

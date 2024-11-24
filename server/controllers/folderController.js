@@ -7,7 +7,11 @@ require("dotenv").config();
 const jwt = require("../helpers/verifyToken.js");
 
 exports.getFolder = expressAsyncHandler(async (req, res, next) => {
-	const folders = await db.findFolders();
+	const verifiedUser = jwt.verifyJWT(req.token)
+	
+	const user = await db.findUser(verifiedUser.user.username)
+	const folders = await db.findFolders(user);
+	
 	if (folders) {
 		return res.json({ folders: folders });
 	} else {
@@ -42,7 +46,8 @@ exports.updateFolder = expressAsyncHandler(async (req, res, next) => {
 });
 
 exports.deleteFolder = expressAsyncHandler(async (req, res, next) => {
-	jwt.verifyJWT(req.token);
+	console.log(req.token, 'req token')
+	console.log(jwt.verifyJWT(req.token), 'verify value');
 
 	const parsedId = parseInt(req.params.id);
 	const folderToDelete = await db.deleteFolder(parsedId);

@@ -7,8 +7,8 @@ export default function DisplayFolder() {
 	let { folderId } = useParams();
 	const [folderData, setFolderData] = useState();
 	const [title, setTitle] = useState(null);
-	console.log(title, 'title')
 	const [refreshTrigger, setRefreshTrigger] = useState(0)
+
 	useEffect(() => {
 		const fetchData = async () => {
 			const response = await fetch(
@@ -43,16 +43,6 @@ export default function DisplayFolder() {
 		<>
 			<Header title={title} folderId={folderId} />
 			<DisplayAllFilesFolders filesAndFoldersSortedById={folderData} setRefreshTrigger={setRefreshTrigger} />
-			{/* <div>
-				{folderData &&
-					folderData.map((item) => {
-						return (
-							<>
-								{item.title}
-							</>
-						);
-					})}
-			</div> */}
 		</>
 	);
 }

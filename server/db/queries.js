@@ -95,9 +95,14 @@ module.exports = {
 			throw new Error(error);
 		}
 	},
-	findFolders: async () => {
+	findFolders: async (user) => {
+		console.log(user, 'username')
 		try {
-			const folders = await prisma.folder.findMany();
+			const folders = await prisma.folder.findMany({
+				where: {
+					author: user, 
+				}
+			});
 			return folders;
 		} catch (error) {
 			console.log(error, "error");
@@ -188,9 +193,13 @@ module.exports = {
 			throw new Error(error);
 		}
 	},
-	findWorksheets: async () => {
+	findWorksheets: async (user) => {
 		try {
-			const worksheets = await prisma.worksheet.findMany();
+			const worksheets = await prisma.worksheet.findMany({
+				where: {
+					author: user
+				}
+			});
 			return worksheets;
 		} catch (error) {
 			console.log(error, "error");

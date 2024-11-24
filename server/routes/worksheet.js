@@ -18,7 +18,7 @@ const storage = multer.memoryStorage(); // store image in memory
 const upload = multer({ storage: storage });
 const jwtVerify = require("../helpers/verifyToken.js");
 
-router.get("/", worksheetController.getWorksheets);
+router.get("/", jwtVerify.verifyToken, worksheetController.getWorksheets);
 router.get("/:id", worksheetController.getOneWorksheet);
 
 router.get("/demographics", worksheetController.getDemographics);
@@ -31,7 +31,9 @@ router.post(
 	upload.single("worksheet"),
 	async function (req, res) {
 		const verifiedUser = jwtVerify.verifyJWT(req.token);
+		console.log(verifiedUser, 'verified user')
 		try {
+			console.log(req.file, 'req file')
 			if (!req.file) {
 				return res.status(400).json({ message: "No file uploaded" });
 			}

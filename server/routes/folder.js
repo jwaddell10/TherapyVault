@@ -3,7 +3,7 @@ const router = express.Router();
 const folderController = require("../controllers/folderController");
 const jwtVerify = require("../helpers/verifyToken.js")
 
-router.get("/", folderController.getFolder);
+router.get("/", jwtVerify.verifyToken, folderController.getFolder);
 router.post("/", jwtVerify.verifyToken, folderController.postFolder);
 
 router.put("/:id/update", jwtVerify.verifyToken, folderController.updateFolder)

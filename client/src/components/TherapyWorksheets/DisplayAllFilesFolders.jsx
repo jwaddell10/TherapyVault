@@ -58,6 +58,9 @@ export default function DisplayAllFilesFolders({
 
 	const handleDelete = async () => {
 		const { id, type } = itemToDelete;
+		const JWTToken = localStorage.getItem('token')
+		const headers = new Headers()
+		headers.set('Authorization', `${JWTToken}`)
 		console.log(type, "type in itemtodelete");
 		const choice = window.confirm("Are you sure you want to delete this?");
 		if (!choice) return;
@@ -66,6 +69,7 @@ export default function DisplayAllFilesFolders({
 				`${import.meta.env.VITE_API_URL}/${type}/${id}/delete`,
 				{
 					method: "DELETE",
+					headers: headers,
 				}
 			);
 			const data = await response.json();

@@ -8,22 +8,8 @@ export default function UploadFileForm({
 	setRefreshTrigger,
 	setPopupUploadForm,
 }) {
-	console.log(setRefreshTrigger, 'setrefreshtriggers')
 	const [title, setTitle] = useState(null);
-	// const [demographic, setDemographic] = useState(null);
-	const [description, setDescription] = useState(null);
 	const [file, setFile] = useState(null);
-
-	// const [file, setFile] = useState(null);
-
-	// const handleChange = (event) => {
-	// 	const { name, value } = event.target;
-	// 	setFormData((prevState) => ({ ...prevState, [name]: value }));
-	// };
-
-	// const handleFileChange = (event) => {
-	// 	setFile(event.target.files[0]);
-	// };
 
 	const handleClose = () => {
 		setPopupUploadForm(false);
@@ -34,14 +20,7 @@ export default function UploadFileForm({
 		const formDataToSend = new FormData();
 		formDataToSend.append("worksheet", file);
 		formDataToSend.append("title", title);
-		// formDataToSend.append("demographic", demographic);
-		formDataToSend.append("description", description);
 		formDataToSend.append("folderId", folderId);
-		formDataToSend.append("sessionID", localStorage.getItem("sessionID"));
-
-		for (let [key, value] of formDataToSend.entries()) {
-			console.log(key, value, "key and value");
-		}
 
 		try {
 			const response = await postUploadFileForm(
@@ -49,10 +28,8 @@ export default function UploadFileForm({
 				"worksheet"
 			);
 			if (response) {
-				console.log(response, "did a response come?");
 				setPopupUploadForm(false);
 				setRefreshTrigger((prevTrigger) => prevTrigger + 1);
-				console.log('setrefresh shouldve run')
 			}
 		} catch (error) {
 			console.error("Error uploading worksheet:", error);
@@ -71,24 +48,6 @@ export default function UploadFileForm({
 						setTitle(e.target.value);
 					}}
 					required
-				/>
-				{/* <select
-					type="text"
-					onChange={(e) => {
-						setDemographic(e.target.value);
-					}}
-					required
-				>
-					<option value=""></option>
-					<option value="child">Child</option>
-					<option value="adolescent">Adolescent</option>
-					<option value="adult">Adult</option>
-				</select> */}
-				<input
-					type="text"
-					onChange={(e) => {
-						setDescription(e.target.value);
-					}}
 				/>
 				<input
 					className="file-input"

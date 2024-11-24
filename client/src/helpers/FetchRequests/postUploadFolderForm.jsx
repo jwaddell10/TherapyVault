@@ -12,7 +12,7 @@ export default async function postUploadFolderForm(formData, folderId, url) {
 				authorization: `${JWTToken}`,
 			},
 		});
-		console.log(response, "response in postuplodad");
+
 		if (!response.ok) {
 			throw new Error(`HTTP error! status: ${response.status}`);
 		}

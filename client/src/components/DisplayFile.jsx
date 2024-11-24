@@ -7,7 +7,6 @@ import { useState } from "react";
 export default function DisplayFile() {
 	const fileId = useParams();
 	const { fileData } = useGetFileData(fileId);
-	console.log(fileData, 'file data')
 	// const [refreshTrigger, setRefreshTrigger] = useState(null);
 
 	return (

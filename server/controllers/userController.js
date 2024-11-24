@@ -41,7 +41,9 @@ exports.logInPost = asyncHandler(async (req, res, next) => {
 		{ user },
 		process.env.JWT_SECRET, {expiresIn: "1h"},
 		(error, token) => {
-			console.log(token, 'this is token')
+			if (error) {
+				res.json(error)
+			}
 			res.json({ token });
 		}
 	);

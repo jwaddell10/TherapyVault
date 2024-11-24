@@ -2,6 +2,7 @@ const expressAsyncHandler = require("express-async-handler");
 const db = require("../db/queries.js");
 const express = require("express");
 const cloudinary = require("cloudinary").v2;
+const jwt = require("../helpers/verifyToken.js")
 
 exports.getDemographics = expressAsyncHandler(async (req, res, next) => {
 	const demographics = await db.findDemographics();
@@ -22,7 +23,11 @@ exports.getTopics = expressAsyncHandler(async (req, res, next) => {
 });
 
 exports.getWorksheets = expressAsyncHandler(async (req, res, next) => {
-	const worksheets = await db.findWorksheets();
+	const verifiedUser = jwt.verifyJWT(req.token)
+	
+	const user = await db.findUser(verifiedUser.user.username)
+
+	const worksheets = await db.findWorksheets(user);
 	if (!worksheets) {
 		res.status(400).json({ message: "An error has occurred" });
 	}
