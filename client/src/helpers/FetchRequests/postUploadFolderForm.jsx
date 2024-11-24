@@ -1,15 +1,15 @@
 export default async function postUploadFolderForm(formData, folderId, url) {
-	const username = sessionStorage.getItem("username")
+	const JWTToken = localStorage.getItem("token");
 	try {
 		const response = await fetch(`${import.meta.env.VITE_API_URL}/${url}`, {
 			method: "POST",
 			body: JSON.stringify({
 				formData,
-				username,
 				folderId,
 			}),
 			headers: {
 				"Content-type": "application/json",
+				authorization: `${JWTToken}`,
 			},
 		});
 		console.log(response, "response in postuplodad");

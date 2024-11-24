@@ -7,7 +7,7 @@ import Signup from "./components/Signup/Signup.jsx";
 import TherapyWorksheets from "./components/TherapyWorksheets/TherapyWorksheets.jsx";
 import DisplayFile from "./components/DisplayFile.jsx";
 import DisplayFolder from "./components/TherapyWorksheets/DisplayFolder.jsx";
-import { useState, createContext } from "react";
+import { useState, createContext, useEffect } from "react";
 // import fetchUsers from "./helpers/FetchRequests/fetchUsers.jsx";
 // import { locals } from "../../server/app.js";
 
@@ -18,6 +18,11 @@ export default function App() {
 	// localStorage.clear();
 	// const users = fetchUsers()
 	// console.log(users, 'users')
+	useEffect(() => {
+		if (localStorage.getItem('token')) {
+			setAuthed(true)
+		}
+	}, [])
 
 	const router = createBrowserRouter([
 		{

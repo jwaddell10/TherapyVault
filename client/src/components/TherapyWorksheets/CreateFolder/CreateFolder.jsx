@@ -8,7 +8,7 @@ export default function CreateFolder({
 	setPopupFolderForm,
 	setRefreshTrigger,
 }) {
-	console.log(folderId, 'folderid in create')
+	// console.log(folderId, 'folderid in create')
 	const [error, setError] = useState(null)
 	const [formData, setFormData] = useState({
 		name: "",

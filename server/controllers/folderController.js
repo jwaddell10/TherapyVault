@@ -2,6 +2,9 @@ const expressAsyncHandler = require("express-async-handler");
 const db = require("../db/queries.js");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+require("dotenv").config();
+// const jwt = require("jsonwebtoken")
+const jwt = require("../helpers/verifyToken.js");
 
 exports.getFolder = expressAsyncHandler(async (req, res, next) => {
 	const folders = await db.findFolders();
@@ -13,18 +16,25 @@ exports.getFolder = expressAsyncHandler(async (req, res, next) => {
 });
 
 exports.getOneFolder = expressAsyncHandler(async (req, res, next) => {
-	const folder = await db.findFolder(parseInt(req.params.id))
+	const folder = await db.findFolder(parseInt(req.params.id));
 	res.json(folder);
 });
 
 exports.postFolder = expressAsyncHandler(async (req, res, next) => {
-	console.log(req.body, "req in postfolder");
-	const user = await db.findUser(req.body.username);
-	const folder = await db.createFolder(user, req.body.formData.name, parseInt(req.body.folderId));
+	const verifiedUser = jwt.verifyJWT(req.token);
+
+	const user = await db.findUser(verifiedUser.user.username);
+	const folder = await db.createFolder(
+		user,
+		req.body.formData.name,
+		parseInt(req.body.folderId)
+	);
 	res.json(folder);
 });
 
 exports.updateFolder = expressAsyncHandler(async (req, res, next) => {
+	jwt.verifyJWT(req.token);
+
 	const title = req.body.title;
 	const updatedFolder = await db.updateFolder(parseInt(req.params.id), title);
 
@@ -32,10 +42,11 @@ exports.updateFolder = expressAsyncHandler(async (req, res, next) => {
 });
 
 exports.deleteFolder = expressAsyncHandler(async (req, res, next) => {
-	console.log('delete folder runs')
+	jwt.verifyJWT(req.token);
+
 	const parsedId = parseInt(req.params.id);
 	const folderToDelete = await db.deleteFolder(parsedId);
-	console.log(folderToDelete, "foldertodelete");
+
 	if (folderToDelete) {
 		res.json(folderToDelete);
 	} else {

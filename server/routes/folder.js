@@ -1,12 +1,13 @@
 const express = require("express");
 const router = express.Router();
 const folderController = require("../controllers/folderController");
+const jwtVerify = require("../helpers/verifyToken.js")
 
 router.get("/", folderController.getFolder);
-router.post("/", folderController.postFolder);
+router.post("/", jwtVerify.verifyToken, folderController.postFolder);
 
-router.put("/:id/update", folderController.updateFolder)
-router.delete("/:id/delete", folderController.deleteFolder)
+router.put("/:id/update", jwtVerify.verifyToken, folderController.updateFolder)
+router.delete("/:id/delete", jwtVerify.verifyToken, folderController.deleteFolder)
 router.get("/:id", folderController.getOneFolder);
 
 module.exports = router;
