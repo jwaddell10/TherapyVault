@@ -39,7 +39,7 @@ exports.logInPost = asyncHandler(async (req, res, next) => {
 	}
 	jwt.sign(
 		{ user },
-		process.env.JWT_SECRET, {expiresIn: "1h"},
+		process.env.JWT_SECRET, {expiresIn: "1d"},
 		(error, token) => {
 			if (error) {
 				res.json(error)

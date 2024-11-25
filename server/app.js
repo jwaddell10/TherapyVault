@@ -4,7 +4,6 @@ var logger = require("morgan");
 const cors = require("cors");
 const express = require("express");
 const app = express();
-
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const { PrismaSessionStore } = require("@quixo3/prisma-session-store");
@@ -22,7 +21,6 @@ app.use(
 		credentials: true,
 	})
 );
-// app.options("*", cors());
 app.use(logger("dev"));
 app.use(express.json());
 // app.use(bodyparser.urlencoded({ limit: "50mb", extended: true }));
