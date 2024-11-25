@@ -51,7 +51,6 @@ export default function TherapyWorksheetHeader({
 				{popupUploadForm && (
 					<>
 						<div className="background"></div>
-						<Link></Link>
 						<UploadFileForm
 							folderId={folderId}
 							setRefreshTrigger={setRefreshTrigger}

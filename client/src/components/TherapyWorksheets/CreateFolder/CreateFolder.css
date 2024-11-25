@@ -1,6 +1,15 @@
 .folder-form {
     background-color: #e5e7eb;
     position: fixed;
-    height: 50vh; 
-    width: 50vw;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid lightgray;
 }

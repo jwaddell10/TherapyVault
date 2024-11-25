@@ -27,7 +27,7 @@ export default function Login() {
 				if (data.token) {
 					localStorage.setItem("token", data.token);
 					setAuthed(true)
-					navigate("/");
+					navigate("/therapy-worksheets");
 				} else setError(data.message);
 			});
 		} catch (error) {

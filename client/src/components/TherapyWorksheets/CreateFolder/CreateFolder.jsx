@@ -2,13 +2,14 @@ import { useState } from "react";
 import CloseIcon from "@rsuite/icons/Close";
 import postUploadFolderForm from "../../../helpers/FetchRequests/postUploadFolderForm";
 import "./CreateFolder.css";
+import Button from "../../../helpers/Button/Button";
 
 export default function CreateFolder({
 	folderId,
-	setPopupFolderForm,
 	setRefreshTrigger,
+	setPopupFolderForm
 }) {
-	const [error, setError] = useState(null)
+	const [error, setError] = useState(null);
 	const [formData, setFormData] = useState({
 		name: "",
 	});
@@ -25,7 +26,11 @@ export default function CreateFolder({
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		try {
-			const response = await postUploadFolderForm(formData, folderId, "folder");
+			const response = await postUploadFolderForm(
+				formData,
+				folderId,
+				"folder"
+			);
 			if (response) {
 				setPopupFolderForm(false);
 				setRefreshTrigger((prevState) => prevState + 1);
@@ -37,16 +42,25 @@ export default function CreateFolder({
 	return (
 		<form className="folder-form" onSubmit={handleSubmit}>
 			{error}
-			<div onClick={handleClose}>
-				<CloseIcon />
+			<div className="form-header">
+				<label htmlFor="name">Folder Name:</label>
+				<div onClick={handleClose}>
+					<CloseIcon />
+				</div>
 			</div>
-			<label htmlFor="name">Name</label>
 			<input
 				type="text"
 				name="name"
 				value={formData.name}
 				onChange={handleChange}
 			/>
+			<Button
+				style={{ width: "8rem", left: 0 }}
+				text="Submit"
+				onClick={handleSubmit}
+			>
+				Submit
+			</Button>
 		</form>
 	);
 }

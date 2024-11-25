@@ -4,7 +4,7 @@ import "./TherapyWorksheets.css";
 import useFetchFilesFolders from "../../helpers/FetchRequests/useFetchFilesFolders.jsx";
 import TherapyWorksheetHeader from "./TherapyWorksheetHeader.jsx";
 
-export default function TherapyWorksheets({ username }) {
+export default function TherapyWorksheets({ title }) {
 	const [refreshTrigger, setRefreshTrigger] = useState(null);
 	const [isEditing, setIsEditing] = useState(false);
 
@@ -30,7 +30,7 @@ export default function TherapyWorksheets({ username }) {
 			{/* <SideBar /> */}
 			<main className="main-content">
 				<TherapyWorksheetHeader
-					username={username}
+					title={title}
 					setRefreshTrigger={setRefreshTrigger}
 				/>
 				<DisplayAllFilesFolders

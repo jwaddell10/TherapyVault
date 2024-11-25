@@ -6,7 +6,6 @@ export default function checkJWT(token) {
 	const expirationTimeInMillis = exp * 1000;
 	const currentTimeInMillis = Date.now();
 
-	const isExpired = currentTimeInMillis >= expirationTimeInMillis;
-
+	const isExpired = currentTimeInMillis >= expirationTimeInMillis * 1000;
 	return isExpired;
 }

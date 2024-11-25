@@ -13,20 +13,26 @@ import checkJWT from "./helpers/checkJWT.jsx";
 export const AuthContext = createContext(false);
 
 export default function App() {
+	const [authed, setAuthed] = useState(false);
 
 	//check if JWT token has expired, if expired remove it
-	const JWTToken = localStorage.getItem("token");
-	
-	if (checkJWT(JWTToken) === true) {
-		localStorage.removeItem("token");
-	}
 
-	const [authed, setAuthed] = useState(false);
 	useEffect(() => {
-		if (localStorage.getItem('token')) {
-			setAuthed(true)
+		const JWTToken = localStorage.getItem("token");
+
+		if (JWTToken) {
+			if (checkJWT(JWTToken) === false) {
+				// Token is valid
+				setAuthed(true);
+			} else if (checkJWT(JWTToken) === true) {
+				localStorage.removeItem("token");
+				setAuthed(false);
+			}
+		} else {
+			// No token found
+			setAuthed(false);
 		}
-	}, [])
+	}, []);
 
 	const router = createBrowserRouter([
 		{
@@ -41,7 +47,11 @@ export default function App() {
 			children: [
 				{
 					path: "/",
-					element: <HomePage />,
+					element: (
+						<AuthContext.Provider value={{ authed }}>
+							<HomePage />
+						</AuthContext.Provider>
+					),
 				},
 				{
 					path: "/therapy-worksheets",

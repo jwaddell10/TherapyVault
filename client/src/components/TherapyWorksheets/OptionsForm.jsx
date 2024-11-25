@@ -19,17 +19,21 @@ export default function OptionsForm({
 					flexDirection: "column",
 					position: "absolute",
 					top: `${position}px`,
-					height: "2rem",
-					width: "20rem",
-					border: "1px solid black",
+					width: "10rem",
+					boxShadow: "1px 1px lightgray",
+					backgroundColor: "whitesmoke"
 				}}
 				type="text"
 			>
 				<div>
-					<EditIcon onClick={handleEditing} />
-					{isEditing ? "Save" : "Edit"}
-					<DeleteIcon onClick={onDelete} />
-					Delete
+					<div className="edit">
+						<EditIcon onClick={handleEditing} />
+						{isEditing ? "Save" : "Edit"}
+					</div>
+					<div className="delete">
+						<DeleteIcon onClick={onDelete} />
+						Delete
+					</div>
 				</div>
 			</section>
 		</>

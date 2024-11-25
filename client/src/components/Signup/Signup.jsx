@@ -33,7 +33,7 @@ export default function Signup() {
 			const data = await postAuthFormData(formData, "/users/sign-up");
 			if (data.token) {
 				navigate("/");
-			}
+			} else setError("An error has occurred. Try again later")
 		} catch (error) {
 			if (error.message.startsWith("4")) {
 				setUsernameError("Username taken. Please try another");

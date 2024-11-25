@@ -29,129 +29,119 @@ router.get("/demographics", worksheetController.getDemographics);
 router.get("/topics", worksheetController.getTopics);
 
 router.post(
-	"/",
-	jwtVerify.verifyToken,
-	upload.single("worksheet"),
-	async function (req, res) {
-		const verifiedUser = jwtVerify.verifyJWT(req.token);
-		if (!verifiedUser) {
-			return res.status(403).json({
-				message:
-					"Access forbidden. Try logging out and logging in again to resolve",
-			});
-		}
+    "/",
+    jwtVerify.verifyToken,
+    upload.single("worksheet"),
+    async function (req, res) {
+        const verifiedUser = jwtVerify.verifyJWT(req.token);
+        if (!verifiedUser) {
+            return res.status(403).json({
+                message: "Access forbidden. Try logging out and logging in again to resolve",
+            });
+        }
 
-		try {
-			if (!req.file) {
-				return res.status(400).json({ message: "No file uploaded" });
-			}
+        try {
+            if (!req.file) {
+                return res.status(400).json({ message: "No file uploaded" });
+            }
 
-			if (req.file.mimetype === "application/pdf") {
-				const result = await new Promise((resolve, reject) => {
-					const uploadStream = cloudinary.uploader.upload_stream(
-						{
-							folder: "worksheets",
-							resource_type: "auto",
-						},
-						(error, result) => {
-							if (error) reject(error);
-							else resolve(result);
-						}
-					);
+            let result;
 
-					const readableStream = new Readable();
-					readableStream.push(pdfBuffer);
-					readableStream.push(null);
-					readableStream.pipe(uploadStream);
-				});
+            if (req.file.mimetype === "application/pdf") {
+                // Directly upload the PDF
+                result = await new Promise((resolve, reject) => {
+                    const uploadStream = cloudinary.uploader.upload_stream(
+                        {
+                            folder: "worksheets",
+                            resource_type: "auto",
+                        },
+                        (error, result) => {
+                            if (error) reject(error);
+                            else resolve(result);
+                        }
+                    );
 
-				// TODO: Save worksheet details to database
-				const worksheet = await db.createWorksheet(
-					verifiedUser.user,
-					req.body.title,
-					parseInt(req.body.folderId),
-					result.secure_url
-				);
+                    const readableStream = new Readable();
+                    readableStream.push(req.file.buffer);
+                    readableStream.push(null);
+                    readableStream.pipe(uploadStream);
+                });
+            } else if (req.file.mimetype === "image/jpeg") {
+                // Convert JPG to PDF
+                const pdfDoc = new PDFDocument({
+                    size: [595.28, 841.89],
+                    margins: { top: 10, bottom: 10, left: 10, right: 10 },
+                });
 
-				res.json({
-					message: "File converted to PDF and uploaded successfully",
-					url: result.secure_url,
-				});
-			} 
+                let pdfBuffer = [];
+                pdfDoc.on("data", (chunk) => pdfBuffer.push(chunk));
+                pdfDoc.on("end", async () => {
+                    pdfBuffer = Buffer.concat(pdfBuffer);
 
-			if (req.file.mimetype !== "image/jpeg") {
-				return res
-					.status(400)
-					.json({ message: "Uploaded file must be a JPG" });
-			}
+                    result = await new Promise((resolve, reject) => {
+                        const uploadStream = cloudinary.uploader.upload_stream(
+                            {
+                                folder: "worksheets",
+                                resource_type: "auto",
+                            },
+                            (error, result) => {
+                                if (error) reject(error);
+                                else resolve(result);
+                            }
+                        );
 
-			// Create a new PDF document
-			const pdfDoc = new PDFDocument({
-				size: [595.28, 841.89],
-				margins: {
-					top: 10,
-					bottom: 10,
-					left: 10,
-					right: 10,
-				},
-			});
-			let pdfBuffer = [];
+                        const readableStream = new Readable();
+                        readableStream.push(pdfBuffer);
+                        readableStream.push(null);
+                        readableStream.pipe(uploadStream);
+                    });
 
-			pdfDoc.on("data", (chunk) => pdfBuffer.push(chunk));
-			pdfDoc.on("end", async () => {
-				pdfBuffer = Buffer.concat(pdfBuffer);
+                    // Save worksheet details to database
+                    await db.createWorksheet(
+                        verifiedUser.user,
+                        req.body.title,
+                        parseInt(req.body.folderId),
+                        result.secure_url
+                    );
 
-				// Upload PDF to Cloudinary
-				const result = await new Promise((resolve, reject) => {
-					const uploadStream = cloudinary.uploader.upload_stream(
-						{
-							folder: "worksheets",
-							resource_type: "auto",
-						},
-						(error, result) => {
-							if (error) reject(error);
-							else resolve(result);
-						}
-					);
+                    res.json({
+                        message: "File converted to PDF and uploaded successfully",
+                        url: result.secure_url,
+                    });
+                });
 
-					const readableStream = new Readable();
-					readableStream.push(pdfBuffer);
-					readableStream.push(null);
-					readableStream.pipe(uploadStream);
-				});
+                pdfDoc.image(req.file.buffer, {
+                    fit: [595.28, 841.89],
+                    align: "center",
+                    valign: "center",
+                });
 
-				console.log(result.secure_url, "PDF upload result");
+                pdfDoc.end();
+            } else {
+                return res.status(400).json({ message: "Uploaded file must be a JPG or PDF" });
+            }
 
-				// TODO: Save worksheet details to database
-				const worksheet = await db.createWorksheet(
-					verifiedUser.user,
-					req.body.title,
-					parseInt(req.body.folderId),
-					result.secure_url
-				);
+            if (result && req.file.mimetype === "application/pdf") {
+                // Save worksheet details to database for PDFs
+                await db.createWorksheet(
+                    verifiedUser.user,
+                    req.body.title,
+                    parseInt(req.body.folderId),
+                    result.secure_url
+                );
 
-				res.json({
-					message: "File converted to PDF and uploaded successfully",
-					url: result.secure_url,
-				});
-			});
-
-			// Add the JPG to the PDF
-			pdfDoc.image(req.file.buffer, {
-				fit: [595.28, 841.89],
-				align: "center",
-				valign: "center",
-			});
-
-			// Finalize the PDF
-			pdfDoc.end();
-		} catch (error) {
-			console.error("Error in file upload:", error);
-			res.status(500).json({
-				error: "An error occurred during file upload",
-			});
-		}
-	}
+                res.json({
+                    message: "PDF uploaded successfully",
+                    url: result.secure_url,
+                });
+            }
+        } catch (error) {
+            console.error("Error in file upload:", error);
+            res.status(500).json({
+                error: "An error occurred during file upload",
+            });
+        }
+    }
 );
 
 router.delete("/:id/delete", worksheetController.deleteWorksheet);

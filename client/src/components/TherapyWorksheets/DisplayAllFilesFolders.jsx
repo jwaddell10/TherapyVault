@@ -167,12 +167,12 @@ export default function DisplayAllFilesFolders({
 								{isModalOpen && (
 									<div ref={ref}>
 										<OptionsForm
-											onDelete={() => {
-												handleDelete(item.type);
-											}}
 											isEditing={isEditing}
 											setIsEditing={setIsEditing}
 											position={position}
+											onDelete={() => {
+												handleDelete(item.type);
+											}}
 										/>
 									</div>
 								)}

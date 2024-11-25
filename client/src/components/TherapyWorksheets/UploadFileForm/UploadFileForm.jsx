@@ -2,6 +2,7 @@ import { useState } from "react";
 import CloseIcon from "@rsuite/icons/Close";
 import postUploadFileForm from "../../../helpers/FetchRequests/postUploadFileForm";
 import "./UploadFileForm.css";
+import Button from "../../../helpers/Button/Button";
 
 export default function UploadFileForm({
 	folderId,
@@ -27,9 +28,10 @@ export default function UploadFileForm({
 				formDataToSend,
 				"worksheet"
 			);
+			console.log(response, 'response from file upload')
 			if (response) {
 				setPopupUploadForm(false);
-				setRefreshTrigger((prevTrigger) => prevTrigger + 1);
+				setRefreshTrigger((prevState) => prevState + 1);
 			}
 		} catch (error) {
 			console.error("Error uploading worksheet:", error);
@@ -37,28 +39,33 @@ export default function UploadFileForm({
 	};
 
 	return (
-		<div className="upload-form">
-			<div className="form-group">
+		<form className="file-form" onSubmit={upload}>
+			<div className="form-header">
+				<label htmlFor="name">File Name:</label>
 				<div onClick={handleClose}>
 					<CloseIcon />
 				</div>
-				<input
-					type="text"
-					onChange={(e) => {
-						setTitle(e.target.value);
-					}}
-					required
-				/>
-				<input
-					className="file-input"
-					onChange={(e) => {
-						setFile(e.target.files[0]);
-					}}
-					type="file"
-					required
-				/>
-				<button onClick={upload}>Submit</button>
 			</div>
-		</div>
+			<input
+				type="text"
+				onChange={(e) => {
+					setTitle(e.target.value);
+				}}
+				required
+			/>
+			<input
+				className="file-input"
+				onChange={(e) => {
+					setFile(e.target.files[0]);
+				}}
+				type="file"
+				required
+			/>
+			<Button
+				text="Submit"
+				style={{ width: "8rem" }}
+				onClick={upload}
+			></Button>
+		</form>
 	);
 }
