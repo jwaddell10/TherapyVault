@@ -5,7 +5,6 @@ import useFetchFilesFolders from "../../helpers/FetchRequests/useFetchFilesFolde
 import TherapyWorksheetHeader from "./TherapyWorksheetHeader.jsx";
 
 export default function TherapyWorksheets({ username }) {
-	//state to refresh page when files/folders are altered
 	const [refreshTrigger, setRefreshTrigger] = useState(null);
 	const [isEditing, setIsEditing] = useState(false);
 

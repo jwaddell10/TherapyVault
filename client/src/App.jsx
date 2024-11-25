@@ -8,16 +8,20 @@ import TherapyWorksheets from "./components/TherapyWorksheets/TherapyWorksheets.
 import DisplayFile from "./components/DisplayFile.jsx";
 import DisplayFolder from "./components/TherapyWorksheets/DisplayFolder.jsx";
 import { useState, createContext, useEffect } from "react";
-// import fetchUsers from "./helpers/FetchRequests/fetchUsers.jsx";
-// import { locals } from "../../server/app.js";
+import checkJWT from "./helpers/checkJWT.jsx";
 
 export const AuthContext = createContext(false);
 
 export default function App() {
+
+	//check if JWT token has expired, if expired remove it
+	const JWTToken = localStorage.getItem("token");
+	
+	if (checkJWT(JWTToken) === true) {
+		localStorage.removeItem("token");
+	}
+
 	const [authed, setAuthed] = useState(false);
-	// localStorage.clear();
-	// const users = fetchUsers()
-	// console.log(users, 'users')
 	useEffect(() => {
 		if (localStorage.getItem('token')) {
 			setAuthed(true)

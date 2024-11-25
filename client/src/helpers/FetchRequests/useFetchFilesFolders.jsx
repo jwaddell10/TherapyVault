@@ -12,21 +12,18 @@ export default function useFetchFilesFolders(isEditing, refreshTrigger) {
 				Authorization: `${JWTToken}`,
 			};
 			try {
-				await fetch(
-					`${import.meta.env.VITE_API_URL}/folder`,
-					{
-						headers: headers,
-					}
-				)
+				await fetch(`${import.meta.env.VITE_API_URL}/folder`, {
+					headers: headers,
+				})
 					.then((response) => response.json())
 					.then((folders) => setFolders(folders));
 				await fetch(`${import.meta.env.VITE_API_URL}/worksheet`, {
-					headers: headers
+					headers: headers,
 				})
 					.then((response) => response.json())
 					.then((files) => setFiles(files));
 			} catch (error) {
-				console.log(error, "error");
+				console.log(error, "this is the error");
 			}
 		};
 		fetchData();
