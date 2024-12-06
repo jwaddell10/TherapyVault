@@ -8,6 +8,34 @@ export default function DisplayFolder() {
 	const [folderData, setFolderData] = useState();
 	const [title, setTitle] = useState(null);
 	const [refreshTrigger, setRefreshTrigger] = useState(0)
+	const [isEditing, setIsEditing] = useState(false);
+
+
+	// const handleNameChange = async (id, type, event) => {
+	// 	if (event.key === "Enter") {
+	// 		try {
+	// 			const response = await fetch(
+	// 				`${import.meta.env.VITE_API_URL}/${type}/${id}/update`,
+	// 				{
+	// 					method: "PUT",
+	// 					body: JSON.stringify({ title: event.target.value }),
+	// 					headers: {
+	// 						"Content-Type": "application/json",
+	// 					},
+	// 				}
+	// 			);
+	// 			if (!response.ok) {
+	// 				throw new Error("Network response was not ok");
+	// 			}
+	// 			setIsEditing(!isEditing);
+	// 		} catch (error) {
+	// 			console.error(
+	// 				"There was a problem with the PUT request:",
+	// 				error
+	// 			);
+	// 		}
+	// 	}
+	// };
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -42,7 +70,7 @@ export default function DisplayFolder() {
 	return (
 		<>
 			<Header title={title} folderId={folderId} />
-			<DisplayAllFilesFolders filesAndFoldersSortedById={folderData} setRefreshTrigger={setRefreshTrigger} />
+			<DisplayAllFilesFolders filesAndFoldersSortedById={folderData} setRefreshTrigger={setRefreshTrigger} isEditing={isEditing} setIsEditing={setIsEditing} />
 		</>
 	);
 }
