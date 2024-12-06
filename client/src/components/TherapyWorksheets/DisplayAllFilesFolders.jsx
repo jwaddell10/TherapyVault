@@ -13,7 +13,6 @@ export default function DisplayAllFilesFolders({
 	isEditing,
 	setIsEditing,
 }) {
-	// console.log(filesAndFoldersSortedById, 'files and folders')
 	const navigate = useNavigate();
 	const [isEditingId, setIsEditingId] = useState(null);
 
@@ -27,7 +26,6 @@ export default function DisplayAllFilesFolders({
 
 	const handleClick = async (id, itemType) => {
 		navigate(`/therapy-worksheets/${itemType}/${id}`);
-		// <DisplayAllFilesFolders />
 	};
 
 	const handleNameChange = async (id, type, event) => {

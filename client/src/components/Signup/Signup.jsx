@@ -1,7 +1,8 @@
 import Button from "../../helpers/Button/Button.jsx";
 import postAuthFormData from "../../helpers/FetchRequests/postAuthFormData.jsx";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../App.jsx";
 
 export default function Signup() {
 	const [formData, setFormData] = useState({
@@ -12,6 +13,7 @@ export default function Signup() {
 	const [usernameError, setUsernameError] = useState(null);
 	const [error, setError] = useState(null);
 	const [passwordError, setPasswordError] = useState(null);
+	const { setAuthed } = useContext(AuthContext)
 	const navigate = useNavigate();
 
 	function handleChange(event) {
@@ -32,6 +34,8 @@ export default function Signup() {
 		try {
 			const data = await postAuthFormData(formData, "/users/sign-up");
 			if (data.token) {
+				localStorage.setItem("token", data.token);
+				setAuthed(true)
 				navigate("/");
 			} else setError("An error has occurred. Try again later")
 		} catch (error) {

@@ -10,33 +10,6 @@ export default function DisplayFolder() {
 	const [refreshTrigger, setRefreshTrigger] = useState(0)
 	const [isEditing, setIsEditing] = useState(false);
 
-
-	// const handleNameChange = async (id, type, event) => {
-	// 	if (event.key === "Enter") {
-	// 		try {
-	// 			const response = await fetch(
-	// 				`${import.meta.env.VITE_API_URL}/${type}/${id}/update`,
-	// 				{
-	// 					method: "PUT",
-	// 					body: JSON.stringify({ title: event.target.value }),
-	// 					headers: {
-	// 						"Content-Type": "application/json",
-	// 					},
-	// 				}
-	// 			);
-	// 			if (!response.ok) {
-	// 				throw new Error("Network response was not ok");
-	// 			}
-	// 			setIsEditing(!isEditing);
-	// 		} catch (error) {
-	// 			console.error(
-	// 				"There was a problem with the PUT request:",
-	// 				error
-	// 			);
-	// 		}
-	// 	}
-	// };
-
 	useEffect(() => {
 		const fetchData = async () => {
 			const response = await fetch(

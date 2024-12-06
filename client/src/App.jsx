@@ -21,6 +21,7 @@ export default function App() {
 		const JWTToken = localStorage.getItem("token");
 
 		if (JWTToken) {
+			console.log(JWTToken, 'token after signup redirects')
 			if (checkJWT(JWTToken) === false) {
 				// Token is valid
 				setAuthed(true);
