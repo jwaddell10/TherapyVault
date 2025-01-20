@@ -4,7 +4,8 @@ generator client {
 
 datasource db {
     provider = "postgresql"
-    url      = env("DATABASE_URL")
+    // url       = env("DATABASE_URL")
+    url      = env("SUBABASE_DATABASE_URL")
 }
 
 model Session {
@@ -43,6 +44,7 @@ model Folder {
     folderId  Int?
     children  Folder[]    @relation("ParentFolder")
     worksheet Worksheet[]
+
     @@index([authorId])
     @@index([folderId])
 }
