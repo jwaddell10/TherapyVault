@@ -9,6 +9,7 @@ export default function UploadFileForm({
 	setRefreshTrigger,
 	setPopupUploadForm,
 }) {
+	const [error, setError] = useState(null);
 	const [title, setTitle] = useState(null);
 	const [file, setFile] = useState(null);
 
@@ -28,13 +29,14 @@ export default function UploadFileForm({
 				formDataToSend,
 				"worksheet"
 			);
-			console.log(response, 'response from file upload')
-			if (response) {
-				setPopupUploadForm(false);
-				setRefreshTrigger((prevState) => prevState + 1);
+
+			if (!response.ok) {
+				setError(response.message);
 			}
+			setPopupUploadForm(false);
+			setRefreshTrigger((prevState) => prevState + 1);
 		} catch (error) {
-			console.error("Error uploading worksheet:", error);
+			setError(error.message);
 		}
 	};
 
@@ -66,6 +68,7 @@ export default function UploadFileForm({
 				style={{ width: "8rem" }}
 				onClick={upload}
 			></Button>
+			{error && <div style={{ color: "black" }}>{error}</div>}
 		</form>
 	);
 }

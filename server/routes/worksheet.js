@@ -118,7 +118,7 @@ router.post(
 
                 pdfDoc.end();
             } else {
-                return res.status(400).json({ message: "Uploaded file must be a JPG or PDF" });
+                return res.status(400).json({ message: "Uploaded file must be a JPG or PDF file" });
             }
 
             if (result && req.file.mimetype === "application/pdf") {
