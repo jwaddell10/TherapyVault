@@ -22,8 +22,23 @@
     display: flex;
 }
 
+@media screen and (max-width: 700px) {
+    .example-images {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+}
+
+
 img {
     width: 30vw;
     margin: 20px;
     border: 1px solid black;
+}
+
+@media screen and (max-width: 700px) {
+    img {
+        width: 75vw;
+    }
 }

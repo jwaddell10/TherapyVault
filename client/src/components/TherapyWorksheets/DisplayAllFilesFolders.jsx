@@ -95,9 +95,7 @@ export default function DisplayAllFilesFolders({
 			<thead>
 				<tr>
 					<th scope="col">Name</th>
-					<th scope="col">Size</th>
 					<th scope="col">Created</th>
-					<th scope="col">Last Updated</th>
 					<th scope="col">Options</th>
 				</tr>
 			</thead>
@@ -148,9 +146,7 @@ export default function DisplayAllFilesFolders({
 									)}
 								</td>
 							)}
-							<td>&nbsp;</td>
 							<td>{formatDate(item.createdAt)}</td>
-							<td>&nbsp;</td>
 							<td>
 								<MoreHorizIcon
 									onClick={(event) => {

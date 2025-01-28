@@ -23,6 +23,7 @@ exports.getTopics = expressAsyncHandler(async (req, res, next) => {
 });
 
 exports.getWorksheets = expressAsyncHandler(async (req, res, next) => {
+	console.log(req.token, 'req token')
 	const verifiedUser = jwt.verifyJWT(req.token)
 	console.log(verifiedUser, 'verified user with expired token?')
 	const user = await db.findUser(verifiedUser.user.username)

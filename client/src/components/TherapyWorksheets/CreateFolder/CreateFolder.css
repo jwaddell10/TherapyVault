@@ -7,6 +7,12 @@
     padding: 10px;
 }
 
+@media screen and (max-width: 500px) {
+    .folder-form {
+        width: 90vw;
+    }
+}
+
 .form-header {
     display: flex;
     justify-content: space-between;
