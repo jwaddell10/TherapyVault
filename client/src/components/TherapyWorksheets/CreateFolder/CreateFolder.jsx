@@ -55,6 +55,7 @@ export default function CreateFolder({
 				onChange={handleChange}
 			/>
 			<Button
+				className="button"
 				style={{ width: "8rem", left: 0 }}
 				text="Submit"
 				onClick={handleSubmit}

@@ -64,6 +64,7 @@ export default function UploadFileForm({
 				required
 			/>
 			<Button
+				className="button"
 				text="Submit"
 				style={{ width: "8rem" }}
 				onClick={upload}
