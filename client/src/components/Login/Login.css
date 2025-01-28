@@ -13,6 +13,12 @@ form {
     gap: 10px;
 }
 
+@media screen and (max-width: 500px) {
+    form {
+        width: 75vw;
+    }
+}
+
 form > input {
     border: 1px solid lightgray;
     border-radius: 5px;
