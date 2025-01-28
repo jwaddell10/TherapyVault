@@ -96,7 +96,6 @@ module.exports = {
 		}
 	},
 	findFolders: async (user) => {
-		console.log(user, 'username')
 		try {
 			const folders = await prisma.folder.findMany({
 				where: {
@@ -165,7 +164,6 @@ module.exports = {
 				createdAt: new Date(),
 				imgUrl: imgUrl,
 			};
-			console.log(worksheetData, 'worksheet data in creat')
 
 			if (folderId) {
 				worksheetData.folderId = folderId;
@@ -223,9 +221,7 @@ module.exports = {
 		}
 	},
 	deleteWorksheet: async (id) => {
-		console.log("delete runs");
 		try {
-			console.log(id, "id here");
 			const worksheetToDelete = await prisma.worksheet.delete({
 				where: {
 					id: id,
