@@ -1,8 +1,7 @@
 import Button from "../../helpers/Button/Button.jsx";
 import postAuthFormData from "../../helpers/FetchRequests/postAuthFormData.jsx";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../App.jsx";
 
 export default function Signup() {
 	const [formData, setFormData] = useState({
@@ -13,7 +12,6 @@ export default function Signup() {
 	const [usernameError, setUsernameError] = useState(null);
 	const [error, setError] = useState(null);
 	const [passwordError, setPasswordError] = useState(null);
-	const { setAuthed } = useContext(AuthContext)
 	const navigate = useNavigate();
 
 	function handleChange(event) {
@@ -33,9 +31,9 @@ export default function Signup() {
 
 		try {
 			const data = await postAuthFormData(formData, "/users/sign-up");
-			if (data.token) {
-				localStorage.setItem("token", data.token);
-				setAuthed(true)
+			if (data.message) {
+				// localStorage.setItem("token", data.token);
+				// setAuthed(true)
 				navigate("/");
 			} else setError("An error has occurred. Try again later")
 		} catch (error) {
@@ -83,7 +81,7 @@ export default function Signup() {
 				{passwordError && (
 					<div style={{ color: "red" }}>{passwordError}</div>
 				)}
-				<Button type="submit" text="Sign up"></Button>
+				<Button type="submit" text="Sign up" className="button"></Button>
 			</form>
 			{error && <div style={{ color: "red" }}>{error}</div>}
 		</main>

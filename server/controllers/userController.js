@@ -17,14 +17,18 @@ exports.signUp = asyncHandler(async (req, res, next) => {
 		req.body.password
 	);
 
-	jwt.sign(
-		{ user },
-		process.env.JWT_SECRET, {expiresIn: "1h"},
-		(error, token) => {
-			console.log(token, 'this is token')
-			res.json({ token });
-		}
-	);
+	if (createdUser) {
+		res.json({message: "success"})
+	}
+
+	// jwt.sign(
+	// 	{ createdUser },
+	// 	process.env.JWT_SECRET, {expiresIn: "1h"},
+	// 	(error, token) => {
+	// 		console.log(token, 'this is token')
+	// 		res.json({ token });
+	// 	}
+	// );
 });
 
 exports.logInPost = asyncHandler(async (req, res, next) => {

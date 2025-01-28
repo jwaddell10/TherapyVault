@@ -46,9 +46,6 @@ exports.updateFolder = expressAsyncHandler(async (req, res, next) => {
 });
 
 exports.deleteFolder = expressAsyncHandler(async (req, res, next) => {
-	console.log(req.token, 'req token')
-	console.log(jwt.verifyJWT(req.token), 'verify value');
-
 	const parsedId = parseInt(req.params.id);
 	const folderToDelete = await db.deleteFolder(parsedId);
 

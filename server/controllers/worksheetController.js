@@ -23,9 +23,7 @@ exports.getTopics = expressAsyncHandler(async (req, res, next) => {
 });
 
 exports.getWorksheets = expressAsyncHandler(async (req, res, next) => {
-	console.log(req.token, 'req token')
 	const verifiedUser = jwt.verifyJWT(req.token)
-	console.log(verifiedUser, 'verified user with expired token?')
 	const user = await db.findUser(verifiedUser.user.username)
 
 	const worksheets = await db.findWorksheets(user);
@@ -47,32 +45,7 @@ exports.getOneWorksheet = expressAsyncHandler(async (req, res, next) => {
 	res.json(worksheet);
 });
 
-exports.uploadWorksheet = expressAsyncHandler(async (req, res, next) => {
-	console.log("upload worksheet route works");
-	// const file = req.file;
-	// console.log(req.body, "req body");
-
-	// console.log(file, "file");
-
-	// const uploadedResult = await cloudinary.uploader
-	// 	.upload(file)
-	// 	.catch((error) => console.log(error, "error"));
-
-	// console.log(uploadedResult, "uplaoded result");
-
-	// const uploadResult = await cloudinary.uploader
-	// .upload(
-	//     'https://res.cloudinary.com/demo/image/upload/getting-started/shoes.jpg', {
-	//         public_id: 'shoes',
-	//     }
-	// )
-	// .catch((error) => {
-	//     console.log(error);
-	// });
-});
-
 exports.deleteWorksheet = expressAsyncHandler(async (req, res, next) => {
-	// const parsedId = parseInt(req.params.id);
 	const deletedWorksheet = await db.deleteWorksheet(parseInt(req.params.id));
 
 	if (deletedWorksheet) {

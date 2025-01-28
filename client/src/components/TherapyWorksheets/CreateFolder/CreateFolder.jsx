@@ -36,7 +36,7 @@ export default function CreateFolder({
 				setRefreshTrigger((prevState) => prevState + 1);
 			}
 		} catch (error) {
-			console.log(error, "error");
+			setError(error)
 		}
 	};
 	return (

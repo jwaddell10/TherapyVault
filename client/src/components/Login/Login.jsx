@@ -8,7 +8,7 @@ import { AuthContext } from "../../App";
 export default function Login() {
 	const navigate = useNavigate();
 	const [error, setError] = useState(null);
-	const { setAuthed } = useContext(AuthContext)
+	const { setAuthed } = useContext(AuthContext);
 
 	const [formData, setFormData] = useState({
 		username: "",
@@ -20,13 +20,34 @@ export default function Login() {
 		setFormData((prevState) => ({ ...prevState, [name]: value }));
 	}
 
+	const handleDemoLogin = async (event) => {
+		event.preventDefault();
+		const demoUserData = {
+			username: "demouser",
+			password: "demouser",
+		}
+		// Submit the form immediately after setting the demo credentials
+		try {
+			await postAuthFormData(demoUserData, "/users/log-in").then((data) => {
+				if (data.token) {
+					localStorage.setItem("token", data.token);
+					setAuthed(true);
+					navigate("/therapy-worksheets");
+				} else setError(data.message);
+			});
+		} catch (error) {
+			setError("Server error. Please try again later.");
+			throw new Error(error);
+		}
+	};
+
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		try {
 			await postAuthFormData(formData, "/users/log-in").then((data) => {
 				if (data.token) {
 					localStorage.setItem("token", data.token);
-					setAuthed(true)
+					setAuthed(true);
 					navigate("/therapy-worksheets");
 				} else setError(data.message);
 			});
@@ -61,10 +82,24 @@ export default function Login() {
 				/>
 				<Button
 					role="button"
-					className="login-button"
+					className="button"
 					type="submit"
 					text="Log in"
 				></Button>
+				<button
+					type="button"
+					onClick={handleDemoLogin}
+					className="demo-button"
+				>
+					Log in with Demo Account
+				</button>
+				{/* <Button
+					role="button"
+					className="demo-button"
+					type="submit"
+					text="Log in with Demo Account"
+					onClick={handleDemoLogin}
+				></Button> */}
 				<section>
 					Don&apos;t have an account?
 					<Link to="/sign-up"> Sign up here</Link>

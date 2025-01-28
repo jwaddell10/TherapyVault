@@ -136,7 +136,6 @@ router.post(
                 });
             }
         } catch (error) {
-            console.error("Error in file upload:", error);
             res.status(500).json({
                 error: "An error occurred during file upload",
             });
