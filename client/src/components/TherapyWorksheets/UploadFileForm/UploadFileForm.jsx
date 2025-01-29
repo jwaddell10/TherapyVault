@@ -35,6 +35,10 @@ export default function UploadFileForm({
 			if (!response.ok) {
 				setError(response.message);
 			}
+
+			if (response.message) {
+				setError(response.message)
+			}
 			setPopupUploadForm(false);
 			setRefreshTrigger((prevState) => prevState + 1);
 		} catch (error) {
