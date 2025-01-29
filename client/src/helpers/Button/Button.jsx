@@ -1,9 +1,9 @@
 import "./Button.css";
 import PropTypes from "prop-types";
 
-export default function Button({ text, className }) {
+export default function Button({ disabled, text, className }) {
 	return (
-		<button className={className}>
+		<button disabled={disabled} className={className}>
 			{text}
 		</button>
 	);

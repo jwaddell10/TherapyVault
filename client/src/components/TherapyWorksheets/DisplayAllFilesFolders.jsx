@@ -60,7 +60,6 @@ export default function DisplayAllFilesFolders({
 		const JWTToken = localStorage.getItem('token')
 		const headers = new Headers()
 		headers.set('Authorization', `${JWTToken}`)
-		console.log(type, "type in itemtodelete");
 		const choice = window.confirm("Are you sure you want to delete this?");
 		if (!choice) return;
 		try {
@@ -72,7 +71,6 @@ export default function DisplayAllFilesFolders({
 				}
 			);
 			const data = await response.json();
-			console.log(data, "data");
 			if (response.ok) {
 				setRefreshTrigger((prev) => prev + 1);
 				setIsModalOpen(false);

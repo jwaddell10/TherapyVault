@@ -7,8 +7,9 @@ import Button from "../../../helpers/Button/Button";
 export default function CreateFolder({
 	folderId,
 	setRefreshTrigger,
-	setPopupFolderForm
+	setPopupFolderForm,
 }) {
+	const [isDisabled, setIsDisabled] = useState(false);
 	const [error, setError] = useState(null);
 	const [formData, setFormData] = useState({
 		name: "",
@@ -25,6 +26,7 @@ export default function CreateFolder({
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+		setIsDisabled(true);
 		try {
 			const response = await postUploadFolderForm(
 				formData,
@@ -36,7 +38,7 @@ export default function CreateFolder({
 				setRefreshTrigger((prevState) => prevState + 1);
 			}
 		} catch (error) {
-			setError(error)
+			setError(error);
 		}
 	};
 	return (
@@ -55,6 +57,7 @@ export default function CreateFolder({
 				onChange={handleChange}
 			/>
 			<Button
+				disabled={isDisabled}
 				className="button"
 				style={{ width: "8rem", left: 0 }}
 				text="Submit"

@@ -9,6 +9,7 @@ export default function UploadFileForm({
 	setRefreshTrigger,
 	setPopupUploadForm,
 }) {
+	const [isDisabled, setIsDisabled] = useState(false);
 	const [error, setError] = useState(null);
 	const [title, setTitle] = useState(null);
 	const [file, setFile] = useState(null);
@@ -19,6 +20,7 @@ export default function UploadFileForm({
 
 	const upload = async (event) => {
 		event.preventDefault();
+		setIsDisabled(true);
 		const formDataToSend = new FormData();
 		formDataToSend.append("worksheet", file);
 		formDataToSend.append("title", title);
@@ -64,6 +66,7 @@ export default function UploadFileForm({
 				required
 			/>
 			<Button
+				disabled={isDisabled}
 				className="button"
 				text="Submit"
 				style={{ width: "8rem" }}
