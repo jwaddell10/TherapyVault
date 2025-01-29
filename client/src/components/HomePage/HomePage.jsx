@@ -16,7 +16,7 @@ export default function Home() {
 				interventions, and scored measures I regularly use in my Therapy
 				practice. To get started, please sign up or log in and create
 				folders or upload files however you please. At this time,{" "}
-				<strong>only JPG or PDF files are enabled</strong>. I plan to
+				<strong>only JPG, PNG or PDF files are enabled</strong>. I plan to
 				add more later!
 			</p>
 
