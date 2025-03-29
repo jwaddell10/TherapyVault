@@ -11,6 +11,8 @@ Features:
 
 Live site: https://therapy-vault.vercel.app/
 
+To login as a guest, simply click "Log in" at the top right of the home page, and click "Log in with Demo Account"
+
 <img width="949" alt="Screenshot 2024-09-28 at 12 52 19 PM" src="https://github.com/user-attachments/assets/be93dcfe-d04c-4d43-8ee9-1e861a07613e">
 
 <img width="949" alt="Screenshot 2024-09-28 at 9 32 24 PM" src="https://github.com/user-attachments/assets/c5b9d177-8402-4e5e-9493-55d30dcc4914">
